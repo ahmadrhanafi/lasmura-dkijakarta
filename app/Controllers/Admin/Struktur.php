@@ -1,0 +1,220 @@
+<?php
+
+namespace App\Controllers\Admin;
+
+use App\Controllers\BaseController;
+use App\Models\StrukturLevelModel;
+use App\Models\StrukturJabatanModel;
+use App\Models\StrukturAnggotaModel;
+
+class Struktur extends BaseController
+{
+    protected $levelModel;
+    protected $jabatanModel;
+    protected $anggotaModel;
+
+    public function __construct()
+    {
+        $this->levelModel   = new StrukturLevelModel();
+        $this->jabatanModel = new StrukturJabatanModel();
+        $this->anggotaModel = new StrukturAnggotaModel();
+    }
+
+    public function index()
+    {
+        $data['title'] = 'Struktur Organisasi LASMURA | Dashboard Admin';
+
+        $data['level'] = $this->levelModel
+            ->orderBy('urutan')
+            ->findAll();
+
+        $data['jabatan'] = $this->jabatanModel
+            ->select('struktur_jabatan.*, struktur_level.nama_level')
+            ->join('struktur_level', 'struktur_level.id_level = struktur_jabatan.id_level')
+            ->orderBy('struktur_level.urutan')
+            ->orderBy('struktur_jabatan.urutan')
+            ->findAll();
+
+        $data['anggota'] = $this->anggotaModel
+            ->select('struktur_anggota.*, struktur_jabatan.nama_jabatan')
+            ->join('struktur_jabatan', 'struktur_jabatan.id_jabatan = struktur_anggota.id_jabatan')
+            ->orderBy('struktur_anggota.urutan')
+            ->paginate(5, 'anggota');
+
+        $data['pager'] = $this->anggotaModel->pager;
+
+        return view('admin/pages/struktur/index', $data);
+    }
+
+    public function create()
+    {
+        $data['title'] = 'Tambah Anggota | Dashboard Admin';
+
+        $data['level'] = $this->levelModel
+            ->where('status', 'aktif')
+            ->orderBy('urutan')
+            ->findAll();
+
+        return view('admin/pages/struktur/create', $data);
+    }
+
+    public function edit($id)
+    {
+        $data['title'] = 'Edit Anggota | Dashboard Admin';
+
+        $data['anggota'] = $this->anggotaModel
+            ->select('struktur_anggota.*, struktur_jabatan.id_level')
+            ->join('struktur_jabatan', 'struktur_jabatan.id_jabatan = struktur_anggota.id_jabatan')
+            ->where('struktur_anggota.id_anggota', $id)
+            ->first();
+
+        $data['level'] = $this->levelModel
+            ->where('status', 'aktif')
+            ->orderBy('urutan')
+            ->findAll();
+
+        return view('admin/pages/struktur/edit', $data);
+    }
+
+    public function simpanAnggota()
+    {
+        $this->anggotaModel->insert([
+            'id_jabatan' => $this->request->getPost('id_jabatan'),
+            'nama'       => $this->request->getPost('nama'),
+            'gelar'      => $this->request->getPost('gelar'),
+            'urutan'     => $this->request->getPost('urutan'),
+        ]);
+
+        return redirect()->back();
+    }
+
+
+    public function updateAnggota($id)
+    {
+        $this->anggotaModel->update($id, [
+            'id_jabatan' => $this->request->getPost('id_jabatan'),
+            'nama'       => $this->request->getPost('nama'),
+            'gelar'      => $this->request->getPost('gelar'),
+            'urutan'     => $this->request->getPost('urutan'),
+        ]);
+
+        return redirect()->to('/admin/struktur')
+            ->with('success', 'Data anggota berhasil diperbarui');
+    }
+
+
+    public function hapusAnggota($id)
+    {
+        $this->anggotaModel->delete($id);
+        return redirect()->back();
+    }
+
+    // ===> LEVEL <===
+
+    public function simpanLevel()
+    {
+        $this->levelModel->insert([
+            'nama_level' => $this->request->getPost('nama_level'),
+            'urutan'     => $this->request->getPost('urutan') ?? 0,
+            'status'     => 'aktif'
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function editLevel($id)
+    {
+        $data['title'] = 'Edit Level';
+        $data['level'] = $this->levelModel->find($id);
+
+        return view('admin/pages/struktur/edit_level', $data);
+    }
+
+    public function updateLevel($id)
+    {
+        $this->levelModel->update($id, [
+            'nama_level' => $this->request->getPost('nama_level'),
+            'urutan'     => $this->request->getPost('urutan'),
+        ]);
+
+        return redirect()->to('admin/struktur');
+    }
+
+    public function hapusLevel($id)
+    {
+        // cek apakah level punya jabatan
+        $cek = $this->jabatanModel
+            ->where('id_level', $id)
+            ->countAllResults();
+
+        if ($cek > 0) {
+            return redirect()->back()
+                ->with('error', 'Level masih memiliki jabatan');
+        }
+
+        $this->levelModel->delete($id);
+        return redirect()->back()
+            ->with('success', 'Level berhasil dihapus');
+    }
+
+
+    // ===> JABATAN <===
+    public function simpanJabatan()
+    {
+        $this->jabatanModel->insert([
+            'id_level'     => $this->request->getPost('id_level'),
+            'nama_jabatan' => $this->request->getPost('nama_jabatan'),
+            'urutan'       => $this->request->getPost('urutan') ?? 0,
+            'status'       => 'aktif'
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function editJabatan($id)
+    {
+        $data['title'] = 'Edit Jabatan';
+        $data['jabatan'] = $this->jabatanModel->find($id);
+        $data['level']   = $this->levelModel->findAll();
+
+        return view('admin/pages/struktur/edit_jabatan', $data);
+    }
+
+    public function updateJabatan($id)
+    {
+        $this->jabatanModel->update($id, [
+            'id_level'     => $this->request->getPost('id_level'),
+            'nama_jabatan' => $this->request->getPost('nama_jabatan'),
+            'urutan'       => $this->request->getPost('urutan'),
+        ]);
+
+        return redirect()->to('admin/struktur');
+    }
+
+    public function hapusJabatan($id)
+    {
+        $cek = $this->anggotaModel
+            ->where('id_jabatan', $id)
+            ->countAllResults();
+
+        if ($cek > 0) {
+            return redirect()->back()
+                ->with('error', 'Jabatan masih memiliki anggota');
+        }
+
+        $this->jabatanModel->delete($id);
+        return redirect()->back()
+            ->with('success', 'Jabatan berhasil dihapus');
+    }
+
+    public function jabatanByLevel($id_level)
+    {
+        $jabatan = $this->jabatanModel
+            ->where('id_level', $id_level)
+            ->where('status', 'aktif')
+            ->orderBy('urutan')
+            ->findAll();
+
+        return $this->response->setJSON($jabatan);
+    }
+}

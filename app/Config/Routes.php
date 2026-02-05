@@ -1,0 +1,179 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+
+// ================= OPEN THE GATE =================
+$routes->get('/', 'Home::index');
+$routes->get('/tentang', 'Home::tentang');
+
+$routes->get('/kegiatan', 'Kegiatan::index');
+$routes->get('/kegiatan/(:segment)', 'Kegiatan::detail/$1');
+$routes->get('/berita', 'Berita::index');
+$routes->get('/berita/cari', 'Berita::search');
+$routes->get('/berita/(:segment)', 'Berita::detail/$1');
+$routes->get('/struktur', 'Home::struktur');
+$routes->get('/daftar', 'Pendaftaran::index');
+$routes->post('/daftar/simpan', 'Pendaftaran::simpan');
+
+// ===================== AUTH =======================
+$routes->get('login', 'Auth::login');
+$routes->post('login', 'Auth::attemptLogin');
+
+$routes->get('aktivasi', 'Auth::aktivasi');
+$routes->post('aktivasi', 'Auth::prosesAktivasi');
+
+$routes->get('logout', 'Auth::logout', ['filter' => 'auth']);
+
+
+// ================= DASHBOARD ======================
+// ANGGOTA
+$routes->get('/admin/anggota', 'Admin\Anggota::anggota', [
+    'filter' => 'role:admin,super_admin'
+]);
+$routes->get('/anggota/export', 'Admin\Anggota::exportAnggota', [
+    'filter' => 'role:admin,super_admin'
+]);
+$routes->get('/anggota/detail/(:num)', 'Admin\Anggota::detailAnggota/$1', [
+    'filter' => 'role:admin,super_admin'
+]);
+
+$routes->get('anggota/edit/(:num)', 'Admin\Anggota::editAnggota/$1');
+$routes->post('anggota/update/(:num)', 'Admin\Anggota::updateAnggota/$1');
+$routes->get('anggota/hapus/(:num)', 'Admin\Anggota::hapusAnggota/$1');
+
+// BERITA
+$routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($routes) {
+    $routes->get('berita', 'Admin\Berita::index');
+    $routes->get('berita/tambah', 'Admin\Berita::create');
+    $routes->post('berita/simpan', 'Admin\Berita::store');
+    $routes->get('berita/edit/(:num)', 'Admin\Berita::edit/$1');
+    $routes->post('berita/update/(:num)', 'Admin\Berita::update/$1');
+    $routes->post('berita/hapus/(:num)', 'Admin\Berita::delete/$1');
+    $routes->get('berita/preview/(:segment)', 'Admin\Berita::preview/$1');
+    $routes->get('berita/export-pdf/(:segment)', 'Admin\Berita::exportPdf/$1');
+});
+
+
+// ================= ADMIN PANEL =================
+$routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($routes) {
+
+    // DASHBOARD
+    $routes->get('dashboard', 'Admin\Dashboard::index');
+
+    // ===== ANGGOTA =====
+    $routes->get('anggota', 'Admin\Anggota::anggota');
+    $routes->get('anggota/export', 'Admin\Anggota::exportAnggota');
+    $routes->get('anggota/detail/(:num)', 'Admin\Anggota::detailAnggota/$1');
+    $routes->get('anggota/edit/(:num)', 'Admin\Anggota::editAnggota/$1');
+    $routes->post('anggota/update/(:num)', 'Admin\Anggota::updateAnggota/$1');
+    $routes->get('anggota/hapus/(:num)', 'Admin\Anggota::hapusAnggota/$1');
+
+    // ===== BERITA =====
+    $routes->get('berita', 'Admin\Berita::index');
+    $routes->get('berita/tambah', 'Admin\Berita::create');
+    $routes->post('berita/simpan', 'Admin\Berita::store');
+    $routes->get('berita/edit/(:num)', 'Admin\Berita::edit/$1');
+    $routes->post('berita/update/(:num)', 'Admin\Berita::update/$1');
+    $routes->post('berita/hapus/(:num)', 'Admin\Berita::delete/$1');
+    $routes->get('berita/preview/(:segment)', 'Admin\Berita::preview/$1');
+    $routes->get('berita/export-pdf/(:segment)', 'Admin\Berita::exportPdf/$1');
+    $routes->get('berita/headline/(:num)', 'Admin\Berita::setHeadline/$1');
+
+    // ===== KEGIATAN =====
+    $routes->get('kegiatan', 'Admin\Kegiatan::index');
+    $routes->get('kegiatan/tambah', 'Admin\Kegiatan::create');
+    $routes->post('kegiatan/simpan', 'Admin\Kegiatan::store');
+    $routes->get('kegiatan/preview/(:segment)', 'Admin\Kegiatan::preview/$1');
+    $routes->get('kegiatan/edit/(:num)', 'Admin\Kegiatan::edit/$1');
+    $routes->post('kegiatan/update/(:num)', 'Admin\Kegiatan::update/$1');
+    $routes->post('kegiatan/hapus/(:num)', 'Admin\Kegiatan::delete/$1');
+
+    // ===== STRUKTUR ===== (NOT FIX)
+    $routes->get('struktur', 'Admin\Struktur::index');
+
+    // LEVEL
+    $routes->post('struktur/level/simpan', 'Admin\Struktur::simpanLevel');
+    $routes->get('struktur/level/hapus/(:num)', 'Admin\Struktur::hapusLevel/$1');
+
+    // JABATAN
+    $routes->post('struktur/jabatan/simpan', 'Admin\Struktur::simpanJabatan');
+    $routes->get('struktur/jabatan/hapus/(:num)', 'Admin\Struktur::hapusJabatan/$1');
+
+    // ANGGOTA
+    $routes->post('struktur/anggota/simpan', 'Admin\Struktur::simpanAnggota');
+    $routes->get('struktur/anggota/hapus/(:num)', 'Admin\Struktur::hapusAnggota/$1');
+
+
+    // ===== PENDAFTARAN =====
+    $routes->get('pendaftaran', 'Admin\Pendaftaran::index');
+    $routes->post('pendaftaran/terima/(:num)', 'Admin\Pendaftaran::terima/$1');
+    $routes->post('pendaftaran/tolak/(:num)', 'Admin\Pendaftaran::tolak/$1');
+});
+
+// ===== STRUKTUR =====
+$routes->group('admin/struktur', ['filter' => 'auth'], function ($routes) {
+
+    $routes->get('/', 'Admin\Struktur::index');
+
+    // CREATE
+    $routes->get('create', 'Admin\Struktur::create');
+    $routes->post('anggota/simpan', 'Admin\Struktur::simpanAnggota');
+
+    // EDIT
+    $routes->get('edit/(:num)', 'Admin\Struktur::edit/$1');
+    $routes->post('anggota/update/(:num)', 'Admin\Struktur::updateAnggota/$1');
+
+    // DELETE
+    $routes->get('anggota/hapus/(:num)', 'Admin\Struktur::hapusAnggota/$1');
+
+    // AJAX
+    $routes->get('jabatan-by-level/(:num)', 'Admin\Struktur::jabatanByLevel/$1');
+
+    // ===> LEVEL
+    $routes->post('level/simpan', 'Admin\Struktur::simpanLevel');
+    $routes->get('level/edit/(:num)', 'Admin\Struktur::editLevel/$1');
+    $routes->post('level/update/(:num)', 'Admin\Struktur::updateLevel/$1');
+    $routes->get('level/hapus/(:num)', 'Admin\Struktur::hapusLevel/$1');
+    $routes->post('level/update-urutan', 'Admin\Struktur::updateUrutanLevel');
+    
+    // ===> JABATAN
+    $routes->post('jabatan/simpan', 'Admin\Struktur::simpanJabatan');
+    $routes->get('jabatan/edit/(:num)', 'Admin\Struktur::editJabatan/$1');
+    $routes->post('jabatan/update/(:num)', 'Admin\Struktur::updateJabatan/$1');
+    $routes->get('jabatan/hapus/(:num)', 'Admin\Struktur::hapusJabatan/$1');
+    $routes->post('jabatan/update-urutan', 'Admin\Struktur::updateUrutanJabatan');
+});
+
+
+
+// ================= SUPER ADMIN PANEL =================
+$routes->group('super-admin', ['filter' => 'role:super_admin'], function ($routes) {
+
+    $routes->get('dashboard', 'Admin\Dashboard::index');
+    $routes->get('admin', 'SuperAdmin\AdminController::index');
+    $routes->post('admin/update-role/(:num)', 'SuperAdmin\AdminController::updateRole/$1');
+});
+
+// ================= ANGGOTA =================
+$routes->group('anggota', ['filter' => 'role:anggota'], function ($routes) {
+
+    $routes->get('profil', 'Anggota\Profil::index');
+    $routes->get('kta', 'Anggota\Profil::kta');
+    $routes->get('kta/cetak', 'Anggota\Profil::cetak');
+});
+
+// ==================== AJAX =======================
+$routes->get(
+    'admin/struktur/jabatan-by-level/(:num)',
+    'Admin\Struktur::jabatanByLevel/$1'
+);
+
+
+// ================== ERROR HANDLER ==================
+// $routes->set404Override(function () {
+//     return view('errors/custom_404');
+// });
