@@ -105,7 +105,7 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
     // ===== LOG AKTIVITAS =====
     $routes->get('logs', 'Admin\Logs::index');
     $routes->post('logs/cleanup', 'Admin\Logs::cleanup');
-    $routes->get('manajemen-admin', 'Admin\Dashboard::ManajemenAdmin');
+    $routes->get('manajemen-admin', 'Admin\Admin::index');
     $routes->get('pengaturan', 'Admin\Pengaturan::index');
     $routes->post('pengaturan/save', 'Admin\Pengaturan::save');
 });
