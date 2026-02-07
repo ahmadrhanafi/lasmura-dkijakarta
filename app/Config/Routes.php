@@ -103,5 +103,13 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
 
 
     // ===== LOG AKTIVITAS =====
-    $routes->get('logs', 'SuperAdmin\Logs::index');
+    $routes->get('logs', 'Admin\Logs::index');
+});
+
+// ================= SUPER ADMIN PANEL =================
+$routes->group('super-admin', ['filter' => 'role:super_admin'], function ($routes) {
+
+    $routes->get('dashboard', 'Admin\Dashboard::index');
+    $routes->get('admin', 'SuperAdmin\AdminController::index');
+    $routes->post('admin/update-role/(:num)', 'SuperAdmin\AdminController::updateRole/$1');
 });

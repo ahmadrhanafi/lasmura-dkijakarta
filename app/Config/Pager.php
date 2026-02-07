@@ -29,6 +29,7 @@ class Pager extends BaseConfig
         'dashboard_pagination' => 'App\Views\Pagers\dashboard_pagination',
     ];
 
+    public bool $useQueryString = true;
     /**
      * --------------------------------------------------------------------------
      * Items Per Page
