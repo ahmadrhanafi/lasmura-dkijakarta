@@ -36,7 +36,7 @@ class Admin extends BaseController
         }
 
         $data = [
-            'title'         => 'Manajemen Admin',
+            'title'         => 'Manajemen Admin | Dashboard LASMURA DKI Jakarta',
             'keyword'       => $keyword,
             'selected_role' => $role,
             'users'         => $builder

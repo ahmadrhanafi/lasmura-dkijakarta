@@ -127,11 +127,4 @@
     </div>
 </div>
 
-<style>
-    /* Styling agar pagination CI4 menyatu dengan Tailwind */
-    .pagination-custom ul { @apply flex items-center gap-1; }
-    .pagination-custom li a { @apply px-3 py-1.5 border rounded-md bg-white text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-all text-xs font-bold shadow-sm; }
-    .pagination-custom li.active a { @apply bg-indigo-600 text-white border-indigo-600 shadow-indigo-200; }
-</style>
-
 <?= $this->include('admin/layout/footer') ?>
