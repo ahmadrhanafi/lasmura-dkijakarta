@@ -92,22 +92,6 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
     $routes->post('kegiatan/update/(:num)', 'Admin\Kegiatan::update/$1');
     $routes->post('kegiatan/hapus/(:num)', 'Admin\Kegiatan::delete/$1');
 
-    // ===== STRUKTUR ===== (NOT FIX)
-    $routes->get('struktur', 'Admin\Struktur::index');
-
-    // LEVEL
-    $routes->post('struktur/level/simpan', 'Admin\Struktur::simpanLevel');
-    $routes->get('struktur/level/hapus/(:num)', 'Admin\Struktur::hapusLevel/$1');
-
-    // JABATAN
-    $routes->post('struktur/jabatan/simpan', 'Admin\Struktur::simpanJabatan');
-    $routes->get('struktur/jabatan/hapus/(:num)', 'Admin\Struktur::hapusJabatan/$1');
-
-    // ANGGOTA
-    $routes->post('struktur/anggota/simpan', 'Admin\Struktur::simpanAnggota');
-    $routes->get('struktur/anggota/hapus/(:num)', 'Admin\Struktur::hapusAnggota/$1');
-
-
     // ===== PENDAFTARAN =====
     $routes->get('pendaftaran', 'Admin\Pendaftaran::index');
     $routes->post('pendaftaran/terima/(:num)', 'Admin\Pendaftaran::terima/$1');
@@ -124,7 +108,7 @@ $routes->group('admin/struktur', ['filter' => 'auth'], function ($routes) {
     $routes->post('anggota/simpan', 'Admin\Struktur::simpanAnggota');
 
     // EDIT
-    $routes->get('edit/(:num)', 'Admin\Struktur::edit/$1');
+    $routes->get('edit/(:num)', 'Admin\Struktur::editAnggota/$1');
     $routes->post('anggota/update/(:num)', 'Admin\Struktur::updateAnggota/$1');
 
     // DELETE

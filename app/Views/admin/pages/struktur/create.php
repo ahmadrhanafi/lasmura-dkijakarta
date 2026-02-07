@@ -1,5 +1,12 @@
 <?= $this->include('admin/layout/header') ?>
 
+<?php if ($msg = session()->getFlashdata('error')): ?>
+    <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+        <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+        <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+    </div>
+<?php endif; ?>
+
 <div class="container mx-auto px-4 py-8">
     <div class="mb-6">
         <a href="<?= base_url('admin/struktur') ?>" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center gap-1 mb-2">
@@ -11,12 +18,12 @@
     <div class="max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="p-8">
             <form action="<?= base_url('admin/struktur/anggota/simpan') ?>" method="post" class="space-y-6">
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label for="level" class="block text-sm font-semibold text-slate-700">Hierarki Level</label>
                         <div class="relative">
-                            <select id="level" 
+                            <select id="level"
                                 class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
                                 required>
                                 <option value="">-- Pilih Level --</option>
@@ -33,7 +40,7 @@
                     <div class="space-y-2">
                         <label for="jabatan" class="block text-sm font-semibold text-slate-700">Jabatan</label>
                         <div class="relative">
-                            <select name="id_jabatan" id="jabatan" 
+                            <select name="id_jabatan" id="jabatan"
                                 class="w-full appearance-none bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all cursor-pointer"
                                 required>
                                 <option value="">-- Pilih Jabatan --</option>
@@ -49,23 +56,37 @@
 
                 <div class="space-y-4">
                     <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-slate-700">Nama Lengkap</label>
-                        <input type="text" name="nama" 
-                            class="w-full bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-300"
-                            placeholder="Contoh: Budi Santoso" required>
+                        <label class="block text-sm font-semibold text-slate-700">
+                            Pilih Anggota
+                        </label>
+
+                        <select name="id_user"
+                            class="w-full bg-slate-50 border border-slate-200 text-slate-700
+               rounded-xl px-4 py-2.5 focus:outline-none
+               focus:ring-2 focus:ring-indigo-500/20"
+                            required>
+
+                            <option value="">-- Pilih Anggota --</option>
+
+                            <?php foreach ($users as $u): ?>
+                                <option value="<?= $u['id_user'] ?>">
+                                    <?= $u['nama_lengkap'] ?> (<?= $u['nik'] ?>)
+                                </option>
+                            <?php endforeach ?>
+                        </select>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="block text-sm font-semibold text-slate-700">Gelar (Opsional)</label>
-                            <input type="text" name="gelar" 
+                            <input type="text" name="gelar"
                                 class="w-full bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-300"
                                 placeholder="Contoh: S.Kom, M.T.">
                         </div>
 
                         <div class="space-y-2">
                             <label class="block text-sm font-semibold text-slate-700">Nomor Urut Tampilan</label>
-                            <input type="number" name="urutan" 
+                            <input type="number" name="urutan"
                                 class="w-full bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-300"
                                 placeholder="Contoh: 1">
                         </div>
@@ -76,7 +97,7 @@
                     <button type="reset" class="px-6 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">
                         Reset
                     </button>
-                    <button type="submit" 
+                    <button type="submit"
                         class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold transition-all shadow-md shadow-indigo-100 active:scale-95">
                         Simpan Data
                     </button>

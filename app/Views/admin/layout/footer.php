@@ -32,7 +32,7 @@
                     alert.style.opacity = "0";
                     alert.style.transform = "translateY(-10px)";
                     setTimeout(() => alert.remove(), 600);
-                }, 5000);
+                }, 3500);
             });
         </script>
 

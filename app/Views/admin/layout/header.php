@@ -9,7 +9,7 @@ $theme = [
 
 if ($role === 'admin') {
     $theme = [
-        'bg'        => 'bg-[#ea7e13]',
+        'bg'        => 'bg-gray-800',
         'hover'     => 'hover:bg-[#d66a0c]',
         'title'     => 'Admin LASMURA',
     ];
@@ -18,7 +18,7 @@ if ($role === 'admin') {
 if ($role === 'super_admin') {
     $theme = [
         'bg'        => 'bg-[#b91c1c]',
-        'hover'     => 'hover:bg-[#991b1b]',
+        'hover'     => 'hover:bg-[#d66a0c]',
         'title'     => 'Super Admin LASMURA',
     ];
 }

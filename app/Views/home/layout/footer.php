@@ -3,12 +3,15 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
 
             <div class="col-span-1 md:col-span-1">
-                <div class="flex items-center space-x-3 mb-6">
+                <a href="<?= base_url('/') ?>" class="flex items-center space-x-3 mb-6">
                     <div class="bg-white p-1.5 rounded-lg shadow-md">
                         <img src="<?= base_url('assets/logo/lasmura.png') ?>" class="w-8 h-8" alt="Logo">
                     </div>
-                    <span class="font-extrabold text-xl tracking-tighter">LASMURA</span>
-                </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-md tracking-tight leading-none">LASMURA</span>
+                        <span class="text-[8px] uppercase tracking-[0.3em] font-medium opacity-80">DKI Jakarta</span>
+                    </div>
+                </a>
                 <p class="text-slate-400 text-sm leading-relaxed mb-6 text-justify">
                     Wadah kaderisasi pemuda Partai Hanura di wilayah DKI Jakarta untuk mencetak pemimpin yang cerdas dan berintegritas.
                 </p>

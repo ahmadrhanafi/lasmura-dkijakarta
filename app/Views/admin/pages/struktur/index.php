@@ -133,6 +133,7 @@
                                 <th class="px-4 py-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">No</th>
                                 <th class="px-4 py-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama Anggota</th>
                                 <th class="px-4 py-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Jabatan</th>
+                                <th class="px-4 py-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Status</th>
                                 <th class="px-4 py-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -145,8 +146,16 @@
                                             : $i + 1 ?>
                                     </td>
                                     <td class="px-4 py-4">
-                                        <div class="font-bold text-slate-700 text-sm leading-tight"><?= $a['nama'] ?></div>
-                                        <div class="text-[11px] text-slate-400"><?= $a['gelar'] ?: '-' ?></div>
+                                        <?php if (!$a['nama_lengkap']): ?>
+                                            <span class="italic text-gray-400">User tidak ditemukan</span>
+                                        <?php elseif ($a['status'] !== 'aktif'): ?>
+                                            <span class="text-red-600 font-semibold">
+                                                <?= $a['nama_lengkap'] ?> (Nonaktif)
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="font-bold text-slate-500 text-sm leading-tight"><?= $a['nama_lengkap'] ?></span>
+                                            <span class="text-[11px] text-slate-400"><?= $a['gelar'] ?: '' ?></span>
+                                        <?php endif ?>
                                     </td>
                                     <td class="px-4 py-4">
                                         <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
@@ -154,10 +163,23 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-4">
+                                        <?php if ($a['status'] === 'aktif'): ?>
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-50 text-green-700 border border-green-100">Aktif</span>
+                                        <?php else: ?>
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-100">Nonaktif</span>
+                                        <?php endif ?>
+                                    </td>
+
+                                    <td class="px-4 py-4">
                                         <div class="flex items-center justify-center gap-3">
-                                            <a href="<?= base_url('admin/struktur/edit/' . $a['id_anggota']) ?>" class="text-blue-500 hover:text-blue-700 transition-colors" title="Edit">
-                                                <i class="fa-solid fa-user-pen"></i>
-                                            </a>
+                                            <?php if ($a['status'] === 'aktif'): ?>
+                                                <a href="<?= base_url('admin/struktur/edit/' . $a['id_anggota']) ?>" class="text-blue-500 hover:text-blue-700 transition-colors" title="Edit">
+                                                    <i class="fa-solid fa-user-pen"></i>
+                                                </a>
+                                            <?php else: ?>
+                                                <i class="fa-solid fa-user-pen text-gray-400"></i>
+                                            <?php endif ?>
+
                                             <a href="<?= base_url('admin/struktur/anggota/hapus/' . $a['id_anggota']) ?>" class="text-red-400 hover:text-red-600 transition-colors" onclick="return confirm('Hapus anggota?')" title="Hapus">
                                                 <i class="fa-solid fa-user-minus"></i>
                                             </a>
@@ -165,7 +187,7 @@
                                     </td>
                                 </tr>
                             <?php endforeach ?>
-                            <?php if(empty($anggota)): ?>
+                            <?php if (empty($anggota)): ?>
                                 <tr>
                                     <td colspan="4" class="px-4 py-8 text-center text-slate-400 text-xs italic">Belum ada data anggota.</td>
                                 </tr>
@@ -194,7 +216,7 @@
 
     // Initialize Sortable for Levels
     const levelEl = document.getElementById('sortable-level');
-    if(levelEl) {
+    if (levelEl) {
         new Sortable(levelEl, {
             ...sortOptions,
             handle: '.drag-handle',
@@ -226,24 +248,18 @@
         try {
             const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(data)
             });
             if (!response.ok) throw new Error('Update failed');
         } catch (error) {
-            console.error('Error:', error);0
+            console.error('Error:', error);
+            0
             alert('Gagal memperbarui urutan');
         }
     }
-
-    // Auto-hide alerts with smoother transition
-    setTimeout(() => {
-        document.querySelectorAll('.js-flash-alert').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(-10px)';
-            setTimeout(() => el.remove(), 600);
-        });
-    }, 4000);
 </script>
 
 <?= $this->include('admin/layout/footer') ?>

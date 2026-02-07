@@ -6,23 +6,26 @@ use App\Controllers\BaseController;
 use App\Models\StrukturLevelModel;
 use App\Models\StrukturJabatanModel;
 use App\Models\StrukturAnggotaModel;
+use App\Models\UserModel;
 
 class Struktur extends BaseController
 {
     protected $levelModel;
     protected $jabatanModel;
     protected $anggotaModel;
+    protected $userModel;
 
     public function __construct()
     {
         $this->levelModel   = new StrukturLevelModel();
         $this->jabatanModel = new StrukturJabatanModel();
         $this->anggotaModel = new StrukturAnggotaModel();
+        $this->userModel    = new UserModel();
     }
 
     public function index()
     {
-        $data['title'] = 'Struktur Organisasi LASMURA | Dashboard Admin';
+        $data['title'] = 'Struktur Organisasi LASMURA | Dashboard LASMURA DKI Jakarta';
 
         $data['level'] = $this->levelModel
             ->orderBy('urutan')
@@ -36,8 +39,15 @@ class Struktur extends BaseController
             ->findAll();
 
         $data['anggota'] = $this->anggotaModel
-            ->select('struktur_anggota.*, struktur_jabatan.nama_jabatan')
+            ->select('
+        struktur_anggota.*,
+        struktur_jabatan.nama_jabatan,
+        users.nama_lengkap,
+        users.nik,
+        users.status
+        ')
             ->join('struktur_jabatan', 'struktur_jabatan.id_jabatan = struktur_anggota.id_jabatan')
+            ->join('users', 'users.id_user = struktur_anggota.id_user', 'left')
             ->orderBy('struktur_anggota.urutan')
             ->paginate(5, 'anggota');
 
@@ -48,52 +58,99 @@ class Struktur extends BaseController
 
     public function create()
     {
-        $data['title'] = 'Tambah Anggota | Dashboard Admin';
+        $userModel = new UserModel();
 
-        $data['level'] = $this->levelModel
-            ->where('status', 'aktif')
-            ->orderBy('urutan')
-            ->findAll();
+        $data = [
+            'title'  => 'Tambah Struktur Anggota | Dashboard LASMURA',
+            'level'  => $this->levelModel->orderBy('urutan')->findAll(),
+            'users'  => $userModel
+                ->where('role', 'anggota')
+                ->where('status', 'aktif')
+                ->orderBy('nama_lengkap')
+                ->findAll(),
+        ];
 
         return view('admin/pages/struktur/create', $data);
     }
 
-    public function edit($id)
+    public function editAnggota($id)
     {
-        $data['title'] = 'Edit Anggota | Dashboard Admin';
+        $userModel = new UserModel();
 
-        $data['anggota'] = $this->anggotaModel
+        $anggota = $this->anggotaModel
             ->select('struktur_anggota.*, struktur_jabatan.id_level')
             ->join('struktur_jabatan', 'struktur_jabatan.id_jabatan = struktur_anggota.id_jabatan')
-            ->where('struktur_anggota.id_anggota', $id)
+            ->where('id_anggota', $id)
             ->first();
 
-        $data['level'] = $this->levelModel
-            ->where('status', 'aktif')
-            ->orderBy('urutan')
-            ->findAll();
+        if (!$anggota) {
+            return redirect()->to('/admin/struktur')
+                ->with('error', 'Data struktur tidak ditemukan');
+        }
+
+        $data = [
+            'title'   => 'Edit Anggota | Dashboard LASMURA',
+            'anggota' => $anggota,
+            'level'   => $this->levelModel->orderBy('urutan')->findAll(),
+            'users'   => $userModel
+                ->where('role', 'anggota')
+                ->where('status', 'aktif')
+                ->orderBy('nama_lengkap')
+                ->findAll(),
+        ];
 
         return view('admin/pages/struktur/edit', $data);
     }
 
     public function simpanAnggota()
     {
+        $idUser = $this->request->getPost('id_user');
+
+        // CEK: apakah user sudah punya jabatan
+        $cek = $this->anggotaModel
+            ->where('id_user', $idUser)
+            ->first();
+
+        if ($cek) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Anggota ini sudah memiliki jabatan di struktur.');
+        }
+
         $this->anggotaModel->insert([
+            'id_user'    => $idUser,
             'id_jabatan' => $this->request->getPost('id_jabatan'),
-            'nama'       => $this->request->getPost('nama'),
             'gelar'      => $this->request->getPost('gelar'),
             'urutan'     => $this->request->getPost('urutan'),
         ]);
 
-        return redirect()->back();
+        return redirect()->to('/admin/struktur')
+            ->with('success', 'Anggota berhasil ditambahkan ke dalam struktur');
     }
-
 
     public function updateAnggota($id)
     {
+        $idUser = $this->request->getPost('id_user');
+
+        // ambil data lama
+        $datalama = $this->anggotaModel->find($id);
+
+        // kalau ganti user → cek konflik
+        if ($datalama['id_user'] != $idUser) {
+            $cek = $this->anggotaModel
+                ->where('id_user', $idUser)
+                ->first();
+
+            if ($cek) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Anggota ini sudah memiliki jabatan lain.');
+            }
+        }
+
         $this->anggotaModel->update($id, [
+            'id_user'    => $idUser,
             'id_jabatan' => $this->request->getPost('id_jabatan'),
-            'nama'       => $this->request->getPost('nama'),
             'gelar'      => $this->request->getPost('gelar'),
             'urutan'     => $this->request->getPost('urutan'),
         ]);
@@ -101,7 +158,6 @@ class Struktur extends BaseController
         return redirect()->to('/admin/struktur')
             ->with('success', 'Data anggota berhasil diperbarui');
     }
-
 
     public function hapusAnggota($id)
     {
