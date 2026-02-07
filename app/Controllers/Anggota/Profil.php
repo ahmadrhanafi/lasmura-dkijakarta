@@ -26,7 +26,7 @@ class Profil extends BaseController
 
         $biodata = $this->pendaftaranModel
             ->where('nama_lengkap', $idUser)
-            ->first();
+            ->findAll();
 
         return view('home/profil/index', [
             'title'   => 'Profil Anggota | LASMURA DKI JAKARTA',

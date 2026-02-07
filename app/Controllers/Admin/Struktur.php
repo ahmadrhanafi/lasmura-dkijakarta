@@ -124,6 +124,11 @@ class Struktur extends BaseController
             'urutan'     => $this->request->getPost('urutan'),
         ]);
 
+        logAktivitas(
+            'Struktur Anggota',
+            'Menambahkan anggota struktur: ' . $this->request->getPost('nama')
+        );
+
         return redirect()->to('/admin/struktur')
             ->with('success', 'Anggota berhasil ditambahkan ke dalam struktur');
     }
@@ -155,6 +160,11 @@ class Struktur extends BaseController
             'urutan'     => $this->request->getPost('urutan'),
         ]);
 
+        logAktivitas(
+            'Struktur Anggota',
+            'Mengubah data anggota struktur: ' . $this->request->getPost('nama')
+        );
+
         return redirect()->to('/admin/struktur')
             ->with('success', 'Data anggota berhasil diperbarui');
     }
@@ -162,6 +172,11 @@ class Struktur extends BaseController
     public function hapusAnggota($id)
     {
         $this->anggotaModel->delete($id);
+        logAktivitas(
+            'Struktur Anggota',
+            'Menghapus anggota struktur: ' . $this->request->getPost('nama')
+        );
+
         return redirect()->back();
     }
 
@@ -192,6 +207,11 @@ class Struktur extends BaseController
             'nama_level' => $this->request->getPost('nama_level'),
             'urutan'     => $this->request->getPost('urutan'),
         ]);
+
+        logAktivitas(
+            'Struktur Level',
+            'Mengubah urutan level organisasi'
+        );
 
         return redirect()->to('admin/struktur');
     }
@@ -243,6 +263,11 @@ class Struktur extends BaseController
             'nama_jabatan' => $this->request->getPost('nama_jabatan'),
             'urutan'       => $this->request->getPost('urutan'),
         ]);
+
+        logAktivitas(
+            'Struktur Jabatan',
+            'Mengubah urutan jabatan organisasi'
+        );
 
         return redirect()->to('admin/struktur');
     }

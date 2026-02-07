@@ -17,6 +17,8 @@ class Dashboard extends BaseController
             ],
         ];
 
+        logAktivitas('Dashboard', 'Membuka halaman dashboard');
+        
         return view('admin/dashboard', $data);
     }
 

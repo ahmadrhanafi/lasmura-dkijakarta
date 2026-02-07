@@ -52,17 +52,13 @@ if ($role === 'super_admin') {
             <nav class="px-4 space-y-2">
                 <hr class="my-2 border-white/30">
 
-                <a href="<?= base_url(
-                                session()->get('role') === 'super_admin'
-                                    ? 'super-admin/dashboard'
-                                    : 'admin/dashboard'
-                            ) ?>"
-                    class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
-                    <i class="fa-solid fa-gauge w-5 mt-1 text-center"></i>
-                    <span>Dashboard</span>
-                </a>
-
                 <?php if (in_array(session()->get('role'), ['admin', 'super_admin'])): ?>
+                    <a href="<?= base_url('/admin/dashboard') ?>"
+                        class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
+                        <i class="fa-solid fa-gauge w-5 mt-1 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+
                     <a href="<?= base_url('/admin/pendaftaran') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-user-check w-5 mt-1 text-center"></i>
@@ -97,7 +93,7 @@ if ($role === 'super_admin') {
                 <?php if (session()->get('role') === 'super_admin'): ?>
                     <hr class="my-2 border-white/30">
 
-                    <a href="<?= base_url('/super-admin/logs') ?>"
+                    <a href="<?= base_url('/admin/logs') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-user-clock w-5 mt-1 text-center"></i>
                         <span>Log Aktivitas</span>
