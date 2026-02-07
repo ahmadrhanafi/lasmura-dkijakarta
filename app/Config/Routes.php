@@ -104,12 +104,13 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
 
     // ===== LOG AKTIVITAS =====
     $routes->get('logs', 'Admin\Logs::index');
+    $routes->post('logs/cleanup', 'Admin\Logs::cleanup');
+    $routes->get('manajemen-admin', 'Admin\Dashboard::ManajemenAdmin');
+    $routes->get('pengaturan', 'Admin\Pengaturan::index');
+    $routes->post('pengaturan/save', 'Admin\Pengaturan::save');
 });
 
 // ================= SUPER ADMIN PANEL =================
 $routes->group('super-admin', ['filter' => 'role:super_admin'], function ($routes) {
-
     $routes->get('dashboard', 'Admin\Dashboard::index');
-    $routes->get('admin', 'SuperAdmin\AdminController::index');
-    $routes->post('admin/update-role/(:num)', 'SuperAdmin\AdminController::updateRole/$1');
 });

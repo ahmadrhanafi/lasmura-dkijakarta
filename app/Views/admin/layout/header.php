@@ -93,19 +93,19 @@ if ($role === 'super_admin') {
                 <?php if (session()->get('role') === 'super_admin'): ?>
                     <hr class="my-2 border-white/30">
 
-                    <a href="<?= base_url('/admin/logs') ?>"
+                    <a href="<?= base_url('admin/logs') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-user-clock w-5 mt-1 text-center"></i>
                         <span>Log Aktivitas</span>
                     </a>
 
-                    <a href="<?= base_url('/super-admin/admin') ?>"
+                    <a href="<?= base_url('admin/manajemen-admin') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?> font-semibold">
                         <i class="fa-solid fa-user-shield w-5 mt-1 text-center"></i>
                         <span>Manajemen Admin</span>
                     </a>
 
-                    <a href="<?= base_url('/super-admin/settings') ?>"
+                    <a href="<?= base_url('admin/pengaturan') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-gear w-5 mt-1 text-center"></i>
                         <span>Pengaturan Sistem</span>

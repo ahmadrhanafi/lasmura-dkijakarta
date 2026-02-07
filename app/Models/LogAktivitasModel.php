@@ -20,4 +20,12 @@ class LogAktivitasModel extends Model
     ];
 
     protected $useTimestamps = false;
+
+    public function hapusLogLama(int $hari)
+    {
+        return $this->where(
+            'created_at <',
+            date('Y-m-d H:i:s', strtotime("-{$hari} days"))
+        )->delete();
+    }
 }

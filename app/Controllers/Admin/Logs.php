@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\LogAktivitasModel;
+use App\Models\PengaturanModel;
 
 class Logs extends BaseController
 {
@@ -48,5 +49,18 @@ class Logs extends BaseController
         // dd($this->request->getGet());
 
         return view('superadmin/logs', $data);
+    }
+
+    public function cleanup()
+    {
+        $setting = new PengaturanModel();
+        $logModel = new LogAktivitasModel();
+
+        $hari = (int) ($setting->getValue('log_retention_days') ?? 90);
+
+        $jumlah = $logModel->hapusLogLama($hari);
+
+        return redirect()->back()
+            ->with('success', "Log lebih dari {$hari} hari berhasil dibersihkan");
     }
 }
