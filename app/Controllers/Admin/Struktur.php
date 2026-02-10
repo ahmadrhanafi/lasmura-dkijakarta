@@ -162,7 +162,7 @@ class Struktur extends BaseController
 
         logAktivitas(
             'Struktur Anggota',
-            'Mengubah data anggota struktur: ' . $this->request->getPost('nama')
+            'Mengedit data anggota struktur: ' . $this->request->getPost('nama')
         );
 
         return redirect()->to('/admin/struktur')
@@ -190,6 +190,11 @@ class Struktur extends BaseController
             'status'     => 'aktif'
         ]);
 
+        logAktivitas(
+            'Struktur Anggota',
+            'Menambahkan level pada struktur anggota: ' . $this->request->getPost('nama')
+        );
+
         return redirect()->back();
     }
 
@@ -209,8 +214,8 @@ class Struktur extends BaseController
         ]);
 
         logAktivitas(
-            'Struktur Level',
-            'Mengubah urutan level organisasi'
+            'Struktur Anggota',
+            'Mengedit urutan level organisasi'
         );
 
         return redirect()->to('admin/struktur');
@@ -229,6 +234,11 @@ class Struktur extends BaseController
         }
 
         $this->levelModel->delete($id);
+        logAktivitas(
+            'Struktur Anggota',
+            'Menghapus level pada struktur anggota: ' . $this->request->getPost('nama')
+        );
+
         return redirect()->back()
             ->with('success', 'Level berhasil dihapus');
     }
@@ -243,6 +253,11 @@ class Struktur extends BaseController
             'urutan'       => $this->request->getPost('urutan') ?? 0,
             'status'       => 'aktif'
         ]);
+
+        logAktivitas(
+            'Struktur Anggota',
+            'Menambahkan jabatan pada struktur anggota: ' . $this->request->getPost('nama')
+        );
 
         return redirect()->back();
     }
@@ -266,7 +281,7 @@ class Struktur extends BaseController
 
         logAktivitas(
             'Struktur Jabatan',
-            'Mengubah urutan jabatan organisasi'
+            'Mengedit urutan jabatan organisasi'
         );
 
         return redirect()->to('admin/struktur');
@@ -284,6 +299,11 @@ class Struktur extends BaseController
         }
 
         $this->jabatanModel->delete($id);
+
+        logAktivitas(
+            'Struktur Anggota',
+            'Menghapus jabatan pada struktur anggota: ' . $this->request->getPost('nama')
+        );
         return redirect()->back()
             ->with('success', 'Jabatan berhasil dihapus');
     }

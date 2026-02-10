@@ -11,13 +11,11 @@ class Anggota extends BaseController
     {
         $userModel = new UserModel();
 
-        // 🔎 Ambil query dari URL
         $keyword = $this->request->getGet('q');
         $status  = $this->request->getGet('status');
 
         $builder = $userModel->where('role', 'anggota');
 
-        // 🔍 Search (nama / NIK)
         if ($keyword) {
             $builder->groupStart()
                 ->like('nama_lengkap', $keyword)
@@ -25,10 +23,16 @@ class Anggota extends BaseController
                 ->groupEnd();
         }
 
-        // 🎯 Filter status
         if ($status) {
             $builder->where('status', $status);
         }
+
+        logAktivitas(
+            'Anggota LASMURA',
+            'Mengakses halaman daftar anggota'
+            . ($keyword ? " | keyword: {$keyword}" : '')
+            . ($status ? " | status: {$status}" : '')
+        );
 
         $data = [
             'title'   => 'Anggota LASMURA | Dashboard LASMURA DKI JAKARTA',
@@ -38,7 +42,7 @@ class Anggota extends BaseController
             'status'  => $status,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
-                ['label' => 'Anggota LASMURA', ],
+                ['label' => 'Anggota LASMURA'],
             ],
         ];
 
@@ -53,12 +57,13 @@ class Anggota extends BaseController
             ->where('role', 'anggota')
             ->findAll();
 
+        logAktivitas('Anggota LASMURA', 'Export data anggota ke CSV');
+
         header("Content-Type: text/csv");
         header("Content-Disposition: attachment; filename=anggota_lasmura.csv");
 
         $output = fopen("php://output", "w");
 
-        // Header kolom
         fputcsv($output, [
             'Nama Lengkap',
             'NIK',
@@ -85,15 +90,22 @@ class Anggota extends BaseController
     {
         $userModel = new UserModel();
 
-        $anggota = $userModel->where('id_user', $id)
+        $anggota = $userModel
+            ->where('id_user', $id)
             ->where('role', 'anggota')
             ->first();
 
         if (!$anggota) {
+            logAktivitas('Anggota LASMURA', "Gagal membuka detail anggota | id_user={$id}");
+
             return redirect()->to('/admin/anggota')
                 ->with('error', 'Data anggota tidak ditemukan');
-            // throw new \CodeIgniter\Exceptions\PageNotFoundException('Anggota tidak ditemukan.');
         }
+
+        logAktivitas(
+            'Anggota LASMURA',
+            "Membuka detail anggota | {$anggota['nama_lengkap']} (ID: {$id})"
+        );
 
         $data = [
             'title'   => 'Detail Anggota | Dashboard LASMURA DKI JAKARTA',
@@ -101,7 +113,7 @@ class Anggota extends BaseController
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
                 ['label' => 'Anggota LASMURA', 'url' => base_url('/admin/anggota')],
-                ['label' => 'Detail Anggota', ],
+                ['label' => 'Detail Anggota'],
             ],
         ];
 
@@ -110,7 +122,7 @@ class Anggota extends BaseController
 
     public function editAnggota($id)
     {
-        $userModel = new \App\Models\UserModel();
+        $userModel = new UserModel();
 
         $anggota = $userModel
             ->where('id_user', $id)
@@ -118,9 +130,16 @@ class Anggota extends BaseController
             ->first();
 
         if (!$anggota) {
+            logAktivitas('Anggota LASMURA', "Gagal membuka form edit anggota | id_user={$id}");
+
             return redirect()->to('/admin/anggota')
                 ->with('error', 'Data anggota tidak ditemukan');
         }
+
+        logAktivitas(
+            'Anggota LASMURA',
+            "Membuka form edit anggota | {$anggota['nama_lengkap']} (ID: {$id})"
+        );
 
         $data = [
             'title'   => 'Edit Anggota | Dashboard LASMURA DKI JAKARTA',
@@ -128,8 +147,7 @@ class Anggota extends BaseController
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
                 ['label' => 'Anggota LASMURA', 'url' => base_url('/admin/anggota')],
-                ['label' => 'Detail Anggota', 'url' => base_url('/anggota/detail/'.$id)],
-                ['label' => 'Edit Anggota', ],
+                ['label' => 'Edit Anggota'],
             ],
         ];
 
@@ -138,12 +156,17 @@ class Anggota extends BaseController
 
     public function updateAnggota($id)
     {
-        $userModel = new \App\Models\UserModel();
+        $userModel = new UserModel();
 
         $userModel->update($id, [
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'status'       => $this->request->getPost('status'),
         ]);
+
+        logAktivitas(
+            'Anggota LASMURA',
+            "Update data anggota | id_user={$id}"
+        );
 
         return redirect()->to('/admin/anggota')
             ->with('success', 'Data anggota berhasil diperbarui');
@@ -153,16 +176,24 @@ class Anggota extends BaseController
     {
         $userModel = new UserModel();
 
-        $anggota = $userModel->where('id_user', $id)
+        $anggota = $userModel
+            ->where('id_user', $id)
             ->where('role', 'anggota')
             ->first();
 
         if (!$anggota) {
+            logAktivitas('Anggota LASMURA', "Gagal menghapus anggota | id_user={$id}");
+
             return redirect()->to('/admin/anggota')
                 ->with('error', 'Data anggota tidak ditemukan');
         }
 
         $userModel->delete($id);
+
+        logAktivitas(
+            'Anggota LASMURA',
+            "Menghapus anggota | {$anggota['nama_lengkap']} (ID: {$id})"
+        );
 
         return redirect()->to('/admin/anggota')
             ->with('success', 'Data anggota berhasil dihapus');

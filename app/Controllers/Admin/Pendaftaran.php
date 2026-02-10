@@ -15,10 +15,8 @@ class Pendaftaran extends BaseController
         $keyword = $this->request->getGet('q');
         $status  = $this->request->getGet('status');
 
-        // Inisialisasi builder langsung dari model
         $builder = $model;
 
-        // 🔍 Search Logic
         if ($keyword) {
             $builder = $builder->groupStart()
                 ->like('nama_lengkap', $keyword)
@@ -28,18 +26,16 @@ class Pendaftaran extends BaseController
                 ->groupEnd();
         }
 
-        // 🎯 Filter status
         if ($status) {
             $builder = $builder->where('status', $status);
         }
 
-        // Ambil data dengan pagination (Data ini yang akan dilooping di tabel)
         $dataPendaftaran = $builder->orderBy('created_at', 'DESC')
             ->paginate(10, 'pendaftaran');
 
-        $data = [
+        return view('admin/pages/pendaftaran/index', [
             'title'       => 'Penerimaan Anggota | Dashboard LASMURA DKI JAKARTA',
-            'pendaftaran' => $dataPendaftaran, // Data hasil filter & paginate
+            'pendaftaran' => $dataPendaftaran,
             'pager'       => $model->pager,
             'keyword'     => $keyword,
             'status'      => $status,
@@ -47,9 +43,7 @@ class Pendaftaran extends BaseController
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
                 ['label' => 'Penerimaan Anggota']
             ]
-        ];
-
-        return view('admin/pages/pendaftaran/index', $data);
+        ]);
     }
 
     public function terima($id)
@@ -63,24 +57,24 @@ class Pendaftaran extends BaseController
             return redirect()->back()->with('error', 'Data tidak valid');
         }
 
-        /**
-         * 🔐 BUAT AKUN USER
-         * password = NULL → aktivasi
-         */
         $userModel->insert([
-            'nama_lengkap'  => $pendaftar['nama_lengkap'],
-            'username'      => $pendaftar['username'],
-            'nik'           => $pendaftar['nik'],
-            'role'          => 'anggota',
-            'status'        => 'aktif',
-            'password'      => null,
-            'created_at'    => date('Y-m-d H:i:s')
+            'nama_lengkap' => $pendaftar['nama_lengkap'],
+            'username'     => $pendaftar['username'],
+            'nik'          => $pendaftar['nik'],
+            'role'         => 'anggota',
+            'status'       => 'aktif',
+            'password'     => null,
+            'created_at'   => date('Y-m-d H:i:s')
         ]);
 
-        // Update status pendaftaran
         $pendaftaranModel->update($id, [
             'status' => 'diterima'
         ]);
+
+        logAktivitas(
+            'Penerimaan Anggota',
+            'Admin menerima pendaftaran anggota: ' . $pendaftar['nama_lengkap']
+        );
 
         return redirect()->back()->with('success', 'Pendaftaran berhasil diterima');
     }
@@ -96,9 +90,14 @@ class Pendaftaran extends BaseController
         }
 
         $model->update($id, [
-            'status' => 'ditolak',
-            'catatan_admin' => $this->request->getPost('catatan_admin')
+            'status'         => 'ditolak',
+            'catatan_admin'  => $this->request->getPost('catatan_admin')
         ]);
+
+        logAktivitas(
+            'Penerimaan Anggota',
+            'Admin menolak pendaftaran anggota: ' . $pendaftar['nama_lengkap']
+        );
 
         return redirect()->back()->with('success', 'Pendaftaran ditolak');
     }

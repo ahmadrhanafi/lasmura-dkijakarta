@@ -24,22 +24,26 @@ class Berita extends BaseController
         $query = $this->berita->withUser();
 
         if ($keyword) {
-            $query = $query
-                ->groupStart()
+            $query->groupStart()
                 ->like('berita.judul', $keyword)
                 ->orLike('berita.konten', $keyword)
                 ->groupEnd();
         }
 
+        logAktivitas(
+            'Pengelolaan Berita',
+            'Mengakses halaman pengelolaan berita'
+            . ($keyword ? " | keyword: {$keyword}" : '')
+        );
+
         $data = [
             'title' => 'Pengelolaan Berita | Dashboard LASMURA DKI JAKARTA',
-            'berita' => $query->orderBy('created_at', 'DESC')
-                ->paginate(5, 'berita'),
+            'berita' => $query->orderBy('created_at', 'DESC')->paginate(5, 'berita'),
             'pager' => $query->pager,
             'keyword' => $keyword,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
-                ['label' => 'Pengelolaan Berita',]
+                ['label' => 'Pengelolaan Berita']
             ]
         ];
 
@@ -54,8 +58,14 @@ class Berita extends BaseController
             ->first();
 
         if (!$berita) {
+            logAktivitas('Pengelolaan Berita', "Gagal preview berita | slug={$slug}");
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Preview berita | {$berita['judul']} (slug: {$slug})"
+        );
 
         $data = [
             'title' => 'Preview Berita | Dashboard LASMURA DKI JAKARTA',
@@ -75,6 +85,7 @@ class Berita extends BaseController
         $berita = $this->berita->find($id);
 
         if (!$berita) {
+            logAktivitas('Pengelolaan Berita', "Gagal set headline | id={$id}");
             return redirect()->back()->with('error', 'Berita tidak ditemukan');
         }
 
@@ -83,14 +94,16 @@ class Berita extends BaseController
             ->where('is_headline', 1)
             ->update();
 
-        $this->berita->update($id, [
-            'is_headline' => 1
-        ]);
+        $this->berita->update($id, ['is_headline' => 1]);
+
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Menjadikan headline | {$berita['judul']} (ID: {$id})"
+        );
 
         return redirect()->back()
             ->with('success', 'Berita berhasil dijadikan headline');
     }
-
 
     public function exportPdf($slug)
     {
@@ -100,35 +113,41 @@ class Berita extends BaseController
             ->first();
 
         if (!$berita) {
+            logAktivitas('Pengelolaan Berita', "Gagal export PDF | slug={$slug}");
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $html = view('admin/pages/berita/pdf', [
-            'berita' => $berita
-        ]);
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Export berita ke PDF | {$berita['judul']} (slug: {$slug})"
+        );
 
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        $html = view('admin/pages/berita/pdf', ['berita' => $berita]);
 
-        $filename = 'berita-' . $berita['slug'] . '.pdf';
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->setPaper('A4', 'portrait');
+        $this->dompdf->render();
 
         return $this->response
             ->setContentType('application/pdf')
-            ->setHeader('Content-Disposition', 'inline; filename="' . $filename . '"')
-            ->setBody($dompdf->output());
+            ->setHeader(
+                'Content-Disposition',
+                'inline; filename="berita-' . $berita['slug'] . '.pdf"'
+            )
+            ->setBody($this->dompdf->output());
     }
 
     public function create()
     {
+        logAktivitas('Pengelolaan Berita', 'Membuka form tambah berita');
+
         $data = [
             'title' => 'Pengelolaan Berita | Dashboard LASMURA DKI JAKARTA',
             'berita' => $this->berita->orderBy('created_at', 'DESC')->findAll(),
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
                 ['label' => 'Pengelolaan Berita', 'url' => base_url('/admin/berita')],
-                ['label' => 'Tambah Berita',],
+                ['label' => 'Tambah Berita'],
             ]
         ];
 
@@ -140,6 +159,7 @@ class Berita extends BaseController
         $judul = $this->request->getPost('judul');
 
         if (!$judul) {
+            logAktivitas('Pengelolaan Berita', 'Gagal menambah berita | judul kosong');
             return redirect()->back()->with('error', 'Judul wajib diisi');
         }
 
@@ -161,6 +181,8 @@ class Berita extends BaseController
             'dibuat_oleh' => session()->get('id_user')
         ]);
 
+        logAktivitas('Pengelolaan Berita', "Menambahkan berita | {$judul}");
+
         return redirect()->to('/admin/berita')
             ->with('success', 'Berita berhasil ditambahkan');
     }
@@ -170,26 +192,23 @@ class Berita extends BaseController
         $berita = $this->berita->find($id);
 
         if (!$berita) {
-            return redirect()->to('/admin/pages/berita')
+            logAktivitas('Pengelolaan Berita', "Gagal membuka edit berita | id={$id}");
+            return redirect()->to('/admin/berita')
                 ->with('error', 'Berita tidak ditemukan');
         }
+
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Membuka form edit berita | {$berita['judul']} (ID: {$id})"
+        );
 
         $data = [
             'title' => 'Edit Berita | Dashboard LASMURA DKI JAKARTA',
             'berita' => $berita,
             'breadcrumb' => [
-                [
-                    'label' => 'Dashboard',
-                    'url'   => base_url('/admin/dashboard'),
-                    'icon'  => 'fa-solid fa-gauge'
-                ],
-                [
-                    'label' => 'Pengelolaan Berita',
-                    'url'   => base_url('/admin/berita'),
-                ],
-                [
-                    'label' => 'Edit Berita',
-                ]
+                ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
+                ['label' => 'Pengelolaan Berita', 'url' => base_url('/admin/berita')],
+                ['label' => 'Edit Berita'],
             ]
         ];
 
@@ -201,6 +220,7 @@ class Berita extends BaseController
         $berita = $this->berita->find($id);
 
         if (!$berita) {
+            logAktivitas('Pengelolaan Berita', "Gagal update berita | id={$id}");
             return redirect()->to('/admin/berita')
                 ->with('error', 'Berita tidak ditemukan');
         }
@@ -222,6 +242,11 @@ class Berita extends BaseController
             'thumbnail' => $thumbnailName
         ]);
 
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Memperbarui berita | {$berita['judul']} (ID: {$id})"
+        );
+
         return redirect()->to('/admin/berita')
             ->with('success', 'Berita berhasil diperbarui');
     }
@@ -231,11 +256,17 @@ class Berita extends BaseController
         $berita = $this->berita->find($id);
 
         if (!$berita) {
+            logAktivitas('Pengelolaan Berita', "Gagal menghapus berita | id={$id}");
             return redirect()->to('/admin/berita')
                 ->with('error', 'Berita tidak ditemukan');
         }
 
         $this->berita->delete($id);
+
+        logAktivitas(
+            'Pengelolaan Berita',
+            "Menghapus berita | {$berita['judul']} (ID: {$id})"
+        );
 
         return redirect()->to('/admin/berita')
             ->with('success', 'Berita berhasil dihapus');

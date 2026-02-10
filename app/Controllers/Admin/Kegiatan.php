@@ -57,6 +57,11 @@ class Kegiatan extends BaseController
             'dibuat_oleh'      => session()->get('id_user')
         ]);
 
+        logAktivitas(
+            'Kegiatan LASMURA',
+            'Admin menambahkan kegiatan: ' . $judul
+        );
+
         return redirect()->to('/admin/kegiatan')
             ->with('success', 'Kegiatan berhasil ditambahkan');
     }
@@ -67,6 +72,7 @@ class Kegiatan extends BaseController
             ->withUser()
             ->where('slug', $slug)
             ->first();
+
         if (!$kegiatan) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -120,13 +126,27 @@ class Kegiatan extends BaseController
             'thumbnail'        => $thumbName
         ]);
 
+        logAktivitas(
+            'Kegiatan LASMURA',
+            'Admin mengedit kegiatan: ' . $judul
+        );
+
         return redirect()->to('/admin/kegiatan')
             ->with('success', 'Kegiatan berhasil diperbarui');
     }
 
     public function delete($id)
     {
-        $this->kegiatan->delete($id);
+        $kegiatan = $this->kegiatan->find($id);
+
+        if ($kegiatan) {
+            $this->kegiatan->delete($id);
+
+            logAktivitas(
+                'Kegiatan LASMURA',
+                'Admin menghapus kegiatan: ' . $kegiatan['judul']
+            );
+        }
 
         return redirect()->to('/admin/kegiatan')
             ->with('success', 'Kegiatan berhasil dihapus');
