@@ -2,7 +2,7 @@
 
 <main class="p-6 max-w-3xl">
     <form method="post"
-          action="<?= base_url('/anggota/update/'.$anggota['id_user']) ?>"
+          action="<?= base_url('admin/anggota/update/'.$anggota['id_user']) ?>"
           class="bg-white rounded shadow p-6 space-y-4">
 
         <div>

@@ -67,7 +67,6 @@
                         <th class="px-4 py-3 text-left">No</th>
                         <th class="px-4 py-3 text-left">Nama</th>
                         <th class="px-4 py-3 text-left">NIK</th>
-                        <!-- <th class="px-4 py-3 text-left">Jenis Kelamin</th> -->
                         <th class="px-4 py-3 text-left">Status</th>
                         <th class="px-4 py-3 text-center">Aksi</th>
                     </tr>

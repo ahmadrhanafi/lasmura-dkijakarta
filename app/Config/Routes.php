@@ -31,6 +31,8 @@ $routes->get('logout', 'Auth::logout', ['filter' => 'auth']);
 // ===================== FITUR ANGGOTA ========================
 $routes->group('anggota', ['filter' => 'role:anggota'], function ($routes) {
     $routes->get('profil', 'Anggota\Profil::index');
+    $routes->get('profil/edit', 'Anggota\Profil::edit');
+    $routes->get('profil/update', 'Anggota\Profil::update');
     $routes->get('kta', 'Anggota\Profil::kta');
     $routes->get('kta/cetak', 'Anggota\Profil::cetak');
 });

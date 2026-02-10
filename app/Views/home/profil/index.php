@@ -18,12 +18,12 @@
         <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Profil Anggota</h1>
 
         <div class="flex gap-3">
-            <a href="<?= base_url('/anggota/profil/edit') ?>"
+            <a href="<?= base_url('anggota/profil/edit') ?>"
                 class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 transition-all shadow-sm">
                 <i class="fa-solid fa-user-gear text-gray-400"></i>
                 Edit Profil
             </a>
-            <a href="<?= base_url('/anggota/kta') ?>"
+            <a href="<?= base_url('anggota/kta') ?>"
                 class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#ea7e13] text-white font-bold rounded-2xl hover:bg-[#d66d0f] transition-all shadow-lg shadow-orange-200">
                 <i class="fa-solid fa-id-card"></i>
                 Cetak KTA
@@ -81,19 +81,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Nomor Induk Kependudukan (NIK)</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($biodata['nik'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['nik'] ?? '-') ?></p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Jenis Kelamin</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($biodata['jenis_kelamin'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['jenis_kelamin'] ?? '-') ?></p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Tanggal Lahir</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($biodata['tanggal_lahir'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['tanggal_lahir'] ?? '-') ?></p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Domisili / Alamat</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed italic"><?= esc($biodata['alamat'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed italic"><?= esc($user['alamat'] ?? '-') ?></p>
                     </div>
                 </div>
             </div>

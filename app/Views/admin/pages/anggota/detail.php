@@ -13,7 +13,31 @@
             <p><?= esc($anggota['nik']) ?></p>
         </div>
 
-       
+        <div>
+            <label class="text-sm text-gray-500">Email</label>
+            <p><?= esc($anggota['email']) ?></p>
+        </div>
+
+        <div>
+            <label class="text-sm text-gray-500">Nomor HP</label>
+            <p><?= esc($anggota['no_hp']) ?></p>
+        </div>
+        
+        <div>
+            <label class="text-sm text-gray-500">Jenis Kelamin</label>
+            <p><?= esc($anggota['jenis_kelamin']) ?></p>
+        </div>
+
+        <div>
+            <label class="text-sm text-gray-500">Tanggal Lahir</label>
+            <p><?= esc($anggota['tanggal_lahir']) ?></p>
+        </div>
+
+        <div>
+            <label class="text-sm text-gray-500">Alamat Domisili</label>
+            <p><?= esc($anggota['alamat']) ?></p>
+        </div>
+
 
         <div>
             <label class="text-sm text-gray-500">Status</label>
@@ -27,12 +51,12 @@
 
         <div class="pt-4 flex gap-2">
             <a href="<?= base_url('/admin/anggota') ?>"
-               class="px-4 py-2 bg-gray-300 rounded text-sm">
+                class="px-4 py-2 bg-gray-300 rounded text-sm">
                 Kembali
             </a>
 
-            <a href="<?= base_url('/admin/anggota/edit/'.$anggota['id_user']) ?>"
-               class="px-4 py-2 bg-blue-600 text-white rounded text-sm">
+            <a href="<?= base_url('/admin/anggota/edit/' . $anggota['id_user']) ?>"
+                class="px-4 py-2 bg-blue-600 text-white rounded text-sm">
                 Edit Anggota
             </a>
         </div>

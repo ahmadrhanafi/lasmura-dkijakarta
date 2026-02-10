@@ -30,8 +30,8 @@ class Anggota extends BaseController
         logAktivitas(
             'Anggota LASMURA',
             'Mengakses halaman daftar anggota'
-            . ($keyword ? " | keyword: {$keyword}" : '')
-            . ($status ? " | status: {$status}" : '')
+                . ($keyword ? " | keyword: {$keyword}" : '')
+                . ($status ? " | status: {$status}" : '')
         );
 
         $data = [
@@ -91,8 +91,9 @@ class Anggota extends BaseController
         $userModel = new UserModel();
 
         $anggota = $userModel
-            ->where('id_user', $id)
-            ->where('role', 'anggota')
+            ->withPendaftaran()
+            ->where('users.id_user', $id)
+            ->where('users.role', 'anggota')
             ->first();
 
         if (!$anggota) {

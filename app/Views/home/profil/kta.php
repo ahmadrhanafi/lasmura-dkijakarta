@@ -54,7 +54,7 @@
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Jenis Kelamin</label>
-                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['jenis_kelamin'] ?? 'Tidak Diisi') ?></p>
+                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['jenis_kelamin'] ?? '-') ?></p>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Tanggal Lahir</label>

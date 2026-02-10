@@ -20,5 +20,21 @@ class UserModel extends Model
         'status',
         'created_at'
     ];
-}
 
+    public function withPendaftaran()
+    {
+        return $this->select('
+            users.*,
+            pendaftaran_anggota.jenis_kelamin,
+            pendaftaran_anggota.tanggal_lahir,
+            pendaftaran_anggota.no_hp,
+            pendaftaran_anggota.email,
+            pendaftaran_anggota.alamat
+        ')
+            ->join(
+                'pendaftaran_anggota',
+                'pendaftaran_anggota.nik = users.nik',
+                'left'
+            );
+    }
+}
