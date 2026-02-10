@@ -49,7 +49,7 @@ class Pendaftaran extends BaseController
             ]
         ];
 
-        return view('admin/pages/pendaftaran', $data);
+        return view('admin/pages/pendaftaran/index', $data);
     }
 
     public function terima($id)

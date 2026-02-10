@@ -105,7 +105,7 @@ class Anggota extends BaseController
             ],
         ];
 
-        return view('admin/pages/anggota_detail', $data);
+        return view('admin/pages/anggota/detail', $data);
     }
 
     public function editAnggota($id)
@@ -133,7 +133,7 @@ class Anggota extends BaseController
             ],
         ];
 
-        return view('admin/pages/anggota_edit', $data);
+        return view('admin/pages/anggota/edit', $data);
     }
 
     public function updateAnggota($id)

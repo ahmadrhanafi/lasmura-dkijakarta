@@ -87,13 +87,13 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="px-4 py-3 text-center space-x-2">
-                                    <a href="<?= base_url('/anggota/detail/' . $row['id_user']) ?>"
+                                    <a href="<?= base_url('admin/anggota/detail/' . $row['id_user']) ?>"
                                         class="text-blue-600 hover:underline">
                                         Detail
                                     </a>
 
                                     <?php if (session()->get('role') === 'super_admin'): ?>
-                                        <a href="<?= base_url('/anggota/hapus/' . $row['id_user']) ?>"
+                                        <a href="<?= base_url('admin/anggota/hapus/' . $row['id_user']) ?>"
                                             class="text-red-600 hover:underline"
                                             onclick="return confirm('Yakin hapus anggota ini?')">
                                             Hapus

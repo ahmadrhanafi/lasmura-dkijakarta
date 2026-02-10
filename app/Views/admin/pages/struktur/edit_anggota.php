@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-user-pen text-xl"></i>
             </div>
             <div>
-                <h2 class="text-xl font-bold text-slate-800">Edit Profil Anggota</h2>
+                <h2 class="text-xl font-bold text-slate-800">Edit Anggota dalam Struktur</h2>
                 <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">ID Anggota: #<?= $anggota['id_anggota'] ?></p>
             </div>
         </div>

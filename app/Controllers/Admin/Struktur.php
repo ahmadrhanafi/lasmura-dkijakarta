@@ -99,7 +99,7 @@ class Struktur extends BaseController
                 ->findAll(),
         ];
 
-        return view('admin/pages/struktur/edit', $data);
+        return view('admin/pages/struktur/edit_anggota', $data);
     }
 
     public function simpanAnggota()
