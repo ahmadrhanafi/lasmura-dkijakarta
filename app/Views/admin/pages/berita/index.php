@@ -18,6 +18,23 @@
             </a>
         </div>
 
+        <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+            <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+                <?php if ($msg = session()->getFlashdata('error')): ?>
+                    <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                        <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                        <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                    </div>
+                <?php endif; ?>
+                <?php if ($msg = session()->getFlashdata('success')): ?>
+                    <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                        <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                        <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
         <div class="bg-white rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100">
             <form method="get" class="flex flex-col md:flex-row gap-3">
                 <div class="relative flex-1 group">
@@ -26,7 +43,7 @@
                         placeholder="Cari judul atau penulis..."
                         class="w-full pl-12 pr-6 py-3 md:py-3.5 rounded-xl md:rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-red-50 text-sm font-medium transition-all">
                 </div>
-                
+
                 <div class="flex gap-2">
                     <button type="submit" class="flex-1 md:flex-none bg-gray-900 text-white px-6 py-3 md:py-3.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#b91c1c] transition-all">
                         Cari
@@ -69,13 +86,13 @@
                                         <div class="relative w-16 h-12 flex-shrink-0">
                                             <?php if ($b['thumbnail']): ?>
                                                 <img src="<?= base_url('uploads/berita/' . $b['thumbnail']) ?>"
-                                                     class="w-full h-full rounded-xl object-cover shadow-sm">
+                                                    class="w-full h-full rounded-xl object-cover shadow-sm">
                                             <?php else: ?>
                                                 <div class="w-full h-full rounded-xl bg-gray-100 flex items-center justify-center text-gray-300">
                                                     <i class="fa-solid fa-image text-xs"></i>
                                                 </div>
                                             <?php endif; ?>
-                                            
+
                                             <?php if ($b['is_headline']): ?>
                                                 <div class="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm">
                                                     HOT
@@ -116,19 +133,19 @@
 
                                     <td class="px-6 md:px-8 py-4">
                                         <div class="flex items-center justify-end gap-2">
-                                            <a href="<?= base_url('admin/berita/headline/' . $b['id_berita']) ?>" 
-                                               class="p-2 w-8 h-8 flex items-center justify-center rounded-lg transition-all <?= $b['is_headline'] ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-400 hover:bg-gray-200' ?>">
+                                            <a href="<?= base_url('admin/berita/headline/' . $b['id_berita']) ?>"
+                                                class="p-2 w-8 h-8 flex items-center justify-center rounded-lg transition-all <?= $b['is_headline'] ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-400 hover:bg-gray-200' ?>">
                                                 <i class="fa-solid fa-star text-[10px]"></i>
                                             </a>
-                                            
-                                            <a href="<?= base_url('admin/berita/edit/' . $b['id_berita']) ?>" 
-                                               class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-green-500 hover:bg-green-100 rounded-lg transition-all">
+
+                                            <a href="<?= base_url('admin/berita/edit/' . $b['id_berita']) ?>"
+                                                class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-green-500 hover:bg-green-100 rounded-lg transition-all">
                                                 <i class="fa-solid fa-pen-to-square text-sm"></i>
                                             </a>
 
                                             <a href="<?= base_url('admin/berita/preview/' . $b['slug']) ?>"
-                                               class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-blue-100 rounded-lg transition-all"
-                                               title="Preview">
+                                                class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-blue-100 rounded-lg transition-all"
+                                                title="Preview">
                                                 <i class="fa-regular fa-eye text-xs"></i>
                                             </a>
 

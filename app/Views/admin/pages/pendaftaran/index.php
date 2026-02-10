@@ -3,15 +3,20 @@
 <!-- Content -->
 <main class="p-6 flex-1">
 
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
-            <?= session()->getFlashdata('success') ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (session()->getFlashdata('error')): ?>
-        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
-            <?= session()->getFlashdata('error') ?>
+    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+            <?php if ($msg = session()->getFlashdata('error')): ?>
+                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+            <?php if ($msg = session()->getFlashdata('success')): ?>
+                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 
@@ -84,8 +89,8 @@
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center
                                 rounded-full text-xs font-medium text-gray-500">
-                                <?= esc($p['alamat']) ?>
-                            </span>
+                                    <?= esc($p['alamat']) ?>
+                                </span>
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 

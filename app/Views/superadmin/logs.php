@@ -3,11 +3,22 @@
 <div class="p-6">
     <h1 class="text-2xl font-bold mb-6">Log Aktivitas Sistem</h1>
 
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
-            <?= session('success') ?>
+    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+            <?php if ($msg = session()->getFlashdata('error')): ?>
+                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+            <?php if ($msg = session()->getFlashdata('success')): ?>
+                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
         </div>
-    <?php endif ?>
+    <?php endif; ?>
 
     <div class="overflow-x-auto bg-white rounded-xl shadow-sm border">
         <form method="get" class="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -52,7 +63,7 @@
                         <th class="px-4 py-3 text-left">Role</th>
                         <th class="px-4 py-3 text-left">Modul</th>
                         <th class="px-4 py-3 text-left">Aktivitas</th>
-                        <th class="px-4 py-3 text-left">IP</th>
+                        <th class="px-4 py-3 text-left">Alamat IP</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +80,15 @@
                             <td class="px-4 py-2"><?= esc($log['aksi']) ?></td>
                             <td class="px-4 py-2 text-slate-500"><?= $log['ip_address'] ?></td>
                         </tr>
+
+                        <?php if (empty($logs)): ?>
+                            <tr>
+                                <td colspan="6" class="px-4 py-6 text-center text-slate-500">
+                                    Tidak ada data log
+                                </td>
+                            </tr>
+                        <?php endif ?>
+
                     <?php endforeach ?>
                 </tbody>
             </table>

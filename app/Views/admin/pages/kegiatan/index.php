@@ -2,7 +2,7 @@
 
 <main class="p-4 md:p-8 bg-[#fbfbfb] min-h-screen">
     <div class="max-w-7xl mx-auto space-y-8">
-        
+
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
                 <h1 class="text-3xl font-black text-gray-900 tracking-tighter uppercase italic">
@@ -18,6 +18,23 @@
             </a>
         </div>
 
+        <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+            <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+                <?php if ($msg = session()->getFlashdata('error')): ?>
+                    <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                        <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                        <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                    </div>
+                <?php endif; ?>
+                <?php if ($msg = session()->getFlashdata('success')): ?>
+                    <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                        <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                        <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm">
                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total</p>
@@ -26,16 +43,16 @@
             <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm">
                 <p class="text-[10px] font-black text-[#ea7e13] uppercase tracking-widest">Published</p>
                 <p class="text-2xl font-black text-gray-800">
-                    <?php 
-                        $pub = array_filter($kegiatan, fn($k) => $k['status'] === 'publish');
-                        echo count($pub);
+                    <?php
+                    $pub = array_filter($kegiatan, fn($k) => $k['status'] === 'publish');
+                    echo count($pub);
                     ?>
                 </p>
             </div>
         </div>
 
         <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-            
+
             <?php if (empty($kegiatan)): ?>
                 <div class="text-center py-24">
                     <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -62,8 +79,8 @@
                                     <td class="px-8 py-6">
                                         <div class="flex items-center gap-4">
                                             <?php if (!empty($k['thumbnail'])): ?>
-                                                <img src="<?= base_url('uploads/kegiatan/' . $k['thumbnail']) ?>" 
-                                                     class="w-12 h-12 rounded-xl object-cover shadow-sm group-hover:scale-110 transition-transform">
+                                                <img src="<?= base_url('uploads/kegiatan/' . $k['thumbnail']) ?>"
+                                                    class="w-12 h-12 rounded-xl object-cover shadow-sm group-hover:scale-110 transition-transform">
                                             <?php else: ?>
                                                 <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
                                                     <i class="fa-solid fa-image text-gray-300"></i>
@@ -93,8 +110,8 @@
 
                                     <td class="px-6 py-6 text-center">
                                         <span class="inline-flex items-center px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest
-                                            <?= $k['status'] === 'publish' 
-                                                ? 'bg-green-50 text-green-600 ring-1 ring-inset ring-green-600/20' 
+                                            <?= $k['status'] === 'publish'
+                                                ? 'bg-green-50 text-green-600 ring-1 ring-inset ring-green-600/20'
                                                 : 'bg-gray-100 text-gray-500 ring-1 ring-inset ring-gray-500/10' ?>">
                                             <span class="w-1.5 h-1.5 rounded-full mr-2 <?= $k['status'] === 'publish' ? 'bg-green-600' : 'bg-gray-400' ?>"></span>
                                             <?= $k['status'] ?>
@@ -104,19 +121,19 @@
                                     <td class="px-8 py-6">
                                         <div class="flex items-center justify-end gap-2">
                                             <a href="<?= base_url('admin/kegiatan/preview/' . $k['slug']) ?>"
-                                               class="w-9 h-9 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-                                               title="Preview">
+                                                class="w-9 h-9 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                                                title="Preview">
                                                 <i class="fa-regular fa-eye text-xs"></i>
                                             </a>
                                             <a href="<?= base_url('admin/kegiatan/edit/' . $k['id_kegiatan']) ?>"
-                                               class="w-9 h-9 flex items-center justify-center rounded-xl bg-orange-50 text-[#ea7e13] hover:bg-[#ea7e13] hover:text-white transition-all shadow-sm"
-                                               title="Edit">
+                                                class="w-9 h-9 flex items-center justify-center rounded-xl bg-orange-50 text-[#ea7e13] hover:bg-[#ea7e13] hover:text-white transition-all shadow-sm"
+                                                title="Edit">
                                                 <i class="fa-regular fa-pen-to-square text-xs"></i>
                                             </a>
-                                            
+
                                             <?php if (session()->get('role') === 'super_admin'): ?>
                                                 <form action="<?= base_url('/admin/kegiatan/hapus/' . $k['id_kegiatan']) ?>"
-                                                      method="post" class="inline" onsubmit="return confirm('Hapus kegiatan ini?')">
+                                                    method="post" class="inline" onsubmit="return confirm('Hapus kegiatan ini?')">
                                                     <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all shadow-sm">
                                                         <i class="fa-regular fa-trash-can text-xs"></i>
                                                     </button>

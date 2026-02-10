@@ -3,6 +3,23 @@
 <!-- Content -->
 <main class="p-6 space-y-6">
 
+    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+            <?php if ($msg = session()->getFlashdata('error')): ?>
+                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+            <?php if ($msg = session()->getFlashdata('success')): ?>
+                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    
     <form method="get" class="flex flex-wrap gap-2 mb-4">
         <input type="text"
             name="q"
