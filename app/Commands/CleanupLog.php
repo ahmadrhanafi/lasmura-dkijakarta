@@ -19,10 +19,13 @@ class CleanupLog extends BaseCommand
         $logModel     = new LogAktivitasModel();
 
         // ambil setting (default 90 hari)
-        $hari = $settingModel->get('log_retention_days') ?? 90;
+        $hari = (int) $settingModel->getValue('log_retention_days', 90);
 
         $jumlah = $logModel->hapusLogLama($hari);
 
-        CLI::write("Log lebih dari {$hari} hari berhasil dihapus: {$jumlah} data", 'green');
+        CLI::write(
+            "✔ Log lebih dari {$hari} hari berhasil dihapus: {$jumlah} data",
+            'green'
+        );
     }
 }

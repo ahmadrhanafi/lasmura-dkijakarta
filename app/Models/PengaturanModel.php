@@ -11,16 +11,15 @@ class PengaturanModel extends Model
     protected $allowedFields = ['key', 'value', 'description'];
     protected $useTimestamps = false;
 
-    // ambil value by key
-    public function getValue(string $key)
+    public function getValue(string $key, $default = null)
     {
-        return $this->where('key', $key)
+        $row = $this->where('key', $key)
                     ->select('value')
-                    ->get()
-                    ->getRow('value');
+                    ->first();
+
+        return $row['value'] ?? $default;
     }
 
-    // update / insert value
     public function setValue(string $key, $value)
     {
         $exists = $this->where('key', $key)->first();

@@ -21,7 +21,7 @@ class LogAktivitasModel extends Model
 
     protected $useTimestamps = false;
 
-    public function hapusLogLama(int $hari)
+    public function hapusLogLama(int $hari): int
     {
         return $this->where(
             'created_at <',

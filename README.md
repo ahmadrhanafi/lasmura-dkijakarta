@@ -1,3 +1,35 @@
+
+LASMURA DKI JAKARTA adalah website manajemen digital terintegrasi yang dirancang untuk mengelola data operasional, administrasi anggota, dan pencetakan kartu tanda anggota sebagai sistem pelayanan internal organisasi LASMURA di wilayah DKI Jakarta.
+Website ini fokus pada efisiensi alur kerja admin, pencetakan kartu anggota, transparansi data secara dinamis, dan kemudahan aksesibilitas.
+
+🚀 Fitur Utama
+Dashboard Executive			: Visualisasi data real-time terkait statistik anggota dan status sistem.
+Manajemen Pengguna (User Management)	: Sistem kontrol akses berbasis peran (Role-Based Access Control) yang mencakup Super Admin, Admin, dan Anggota.
+Pengaturan Sistem Dinamis		: Konfigurasi aplikasi mulai dari mode maintenance, manajemen cache, hingga kebijakan keamanan.
+Log Aktivitas & Audit Trail		: Pencatatan otomatis setiap tindakan penting dalam sistem untuk menjaga integritas data.
+Optimasi Performa			: Integrasi Tailwind CSS untuk antarmuka yang responsif dan ringan, serta sistem pagination cerdas untuk menangani data besar.
+
+🛠️ Stack Teknologi
+Aplikasi ini dibangun menggunakan teknologi mutakhir untuk menjamin skalabilitas:
+Backend		: PHP 8 dengan CI4
+Frontend	: Tailwind CSS & JavaScript (Vanilla)
+Database	: MySQL
+Icons		: FontAwesome 6
+Local Serve	: Laragon
+
+🤝 Kontribusi
+Proyek ini dikembangkan secara eksklusif untuk kebutuhan internal LASMURA DKI JAKARTA. Kontribusi luar saat ini terbatas, namun saran dan pelaporan bug dapat dikirimkan melalui tim pengembang internal.
+
+📄 Lisensi
+Distribusi dan penggunaan aplikasi ini diatur di bawah kebijakan internal LASMURA DKI JAKARTA. Penggunaan tanpa izin untuk tujuan komersial di luar organisasi dilarang keras.
+
+Developed by radicreative.
+email: radicreative.id@gmail.com
+
+Note :
+After hosting must be into SSH server to write this path:
+0 3 * * * /usr/bin/php /home/username/project/spark logs:cleanup
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
