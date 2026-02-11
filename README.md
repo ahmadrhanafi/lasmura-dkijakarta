@@ -7,37 +7,37 @@ Website ini fokus pada efisiensi alur kerja admin, pencetakan kartu anggota, tra
 
 ## Fitur Utama
 
-- Dashboard Executive			: Visualisasi `data real-time` terkait statistik anggota dan status sistem.
-- Manajemen Pengguna (User Management)	: Sistem kontrol akses berbasis peran `(Role-Based Access Control)` yang mencakup Super Admin, Admin, dan Anggota.
-- Pengaturan Sistem Dinamis		: Konfigurasi aplikasi mulai dari mode maintenance, manajemen cache, hingga kebijakan keamanan.
-- Log Aktivitas & Audit Trail		: Pencatatan otomatis setiap tindakan penting dalam sistem untuk menjaga integritas data.
-- Optimasi Performa			: Integrasi `Tailwind CSS` untuk antarmuka yang responsif dan ringan, serta sistem pagination cerdas untuk menangani data besar.
+- Dashboard Executive		: Visualisasi data `real-time` terkait statistik anggota dan status sistem.
+- Manajemen Pengguna		: `Role-Based Access Control` yang mencakup Super Admin, Admin, dan Anggota.
+- Pengaturan Sistem Dinamis	: Konfigurasi aplikasi mulai dari mode `maintenance`, kebijakan keamanan, dsb.
+- Log Aktivitas & Audit Trail	: Pencatatan otomatis setiap tindakan dalam sistem untuk menjaga integritas data.
+- Optimasi Performa		: Integrasi `Tailwind CSS` dan `pagination` untuk antarmuka yang responsif dan ringan.
 
 ## Stack Teknologi
 
 Aplikasi ini dibangun menggunakan teknologi mutakhir untuk menjamin skalabilitas:  
-- Backend	: PHP 8 dengan [CodeIgniter 4](https://codeigniter.com)
-- Frontend	: [Tailwind CSS](https://tailwindcss.com/) & JavaScript (Vanilla)
-- Database	: [MySQL](https://www.mysql.com)
-- Icons		: [FontAwesome 6](https://fontawesome.com)
-- Local Serve	: [Laragon](https://laragon.org)
+- Backend	: PHP 8 dengan [CodeIgniter 4](https://codeigniter.com) dengan tahap instalasi melalui [Composer](https://getcomposer.org/doc).
+- Frontend	: [Tailwind CSS](https://tailwindcss.com/) & JavaScript (Vanilla) untuk menangani tampilan (UI).
+- Database	: [MySQL](https://www.mysql.com) sebagai `Relational Database Management System`.
+- Icons		: [FontAwesome](https://fontawesome.com) sebagai ikon untuk mendukung tampilan (UI).
+- Local Serve	: [Laragon](https://laragon.org) sebagai server lokal pada tahap `development`.
 
 ## Kontribusi
 
-Proyek ini dikembangkan secara eksklusif untuk kebutuhan internal LASMURA DKI JAKARTA. Kontribusi luar saat ini terbatas, namun saran dan pelaporan bug dapat dikirimkan melalui tim pengembang internal.
+Proyek ini dikembangkan secara eksklusif untuk kebutuhan internal LASMURA DKI JAKARTA.  
+Kontribusi luar saat ini terbatas, namun saran dan pelaporan bug dapat dikirimkan melalui tim pengembang.
 
 ## Lisensi
 
-Distribusi dan penggunaan aplikasi ini diatur di bawah kebijakan internal LASMURA DKI JAKARTA. **Penggunaan tanpa izin untuk tujuan komersial di luar organisasi dilarang keras**.
-
-* Developed by radicreative.  
-**email:** radicreative.id@gmail.com
+Distribusi dan penggunaan aplikasi ini diatur di bawah kebijakan internal LASMURA DKI JAKARTA.  
+**Penggunaan tanpa izin untuk tujuan komersial di luar organisasi dilarang keras**.
 
 **Note :**  
 *After hosting* must be into `SSH server` to write this path:  
 `0 3 * * * /usr/bin/php /home/username/project/spark logs:cleanup`
 
-
+> Developed by radicreative.  
+**email:** radicreative.id@gmail.com
 
 # CodeIgniter 4 Application Starter
 
