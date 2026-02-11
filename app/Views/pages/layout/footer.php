@@ -50,11 +50,19 @@
                 <ul class="space-y-4 text-slate-400 text-sm mb-6">
                     <li class="flex items-start space-x-3">
                         <i class="fa-solid fa-location-dot mt-1 text-[#ea7e13]"></i>
-                        <span>Jl. Proklamasi No.81, Pegangsaan, Menteng, Jakarta Pusat.</span>
+                        <span>Jl. Arjuna III No.15, RT.6/RW.7, Utan Kayu Selatan, Kecamatan Matraman, Kota Jakarta Timur, Provinsi DKI Jakarta 13120.</span>
                     </li>
                     <li class="flex items-center space-x-3">
                         <i class="fa-solid fa-envelope text-[#ea7e13]"></i>
-                        <span>info@lasmuradki.or.id</span>
+                        <a href="mailto:lasmuradkijakarta@gmail.com" class="hover:text-[#ea7e13] transition-colors">
+                            <span>lasmuradkijakarta@gmail.com</span>
+                        </a>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <i class="fa-solid fa-phone text-[#ea7e13]"></i>
+                        <a href="tel:+6285777930178" class="hover:text-[#ea7e13] transition-colors">
+                            <span>+62 857-7793-0178</span>
+                        </a>
                     </li>
                 </ul>
 
