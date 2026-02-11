@@ -57,33 +57,33 @@ class Auth extends BaseController
             'need_activation'  => false
         ]);
 
-        // if (in_array($user['role'], ['super_admin', 'admin'])) {
-        //     return redirect()->to('/admin/dashboard');
-        // }
-
-        if ($user['role'] === 'super_admin') {
-            return redirect()->to('/super-admin/dashboard');
-        }
-
-        if ($user['role'] === 'admin') {
+        if (in_array($user['role'], ['super_admin', 'admin'])) {
             return redirect()->to('/admin/dashboard');
         }
+
+        // if ($user['role'] === 'super_admin') {
+        //     return redirect()->to('/super-admin/dashboard');
+        // }
+
+        // if ($user['role'] === 'admin') {
+        //     return redirect()->to('/admin/dashboard');
+        // }
 
         return redirect()->to('/');
     }
 
     public function aktivasi()
-{
-    if (!session()->get('need_activation')) {
-        return redirect()->to('/login');
+    {
+        if (!session()->get('need_activation')) {
+            return redirect()->to('/login');
+        }
+
+        $data = [
+            'title' => 'Aktivasi Akun | LASMURA DKI JAKARTA'
+        ];
+
+        return view('auth/aktivasi', $data);
     }
-
-    $data = [
-        'title' => 'Aktivasi Akun | LASMURA DKI JAKARTA'
-    ];
-
-    return view('auth/aktivasi', $data);
-}
 
     public function prosesAktivasi()
     {
