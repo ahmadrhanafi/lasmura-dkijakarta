@@ -10,16 +10,22 @@ use CodeIgniter\Router\RouteCollection;
 // ================= OPEN THE GATE TO HOMEPAGE =================
 // =============================================================
 $routes->get('/', 'Home::index');
-$routes->get('/tentang', 'Home::tentang');
 
+// ********* head **********
 $routes->get('/kegiatan', 'Kegiatan::index');
 $routes->get('/kegiatan/(:segment)', 'Kegiatan::detail/$1');
 $routes->get('/berita', 'Berita::index');
 $routes->get('/berita/cari', 'Berita::search');
 $routes->get('/berita/(:segment)', 'Berita::detail/$1');
+$routes->get('/tentang', 'Home::tentang');
 $routes->get('/struktur', 'Home::struktur');
 $routes->get('/daftar', 'Pendaftaran::index');
 $routes->post('/daftar/simpan', 'Pendaftaran::simpan');
+// ********* foot **********
+$routes->get('/alur-aktivasi', 'Home::alur');
+$routes->get('/bantuan', 'Home::bantuan');
+$routes->get('/privacy', 'Home::privacy');
+$routes->get('/terms', 'Home::terms');
 
 // ===================== AUTHENTICATION =======================
 $routes->get('login', 'Auth::login');

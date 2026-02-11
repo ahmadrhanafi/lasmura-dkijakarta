@@ -35,4 +35,36 @@ class Home extends BaseController
         ];
         return view('pages/struktur', $data);
     }
+
+    public function alur(): string
+    {
+        $data = [
+            'title' => 'Alur Aktivasi Akun | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/alur', $data);
+    }
+
+    public function bantuan(): string
+    {
+        $data = [
+            'title' => 'Bantuan | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/bantuan', $data);
+    }
+
+    public function privacy(): string
+    {
+        $data = [
+            'title' => 'Kebijakan Privasi | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/privacy', $data);
+    }
+    
+    public function terms(): string
+    {
+        $data = [
+            'title' => 'Ketentuan Layanan | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/terms', $data);
+    }
 }
