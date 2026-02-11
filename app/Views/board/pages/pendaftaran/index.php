@@ -78,7 +78,7 @@
                         <tr class="hover:bg-gray-50/50 transition-all">
                             <td class="px-6 py-4">
                                 <div class="font-bold text-gray-800"><?= esc($p['nama_lengkap']) ?></div>
-                                <div class="text-xs text-gray-400">NIK: <?= $p['nik'] ?></div>
+                                <div class="text-xs text-gray-400">Sejak: <?= \CodeIgniter\I18n\Time::parse($p['created_at'])->format('d/m/Y') ?></div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex flex-col gap-1">
