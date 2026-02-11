@@ -1,13 +1,13 @@
-# LASMURA DKI JAKARTA - Management Information System
+# WEB LASMURA DKI JAKARTA
 
-## Apa itu Website LASMURA DKI JAKARTA?
+## Apa itu WEB LASMURA DKI JAKARTA?
 
-Situs LASMURA DKI JAKARTA adalah situs manajemen digital terintegrasi berbasis web yang dirancang untuk mengelola data operasional, administrasi anggota, dan pencetakan kartu tanda anggota sebagai sistem pelayanan internal organisasi LASMURA di wilayah DKI Jakarta.
+Website LASMURA DKI JAKARTA adalah situs manajemen digital terintegrasi berbasis web yang dirancang untuk mengelola data operasional, administrasi anggota, dan pencetakan kartu tanda anggota sebagai sistem pelayanan internal organisasi LASMURA di wilayah DKI Jakarta.
 Website ini fokus pada efisiensi alur kerja admin, pencetakan kartu anggota, transparansi data secara dinamis, dan kemudahan aksesibilitas.
 
 ## Fitur Utama
 
-- Dashboard Executive		: Visualisasi data `real-time` terkait statistik anggota dan status sistem.
+- Dashboard Executive		: Visualisasi data `real-time` terkait ringkasan data, status sistem dan lainnya.
 - Manajemen Pengguna		: `Role-Based Access Control` yang mencakup Super Admin, Admin, dan Anggota.
 - Pengaturan Sistem Dinamis	: Konfigurasi aplikasi mulai dari mode `maintenance`, kebijakan keamanan, dsb.
 - Log Aktivitas & Audit Trail	: Pencatatan otomatis setiap tindakan dalam sistem untuk menjaga integritas data.
@@ -16,11 +16,11 @@ Website ini fokus pada efisiensi alur kerja admin, pencetakan kartu anggota, tra
 ## Stack Teknologi
 
 Aplikasi ini dibangun menggunakan teknologi mutakhir untuk menjamin skalabilitas:  
-- Backend	: PHP 8 dengan [CodeIgniter 4](https://codeigniter.com) dengan tahap instalasi melalui [Composer](https://getcomposer.org/doc).
-- Frontend	: [Tailwind CSS](https://tailwindcss.com/) & JavaScript (Vanilla) untuk menangani tampilan (UI).
-- Database	: [MySQL](https://www.mysql.com) sebagai `Relational Database Management System`.
-- Icons		: [FontAwesome](https://fontawesome.com) sebagai ikon untuk mendukung tampilan (UI).
-- Local Serve	: [Laragon](https://laragon.org) sebagai server lokal pada tahap `development`.
+- Backend	: [PHP 8](https://www.php.net) & [CodeIgniter 4](https://codeigniter.com) dengan tahap instalasi melalui [Composer](https://getcomposer.org/doc).
+- Frontend	: [Tailwind CSS](https://tailwindcss.com/) & [JavaScript (Vanilla)](http://vanilla-js.com) untuk menangani tampilan (UI).
+- Database	: [MySQL](https://www.mysql.com) sebagai `Relational Database Management System` yang mengelola banyak data.
+- Icons		: [FontAwesome](https://fontawesome.com) sebagai ikon atau simbol untuk mendukung tampilan (UI).
+- Local Serve	: [Laragon](https://laragon.org) sebagai server lokal pada tahap `development` atau pengembangan sistem.
 
 ## Kontribusi
 
