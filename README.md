@@ -1,4 +1,4 @@
-
+LASMURA DKI JAKARTA - Management Information System
 LASMURA DKI JAKARTA adalah website manajemen digital terintegrasi yang dirancang untuk mengelola data operasional, administrasi anggota, dan pencetakan kartu tanda anggota sebagai sistem pelayanan internal organisasi LASMURA di wilayah DKI Jakarta.
 Website ini fokus pada efisiensi alur kerja admin, pencetakan kartu anggota, transparansi data secara dinamis, dan kemudahan aksesibilitas.
 
