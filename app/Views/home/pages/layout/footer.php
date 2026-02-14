@@ -16,13 +16,13 @@
                     Wadah kaderisasi pemuda Partai Hanura di wilayah DKI Jakarta untuk mencetak pemimpin yang cerdas dan berintegritas.
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
+                    <a href="https://www.instagram.com/lasmura_dkijakarta" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
                         <i class="fa-brands fa-instagram text-lg"></i>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
+                    <a href="https://www.facebook.com/lasmura.dkijakarta" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
                         <i class="fa-brands fa-facebook-f text-lg"></i>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
+                    <a href="https://x.com/lasmura_dkijakarta" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#ea7e13] transition-colors">
                         <i class="fa-brands fa-x-twitter text-lg"></i>
                     </a>
                 </div>
@@ -32,9 +32,9 @@
                 <h4 class="font-bold text-lg mb-6 border-b border-slate-800 pb-2">Navigasi</h4>
                 <ul class="space-y-4 text-slate-400 text-sm">
                     <li><a href="<?= base_url('/') ?>" class="hover:text-white transition-colors">Beranda</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Kegiatan Terbaru</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Berita Terkini</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Struktur Organisasi</a></li>
+                    <li><a href="<?= base_url('/kegiatan') ?>" class="hover:text-white transition-colors">Kegiatan Terbaru</a></li>
+                    <li><a href="<?= base_url('/berita') ?>" class="hover:text-white transition-colors">Berita Terkini</a></li>
+                    <li><a href="<?= base_url('/struktur') ?>" class="hover:text-white transition-colors">Struktur Organisasi</a></li>
                 </ul>
             </div>
 

@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Cetak KTA <?= esc($user['nama_lengkap']) ?> | LASMURA DKI JAKARTA</title>
+    <link rel="icon" type="image/svg+xml" href="<?= base_url('assets/favicon/lasmura.jpg') ?>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         html,
         body {
@@ -12,7 +17,6 @@
             width: 8.5cm;
             height: 5.5cm;
             overflow: hidden;
-            /* Mengunci konten agar tidak meluber */
         }
 
         @page {
@@ -27,11 +31,9 @@
             margin: 0;
             padding: 0;
             position: relative;
-            /* Pastikan tidak ada border luar yang menambah dimensi */
             border: none;
         }
 
-        /* Accent Header */
         .card-header {
             background: linear-gradient(90deg, #ea7e13 0%, #ec1309 100%);
             padding: 8px 15px;
@@ -61,7 +63,6 @@
             opacity: 0.9;
         }
 
-        /* Body Card */
         .card-body {
             padding: 10px 15px;
             position: relative;
@@ -108,7 +109,6 @@
             text-transform: uppercase;
         }
 
-        /* Watermark Background */
         .watermark {
             position: absolute;
             right: -10px;
@@ -120,7 +120,6 @@
             transform: rotate(-20deg);
         }
 
-        /* Footer & QR */
         .card-footer {
             position: absolute;
             bottom: 0;

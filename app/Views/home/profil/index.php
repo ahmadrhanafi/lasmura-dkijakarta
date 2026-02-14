@@ -1,4 +1,4 @@
-<?= $this->include('pages/layout/header') ?>
+<?= $this->include('home/pages/layout/header') ?>
 
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
 
@@ -93,7 +93,7 @@
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Domisili / Alamat</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed italic"><?= esc($user['alamat'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['alamat'] ?? '-') ?></p>
                     </div>
                 </div>
             </div>
@@ -101,4 +101,4 @@
     </div>
 </main>
 
-<?= $this->include('pages/layout/footer') ?>
+<?= $this->include('home/pages/layout/footer') ?>

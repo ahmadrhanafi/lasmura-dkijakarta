@@ -1,4 +1,4 @@
-<?= $this->include('pages/layout/header') ?>
+<?= $this->include('home/pages/layout/header') ?>
 
 <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
 
@@ -20,7 +20,7 @@
     <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Edit Profil Anggota</h1>
 
     <form action="<?= base_url('anggota/profil/update') ?>" method="post"
-          class="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm space-y-10">
+        class="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm space-y-10">
 
         <?= csrf_field() ?>
 
@@ -37,22 +37,22 @@
                 <div>
                     <label class="form-label">Nama Lengkap</label>
                     <input type="text" name="nama_lengkap"
-                           value="<?= esc($user['nama_lengkap']) ?>"
-                           class="form-input" required>
+                        value="<?= esc($user['nama_lengkap']) ?>"
+                        class="form-input" required>
                 </div>
 
                 <div>
                     <label class="form-label">Username</label>
                     <input type="text" name="username"
-                           value="<?= esc($user['username']) ?>"
-                           class="form-input" required>
+                        value="<?= esc($user['username']) ?>"
+                        class="form-input" required>
                 </div>
 
                 <div>
                     <label class="form-label">Email</label>
                     <input type="email" name="email"
-                           value="<?= esc($user['email'] ?? '') ?>"
-                           class="form-input">
+                        value="<?= esc($user['email'] ?? '') ?>"
+                        class="form-input">
                 </div>
             </div>
         </section>
@@ -70,8 +70,8 @@
                 <div>
                     <label class="form-label">NIK</label>
                     <input type="text" name="nik"
-                           value="<?= esc($user['nik']) ?>"
-                           class="form-input" readonly>
+                        value="<?= esc($user['nik']) ?>"
+                        class="form-input" readonly>
                 </div>
 
                 <div>
@@ -90,21 +90,21 @@
                 <div>
                     <label class="form-label">Tanggal Lahir</label>
                     <input type="date" name="tanggal_lahir"
-                           value="<?= esc($user['tanggal_lahir'] ?? '') ?>"
-                           class="form-input">
+                        value="<?= esc($user['tanggal_lahir'] ?? '') ?>"
+                        class="form-input">
                 </div>
 
                 <div>
                     <label class="form-label">No. HP</label>
                     <input type="text" name="no_hp"
-                           value="<?= esc($user['no_hp'] ?? '') ?>"
-                           class="form-input">
+                        value="<?= esc($user['no_hp'] ?? '') ?>"
+                        class="form-input">
                 </div>
 
                 <div class="md:col-span-2">
                     <label class="form-label">Alamat</label>
                     <textarea name="alamat" rows="3"
-                              class="form-input"><?= esc($user['alamat'] ?? '') ?></textarea>
+                        class="form-input"><?= esc($user['alamat'] ?? '') ?></textarea>
                 </div>
             </div>
         </section>
@@ -112,11 +112,11 @@
         <!-- ACTION -->
         <div class="flex justify-end gap-3 pt-6">
             <a href="<?= base_url('anggota/profil') ?>"
-               class="px-6 py-3 bg-gray-200 rounded-xl font-bold text-gray-700">
+                class="px-6 py-3 bg-gray-200 rounded-xl font-bold text-gray-700">
                 Batal
             </a>
             <button type="submit"
-                    class="px-6 py-3 bg-[#ea7e13] text-white rounded-xl font-bold shadow-lg shadow-orange-200">
+                class="px-6 py-3 bg-[#ea7e13] text-white rounded-xl font-bold shadow-lg shadow-orange-200">
                 Simpan Perubahan
             </button>
         </div>
@@ -124,4 +124,4 @@
     </form>
 </main>
 
-<?= $this->include('pages/layout/footer') ?>
+<?= $this->include('home/pages/layout/footer') ?>

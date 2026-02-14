@@ -1,4 +1,4 @@
-<?= $this->include('pages/layout/header') ?>
+<?= $this->include('home/pages/layout/header') ?>
 
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
     <div class="mb-10 text-center md:text-left">
@@ -92,4 +92,4 @@
     </div>
 </main>
 
-<?= $this->include('pages/layout/footer') ?>
+<?= $this->include('home/pages/layout/footer') ?>
