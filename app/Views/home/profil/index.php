@@ -2,20 +2,12 @@
 
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
 
-    <nav class="flex mb-6" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-[10px] sm:text-xs text-gray-400 uppercase tracking-[0.15em] font-bold">
-            <li>
-                <a href="<?= base_url('/') ?>" class="hover:text-[#ea7e13] transition-colors">Beranda</a>
-            </li>
-            <li>
-                <i class="fa-solid fa-chevron-right text-[8px] opacity-50"></i>
-            </li>
-            <li class="text-[#ea7e13]">Profil Saya</li>
-        </ol>
-    </nav>
-
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Profil Anggota</h1>
+        <div class="text-left">
+            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Profil Anggota</h1>
+            <p class="text-gray-500 mt-1 text-sm">Data informasi diri dan tampilan akun Anda.</p>
+            <div class="h-1 w-20 bg-[#ea7e13] mt-4 md:mx-0 rounded-full"></div>
+        </div>
 
         <div class="flex gap-3">
             <a href="<?= base_url('anggota/profil/edit') ?>"

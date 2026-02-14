@@ -130,9 +130,10 @@
         <div id="menu" class="hidden lg:hidden bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
             <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
                 <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
-                <a href="#" class="block hover:text-[#ec1309]">Kegiatan</a>
-                <a href="#" class="block hover:text-[#ec1309]">Berita</a>
-                <a href="#" class="block hover:text-[#ec1309]">Tentang</a>
+                <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
+                <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
+                <a href="<?= base_url('/tentang') ?>" class="block hover:text-[#ec1309]">Tentang</a>
+                <a href="<?= base_url('/struktur') ?>" class="block hover:text-[#ec1309]">Struktur</a>
 
                 <hr class="border-slate-100">
 
@@ -143,9 +144,8 @@
                     </div>
                 <?php else: ?>
                     <div class="space-y-4">
-                        <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-circle-user text-[#ea7e13]"></i>
-                            <span class="normal-case uppercase tracking-widest text-xs font-bold">Profil</span>
+                        <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                            <span class="uppercase text-md font-bold">Profil</span>
                         </a>
                         <a href="<?= base_url('/logout') ?>"
                             class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"

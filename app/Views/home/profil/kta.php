@@ -1,10 +1,10 @@
 <?= $this->include('home/pages/layout/header') ?>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
-    <div class="mb-10 text-center md:text-left">
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Kartu Tanda Anggota</h1>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
+    <div class="mb-10 md:text-left">
+        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Kartu Tanda Anggota</h1>
         <p class="text-gray-500 text-sm mt-1">Identitas resmi keanggotaan DPD LASMURA DKI Jakarta.</p>
-        <div class="h-1 w-20 bg-[#ea7e13] mt-4 mx-auto md:mx-0 rounded-full"></div>
+        <div class="h-1 w-20 bg-[#ea7e13] mt-4 md:mx-0 rounded-full"></div>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-12 items-start">
@@ -15,7 +15,7 @@
 
                 <div class="relative w-full max-w-md aspect-[1.586/1] rounded-2xl overflow-hidden shadow-2xl">
 
-                    <img src="<?= base_url('assets/images/kta-template2a.png') ?>"
+                    <img src="<?= base_url('assets/images/kta-template2.png') ?>"
                         class="absolute inset-0 w-full h-full object-cover">
 
                     <div class="absolute left-[40%] top-[38%] text-white font-bold uppercase text-md">
@@ -29,7 +29,7 @@
                 </div>
 
             </div>
-            <p class="text-center text-gray-400 text-xs mt-4 italic font-medium tracking-wide">Tampilan Pratinjau KTA Digital</p>
+            <p class="text-center text-gray-400 text-xs mt-4 italic font-medium tracking-wide">Tampilan Pratinjau KTA Digital Anda</p>
         </div>
 
         <div class="flex-1 w-full">
