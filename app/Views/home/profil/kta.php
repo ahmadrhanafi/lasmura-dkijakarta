@@ -13,30 +13,21 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-[#ea7e13] to-[#ec1309]"></div>
                 <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
 
-                <div class="relative h-full p-6 md:p-8 flex flex-col justify-between text-white">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h2 class="text-xl font-black tracking-tighter italic">LASMURA</h2>
-                            <p class="text-[8px] uppercase tracking-[0.2em] opacity-80">DKI Jakarta</p>
-                        </div>
-                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/30">
-                            <i class="fa-solid fa-shield-halved text-xl"></i>
-                        </div>
+                <div class="relative w-full max-w-md aspect-[1.586/1] rounded-2xl overflow-hidden shadow-2xl">
+
+                    <img src="<?= base_url('assets/images/kta-template2a.png') ?>"
+                        class="absolute inset-0 w-full h-full object-cover">
+
+                    <div class="absolute left-[40%] top-[38%] text-white font-bold uppercase text-md">
+                        <?= esc($user['nama_lengkap']) ?>
                     </div>
 
-                    <div class="flex gap-5 items-end">
-                        <div class="w-24 h-28 bg-gray-200 rounded-lg overflow-hidden border-2 border-white/50 shrink-0">
-                            <img src="https://ui-avatars.com/api/?name=<?= urlencode($user['nama_lengkap']) ?>&background=random" class="w-full h-full object-cover">
-                        </div>
-                        <div class="overflow-hidden">
-                            <h3 class="text-lg font-bold leading-tight truncate uppercase"><?= esc($user['nama_lengkap']) ?></h3>
-                            <p class="text-[10px] text-orange-200 font-mono tracking-widest mt-1"><?= esc($user['nomor_anggota']) ?></p>
-                            <div class="mt-3 py-1 px-3 bg-white/10 backdrop-blur-sm rounded-md border border-white/10 inline-block">
-                                <p class="text-[9px] uppercase font-bold tracking-tighter">Anggota Aktif</p>
-                            </div>
-                        </div>
+                    <div class="absolute left-[40%] top-[47%] text-white text-xs uppercase font-regular">
+                        <?= esc($jabatan['nama_jabatan'] ?? 'Anggota') ?>
                     </div>
+
                 </div>
+
             </div>
             <p class="text-center text-gray-400 text-xs mt-4 italic font-medium tracking-wide">Tampilan Pratinjau KTA Digital</p>
         </div>

@@ -5,17 +5,21 @@ namespace App\Controllers\Anggota;
 use App\Controllers\BaseController;
 use App\Models\PendaftaranModel;
 use App\Models\UserModel;
+use App\Models\StrukturAnggotaModel;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Profil extends BaseController
 {
     protected $userModel;
     protected $pendaftaranModel;
+    protected $strukturAnggotaModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->pendaftaranModel = new PendaftaranModel();
+        $this->strukturAnggotaModel = new StrukturAnggotaModel();
     }
 
     public function index()
@@ -94,6 +98,11 @@ class Profil extends BaseController
     {
         $idUser = session()->get('id_user');
 
+        $strukturModel = new StrukturAnggotaModel();
+
+        $jabatan = $strukturModel->getByUser($idUser);
+
+
         $user = $this->userModel
             ->withPendaftaran()
             ->where('users.id_user', $idUser)
@@ -101,7 +110,8 @@ class Profil extends BaseController
 
         return view('home/profil/kta', [
             'title' => 'Kartu Tanda Anggota | LASMURA DKI JAKARTA',
-            'user'  => $user
+            'user'  => $user,
+            'jabatan' => $jabatan
         ]);
     }
 
@@ -109,18 +119,42 @@ class Profil extends BaseController
     {
         $idUser = session()->get('id_user');
 
+        $strukturModel = new StrukturAnggotaModel();
+
+        $jabatan = $strukturModel->getByUser($idUser);
+
         $user = $this->userModel
             ->withPendaftaran()
             ->where('users.id_user', $idUser)
             ->first();
 
-        $html = view('home/profil/pdf', [
-            'user' => $user
-        ]);
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isFontSubsettingEnabled', true);
 
-        $dompdf = new Dompdf();
+
+        $dompdf = new Dompdf($options);
+
+        $frontPath = FCPATH . 'assets/images/kta-template1.png';
+        $backPath  = FCPATH . 'assets/images/kta-template2.png';
+
+        $frontData = base64_encode(file_get_contents($frontPath));
+        $backData  = base64_encode(file_get_contents($backPath));
+
+        $dataView = [
+            'user' => $user,
+            'jabatan' => $jabatan,
+            'frontImage' => 'data:image/png;base64,' . $frontData,
+            'backImage'  => 'data:image/png;base64,' . $backData,
+        ];
+
+        $html = view('home/profil/pdf', $dataView);
+
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
+
+        $dompdf->setPaper([0, 0, 241.89, 155.91]);
+
         $dompdf->render();
 
         $dompdf->stream(

@@ -5,18 +5,23 @@
     <meta charset="UTF-8">
     <title>Cetak KTA <?= esc($user['nama_lengkap']) ?> | LASMURA DKI JAKARTA</title>
     <link rel="icon" type="image/svg+xml" href="<?= base_url('assets/favicon/lasmura.jpg') ?>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         html,
+
         body {
             margin: 0;
             padding: 0;
             width: 8.5cm;
             height: 5.5cm;
-            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            src: url("<?= FCPATH ?>assets/fonts/poppins/Poppins-Regular.ttf") format("truetype");
         }
 
         @page {
@@ -66,6 +71,10 @@
         .card-body {
             padding: 10px 15px;
             position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
         }
 
         .photo-space {
@@ -152,48 +161,31 @@
 
 <body>
 
-    <div class="kta-box">
-        <div class="watermark">LASMURA</div>
+    <!-- ===================== DEPAN ===================== -->
+    <div class="kta-box page-break">
 
-        <div class="card-header">
-            <div class="logo-text">
-                <h1>LASMURA</h1>
-                <p>DPD DKI JAKARTA</p>
-            </div>
-        </div>
+        <img src="<?= $frontImage ?>"
+            style="position:absolute; top:0; left:0; width:8.5cm; height:5.5cm;">
 
-        <div class="card-body">
-            <div class="photo-space">
-                <img src="https://ui-avatars.com/api/?name=<?= urlencode($user['nama_lengkap']) ?>&size=150" alt="Foto">
-            </div>
-
-            <div class="data-space">
-                <div class="field">
-                    <div class="label">Nama Lengkap</div>
-                    <div class="value"><?= esc($user['nama_lengkap']) ?></div>
-                </div>
-                <div class="field">
-                    <div class="label">NIK</div>
-                    <div class="value"><?= esc($user['nik']) ?></div>
-                </div>
-                <div class="field">
-                    <div class="label">TTL</div>
-                    <div class="value"><?= esc($user['tanggal_lahir'] ?? '-') ?></div>
-                </div>
-                <div class="field">
-                    <div class="label">Jenis Kelamin</div>
-                    <div class="value"><?= esc($user['jenis_kelamin'] ?? '-') ?></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-footer">
-            <div class="id-number"><?= esc($user['nomor_anggota']) ?></div>
-            <div class="qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?= $user['nomor_anggota'] ?>" style="width:100%">
-            </div>
-        </div>
     </div>
+
+
+    <!-- ===================== BELAKANG ===================== -->
+    <div class="kta-box">
+
+        <img src="<?= $backImage ?>"
+            style="position:absolute; top:0; left:0; width:8.5cm; height:5.5cm;">
+
+        <div style="position:absolute; left:3.4cm; top:2.1cm; font-size:12px; color: #fff; font-weight:bold; text-transform:uppercase;">
+            <?= esc($user['nama_lengkap']) ?>
+        </div>
+
+        <div style="position:absolute; left:3.4cm; top:2.5cm; color: #fff; font-size:10px;">
+            <?= esc($jabatan['nama_jabatan'] ?? 'Anggota') ?>
+        </div>
+
+    </div>
+
 
 </body>
 
