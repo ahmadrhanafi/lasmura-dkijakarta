@@ -42,8 +42,8 @@
                 <div class="space-y-2 md:col-span-2">
                     <label class="block text-sm font-bold text-gray-600 ml-1">Alamat Email</label>
                     <input type="email" name="email" value="<?= esc($user['email'] ?? '') ?>"
-                        class="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-orange-100 focus:border-[#ea7e13] transition-all duration-300 outline-none text-gray-700"
-                        placeholder="nama@email.com">
+                        class="w-full px-5 py-4 rounded-2xl rounded-2xl border border-gray-200 bg-gray-200/50 cursor-not-allowed text-gray-500 outline-none"
+                        placeholder="nama@email.com" readonly>
                 </div>
             </div>
         </section>
@@ -101,7 +101,7 @@
 
         <div class="flex flex-col sm:flex-row justify-end items-center gap-4 pt-8 border-t border-gray-100">
             <a href="<?= base_url('anggota/profil') ?>"
-                class="w-full sm:w-auto text-center px-8 py-4 text-gray-400 font-bold hover:text-gray-600 transition-all">
+                class="w-full sm:w-auto text-center px-8 py-4 rounded-2xl border-2 border-gray-400 text-gray-400 font-bold hover:text-gray-600 transition-all">
                 Batalkan
             </a>
             <button type="submit"

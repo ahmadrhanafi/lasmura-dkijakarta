@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        html,
         body {
+            max-width: 100%;
+            overflow-x: hidden;
             font-family: 'Inter', sans-serif;
         }
 
@@ -69,10 +72,30 @@
 
             <nav class="hidden lg:flex space-x-8 items-center text-[13px] font-semibold uppercase tracking-wider">
                 <a href="<?= base_url('/') ?>" class="nav-link">Beranda</a>
+                <div class="relative group">
+                    <button id="aboutBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Profil</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="aboutChevron"></i>
+                    </button>
+
+                    <div id="aboutMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/tentang/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <i class="fa-solid fa-circle-info text-slate-400 w-4"></i>
+                            <span class="normal-case font-medium">Tentang Kami</span>
+                        </a>
+                        <a href="<?= base_url('/struktur') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <i class="fa-solid fa-sitemap text-slate-400 w-4"></i>
+                            <span class="normal-case font-medium">Struktur Manajemen</span>
+                        </a>
+                        <a href="<?= base_url('/tentang/ad-art') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <i class="fa-solid fa-file-contract text-slate-400 w-4"></i>
+                            <span class="normal-case font-medium">Laporan Organisasi</span>
+                        </a>
+                    </div>
+                </div>
                 <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Kegiatan</a>
                 <a href="<?= base_url('/berita') ?>" class="nav-link">Berita</a>
-                <a href="<?= base_url('/tentang') ?>" class="nav-link">Tentang</a>
-                <a href="<?= base_url('/struktur') ?>" class="nav-link">Struktur</a>
+                <a href="<?= base_url('/galeri') ?>" class="nav-link">Galeri</a>
 
                 <div class="h-6 w-[1px] bg-white/20 mx-2"></div>
 
@@ -132,31 +155,40 @@
         <div id="menu" class="hidden lg:hidden bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
             <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
                 <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
+                <div class="space-y-4">
+                    <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                        Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
+                    </button>
+                    <div id="mobileAboutMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                        <a href="<?= base_url('/tentang/profil') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Tentang Kami</a>
+                        <a href="<?= base_url('/struktur') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Manajemen</a>
+                        <a href="<?= base_url('/tentang/ad-art') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Organisasi</a>
+                    </div>
+                </div>
                 <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
                 <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
-                <a href="<?= base_url('/tentang') ?>" class="block hover:text-[#ec1309]">Tentang</a>
-                <a href="<?= base_url('/struktur') ?>" class="block hover:text-[#ec1309]">Struktur</a>
-
-                <hr class="border-slate-100">
-
-                <?php if (!session()->get('logged_in')): ?>
-                    <div class="grid grid-cols-2 gap-4 pt-2">
-                        <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
-                        <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
-                    </div>
-                <?php else: ?>
-                    <div class="space-y-4">
-                        <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                            <span class="uppercase text-md font-bold">Profil</span>
-                        </a>
-                        <a href="<?= base_url('/logout') ?>"
-                            class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
-                            onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
-                            Logout
-                        </a>
-                    </div>
-                <?php endif; ?>
+                <a href="<?= base_url('/galeri') ?>" class="block hover:text-[#ec1309]">Galeri</a>
             </div>
+
+            <hr class="border-slate-100">
+
+            <?php if (!session()->get('logged_in')): ?>
+                <div class="grid grid-cols-2 gap-4 p-5 mb-3">
+                    <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
+                    <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
+                </div>
+            <?php else: ?>
+                <div class="space-y-4">
+                    <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                        <span class="uppercase text-md font-bold">Profil</span>
+                    </a>
+                    <a href="<?= base_url('/logout') ?>"
+                        class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
+                        onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
+                        Logout
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -168,29 +200,72 @@
     <?php endif; ?>
 
     <script>
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('mainHeader');
-            const scrollIcon = document.querySelector('.animate-bounce'); // Icon panah bawah
+        // 1. Deklarasi Elemen (Posisikan di paling atas)
+        const profileBtn = document.getElementById('profileBtn');
+        const profileMenu = document.getElementById('profileMenu');
+        const chevron = document.getElementById('chevronIcon');
 
-            if (window.scrollY > 50) {
-                // Efek saat scroll ke bawah
-                header.classList.add('header-active', 'backdrop-blur-md');
-                header.classList.remove('border-white/10');
-                // Perkecil padding container
-                header.querySelector('.max-w-7xl').classList.replace('py-4', 'py-2');
+        const aboutBtn = document.getElementById('aboutBtn');
+        const aboutMenu = document.getElementById('aboutMenu');
+        const aboutChevron = document.getElementById('aboutChevron');
 
-                if (scrollIcon) scrollIcon.style.opacity = '0'; // Sembunyikan panah saat scroll
-            } else {
-                // Kembali ke transparan saat di paling atas
-                header.classList.remove('header-active', 'backdrop-blur-md');
-                header.classList.add('border-white/10');
-                header.querySelector('.max-w-7xl').classList.replace('py-2', 'py-4');
+        // 2. Dropdown Tentang Desktop
+        if (aboutBtn) {
+            aboutBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Tutup menu profil jika terbuka
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
 
-                if (scrollIcon) scrollIcon.style.opacity = '1';
+                aboutMenu.classList.toggle('hidden');
+                aboutChevron.classList.toggle('rotate-180');
+            });
+        }
+
+        // 3. Dropdown Profil Desktop
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Tutup menu tentang jika terbuka
+                if (aboutMenu) aboutMenu.classList.add('hidden');
+                if (aboutChevron) aboutChevron.classList.remove('rotate-180');
+
+                profileMenu.classList.toggle('hidden');
+                chevron.classList.toggle('rotate-180');
+            });
+        }
+
+        // 4. Klik di Luar (Global Close)
+        document.addEventListener('click', function() {
+            if (aboutMenu) {
+                aboutMenu.classList.add('hidden');
+                aboutChevron.classList.remove('rotate-180');
+            }
+            if (profileMenu) {
+                profileMenu.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
             }
         });
 
-        // Menu Mobile Toggle
+        // 5. Sisa Logika (Mobile & Scroll)
+        function toggleMobileAbout() {
+            const mobileMenu = document.getElementById('mobileAboutMenu');
+            const mobileChevron = document.getElementById('mobileAboutChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('header-active', 'backdrop-blur-md');
+                header.querySelector('.max-w-7xl').classList.replace('py-4', 'py-2');
+            } else {
+                header.classList.remove('header-active', 'backdrop-blur-md');
+                header.querySelector('.max-w-7xl').classList.replace('py-2', 'py-4');
+            }
+        });
+
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('menu');
         const menuIcon = document.getElementById('menuIcon');
@@ -200,22 +275,4 @@
             menuIcon.classList.toggle('fa-bars');
             menuIcon.classList.toggle('fa-xmark');
         });
-
-        // Dropdown Profil Desktop
-        const profileBtn = document.getElementById('profileBtn');
-        const profileMenu = document.getElementById('profileMenu');
-        const chevron = document.getElementById('chevronIcon');
-
-        if (profileBtn) {
-            profileBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                profileMenu.classList.toggle('hidden');
-                chevron.classList.toggle('rotate-180');
-            });
-
-            document.addEventListener('click', function() {
-                profileMenu.classList.add('hidden');
-                chevron.classList.remove('rotate-180');
-            });
-        }
     </script>

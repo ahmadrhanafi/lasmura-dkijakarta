@@ -85,7 +85,7 @@
         </div>
 
         <div class="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs">
-            <p>&copy; 2026 Laskar Muda Hanura DKI Jakarta. All rights reserved.</p>
+            <p>&copy; <?= date('Y') ?> <span class="font-bold">Laskar Muda Hanura DKI Jakarta</span>.</p>
             <div class="mt-4 md:mt-0 flex space-x-6">
                 <a href="<?= base_url('/privacy') ?>" class="hover:text-white">Privacy Policy</a>
                 <a href="<?= base_url('/terms') ?>" class="hover:text-white">Terms of Service</a>
