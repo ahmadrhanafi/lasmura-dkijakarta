@@ -7,20 +7,13 @@
 
         <!-- Sidebar Script -->
         <script>
-            const openBtn = document.getElementById('openSidebar');
-            const closeBtn = document.getElementById('closeSidebar');
-            const mobileSidebar = document.getElementById('mobileSidebar');
+            const btnClose = document.getElementById('closeSidebar');
+            const btnOpen = document.getElementById('openSidebar');
+            const sidebar = document.getElementById('mobileSidebar');
 
-            if (openBtn) {
-                openBtn.addEventListener('click', () => {
-                    mobileSidebar.classList.remove('hidden');
-                });
-            }
-
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    mobileSidebar.classList.add('hidden');
-                });
+            if (btnOpen && btnClose && sidebar) {
+                btnOpen.onclick = () => sidebar.classList.remove('hidden');
+                btnClose.onclick = () => sidebar.classList.add('hidden');
             }
 
 

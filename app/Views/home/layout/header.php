@@ -124,17 +124,26 @@
 
                         <div id="profileMenu"
                             class="hidden absolute right-0 mt-3 w-56 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                            <div class="px-4 py-2 border-b border-slate-50 mb-1">
-                                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Akun Saya</p>
-                            </div>
-                            <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                <i class="fa-solid fa-id-badge text-slate-400 w-5 text-center"></i>
-                                <span>Lihat Profil</span>
-                            </a>
-                            <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                <i class="fa-solid fa-address-card text-slate-400 w-5 text-center"></i>
-                                <span>Cetak KTA</span>
-                            </a>
+                            <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <div class="px-4 py-2 border-b border-slate-50 mb-1">
+                                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Akun Saya</p>
+                                </div>
+                                <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-id-badge text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Lihat Profil</span>
+                                </a>
+                                <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-address-card text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Cetak KTA</span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <a href="<?= base_url('/admin/dashboard') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-gauge text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Dashboard</span>
+                                </a>
+                            <?php endif; ?>
                             <div class="border-t border-slate-50 my-1"></div>
 
                             <a href="<?= base_url('/logout') ?>" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 transition-colors"
@@ -178,10 +187,17 @@
                     <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
                 </div>
             <?php else: ?>
-                <div class="space-y-4">
-                    <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                        <span class="uppercase text-md font-bold">Profil</span>
-                    </a>
+                <div class="space-y-4 p-4">
+                    <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                        <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                            <span class="uppercase text-md font-bold">Profil</span>
+                        </a>
+                    <?php endif; ?>
+                    <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                        <a href="<?= base_url('/admin/dashboard') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                            <span class="text-slate-400">Dashboard</span>
+                        </a>
+                    <?php endif; ?>
                     <a href="<?= base_url('/logout') ?>"
                         class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
                         onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">

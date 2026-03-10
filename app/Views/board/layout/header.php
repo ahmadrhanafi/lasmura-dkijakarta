@@ -125,14 +125,16 @@ if ($role === 'super_admin') {
 
         <!-- Mobile Sidebar Overlay -->
         <div id="mobileSidebar"
-            class="fixed inset-0 z-50 <?= $theme['bg'] ?> text-white hidden md:hidden flex flex-col">
+            class="fixed inset-0 z-[999] <?= $theme['bg'] ?? 'bg-slate-900' ?> text-white hidden md:hidden flex flex-col">
             <div class="p-6 flex justify-between items-center">
 
                 <a href="<?= base_url('/admin/dashboard') ?>" class="flex justify-center items-center space-x-2">
                     <img src="<?= base_url('assets/logo/lasmura.png') ?>" alt="LASMURA" class="h-auto max-w-full" width="50" height="50">
                     <span class="text-xl"><b class="text-[#1a1817]">LASMURA</b> DKI JAKARTA</span>
                 </a>
-                <button id="closeSidebar" class="text-1xl">✕</button>
+                <button id="closeSidebar" class="text-md font-bold text-white">
+                    ✕
+                </button>
             </div>
 
             <nav class="px-4 space-y-2">
