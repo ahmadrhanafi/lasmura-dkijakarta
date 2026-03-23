@@ -71,7 +71,7 @@
                         <?php endif; ?>
                     </div>
 
-                    <div class="space-y-2">
+                    <!-- <div class="space-y-2">
                         <label class="text-sm font-bold text-gray-700 ml-1">NIK (16 Digit)</label>
                         <input type="text" name="nik" maxlength="16" value="<?= old('nik') ?>" placeholder="371XXXXXXXXXXXXX"
                             class="w-full px-4 py-3 bg-gray-50 border rounded-xl transition-all outline-none
@@ -79,6 +79,19 @@
                         <?php if (isset($errors['nik'])): ?>
                             <p class="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1">
                                 <i class="fa-solid fa-circle-exclamation"></i> <?= $errors['nik'] ?>
+                            </p>
+                        <?php endif; ?>
+                    </div> -->
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700 ml-1">Email Aktif</label>
+                        <input type="email" name="email" value="<?= old('email') ?>" placeholder="alamat@email.com" required
+                            class="w-full px-4 py-3 bg-gray-50 border rounded-xl transition-all outline-none
+        <?= isset($errors['email']) ? 'border-red-500 ring-4 ring-red-500/10' : 'border-gray-200 focus:border-[#ea7e13] focus:ring-4 focus:ring-orange-500/10' ?>">
+                        <p class="text-gray-400 text-[10px] ml-1">* Pastikan email aktif untuk menerima Nomor Anggota otomatis.</p>
+                        <?php if (isset($errors['email'])): ?>
+                            <p class="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation"></i> <?= $errors['email'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
@@ -119,18 +132,6 @@
                         <?php if (isset($errors['tanggal_lahir'])): ?>
                             <p class="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1">
                                 <i class="fa-solid fa-circle-exclamation"></i> <?= $errors['tanggal_lahir'] ?>
-                            </p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="md:col-span-2 space-y-2">
-                        <label class="text-sm font-bold text-gray-700 ml-1">Email (Opsional)</label>
-                        <input type="email" name="email" value="<?= old('email') ?>" placeholder="alamat@email.com"
-                            class="w-full px-4 py-3 bg-gray-50 border rounded-xl transition-all outline-none
-        <?= isset($errors['email']) ? 'border-red-500 ring-4 ring-red-500/10' : 'border-gray-200 focus:border-[#ea7e13] focus:ring-4 focus:ring-orange-500/10' ?>">
-                        <?php if (isset($errors['email'])): ?>
-                            <p class="text-red-500 text-xs mt-1 ml-1 flex items-center gap-1">
-                                <i class="fa-solid fa-circle-exclamation"></i> <?= $errors['email'] ?>
                             </p>
                         <?php endif; ?>
                     </div>

@@ -9,98 +9,166 @@ class Pendaftaran extends BaseController
 {
     public function index()
     {
-        $data = [
+        return view('home/pages/daftar', [
             'title' => 'Form Pendaftaran Anggota LASMURA DKI Jakarta'
-        ];
-
-        return view('home/pages/daftar', $data);
+        ]);
     }
 
     public function simpan()
     {
-        // Validasi dasar
+        // 1. Validasi: Email sekarang 'required' dan unik
         $rules = [
-            'nama_lengkap'   => [
-                'rules'  => 'required|min_length[3]|max_length[100]',
-                'errors' => ['required' => 'Nama lengkap wajib diisi.']
-            ],
-            'username'       => [
-                'rules'  => 'required|min_length[4]|max_length[15]|is_unique[users.username]|alpha_dash',
-                'errors' => [
-                    'is_unique' => 'Username ini sudah terdaftar.',
-                    'alpha_dash' => 'Username hanya boleh berisi huruf, angka, dan underscore.'
-                ]
-            ],
-            'nik'            => [
-                'rules'  => 'required|exact_length[16]|numeric|is_unique[users.nik]',
-                'errors' => [
-                    'exact_length' => 'NIK harus tepat 16 digit.',
-                    'numeric'      => 'NIK harus berupa angka.',
-                    'is_unique'    => 'NIK ini sudah pernah mendaftar.'
-                ]
-            ],
-            'jenis_kelamin'  => [
-                'rules'  => 'required',
-                'errors' => ['required' => 'Jenis kelamin wajib diisi.']
-            ],
-            'tanggal_lahir'  => [
-                'rules'  => 'required|valid_date[Y-m-d]',
-                'errors' => ['required' => 'Tanggal lahir wajib diisi.']
-            ],
-            'no_hp'          => [
-                'rules'  => 'required|numeric|min_length[10]|max_length[15]',
-                'errors' => ['numeric' => 'Nomor HP harus berupa angka.']
-            ],
-            'alamat'         => [
-                'rules'  => 'required|min_length[10]',
-                'errors' => ['min_length' => 'Alamat minimal 10 karakter.']
-            ],
-            'setuju'         => [
-                'rules'  => 'required',
-                'errors' => ['required' => 'Anda harus menyetujui syarat & ketentuan.']
-            ]
+            'nama_lengkap'  => 'required|min_length[3]|max_length[100]',
+            'username'      => 'required|min_length[4]|max_length[15]|is_unique[pendaftaran_anggota.username]|alpha_dash',
+            'email'         => 'required|valid_email|is_unique[pendaftaran_anggota.email]',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|valid_date[Y-m-d]',
+            'no_hp'         => 'required|numeric|min_length[10]|max_length[15]',
+            'alamat'        => 'required|min_length[10]',
+            'setuju'        => 'required'
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Maaf pendaftaran gagal. Silakan periksa kembali isian Anda.')
+            return redirect()->back()->withInput()
+                ->with('error', 'Maaf, pendaftaran gagal. Silakan periksa kembali.')
                 ->with('errors', $this->validator->getErrors());
         }
 
         $model = new PendaftaranModel();
 
-        /**
-         * 🔐 CEK DUPLIKASI
-         * username & nik tidak boleh sama
-         */
-        $cek = $model
-            ->groupStart()
-            ->where('username', $this->request->getPost('username'))
-            ->orWhere('nik', $this->request->getPost('nik'))
-            ->groupEnd()
-            ->first();
+        // 2. Generate Nomor Anggota Otomatis
+        // Format: LSM-2026-0001 (Contoh)
+        $nomorAnggota = $this->_generateNomorAnggota($model);
 
-        if ($cek) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Username atau NIK sudah pernah terdaftar');
-        }
-
-        // Simpan ke tabel pendaftaran_anggota
-        $model->insert([
+        $data = [
             'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
             'username'      => $this->request->getPost('username'),
-            'nik'           => $this->request->getPost('nik'),
+            'nomor_anggota' => $nomorAnggota,
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
             'no_hp'         => $this->request->getPost('no_hp'),
             'email'         => $this->request->getPost('email'),
             'alamat'        => $this->request->getPost('alamat'),
             'status'        => 'menunggu'
-        ]);
+        ];
 
-        return redirect()->to('/daftar')
-            ->with('success', 'Pendaftaran berhasil dikirim. Silakan menunggu persetujuan admin.');
+        // 3. Simpan Data
+        if ($model->insert($data)) {
+            //     // 4. Kirim Email Konfirmasi
+            //     if ($this->_sendEmail($data)) {
+            //         return redirect()->to('/daftar')
+            //             ->with('success', 'Pendaftaran berhasil! Nomor Anggota telah dikirim ke email ' . $data['email']);
+            //     } else {
+            //         // Jika email gagal tapi data masuk, beri peringatan tapi tetap sukses pendaftaran
+            //         return redirect()->to('/daftar')
+            //             ->with('success', 'Pendaftaran berhasil, namun gagal mengirim email. Catat nomor Anda: ' . $nomorAnggota);
+            //     }
+
+            $emailSent = $this->_sendEmail($data);
+
+            return view('home/pages/sukses', [
+                'nama'           => $data['nama_lengkap'],
+                'nomor_anggota'  => $data['nomor_anggota'],
+                'email_terkirim' => $emailSent,
+                'email_user'     => $data['email']
+            ]);
+        }
     }
+
+    // Fungsi Privat untuk Generate Nomor
+    private function _generateNomorAnggota($model)
+    {
+        $tahun = date('Y');
+        $prefix = "LSM-" . $tahun . "-";
+
+        // Cari nomor terakhir di tahun ini
+        $terakhir = $model->like('nomor_anggota', $prefix, 'after')
+            ->orderBy('nomor_anggota', 'DESC')
+            ->first();
+
+        if ($terakhir) {
+            $urut = substr($terakhir['nomor_anggota'], -4); // ambil 4 digit terakhir
+            $nomorBaru = intval($urut) + 1;
+        } else {
+            $nomorBaru = 1;
+        }
+
+        return $prefix . str_pad($nomorBaru, 4, '0', STR_PAD_LEFT);
+    }
+
+
+    private function _sendEmail($data)
+    {
+        $email = \Config\Services::email();
+
+        $config = [
+            'protocol'     => 'smtp',
+            'SMTPHost'     => 'ssl://smtp.gmail.com',
+            'SMTPUser'     => 'ahmadrhanafy87@gmail.com', // Ganti dengan email Anda
+            'SMTPPass'     => 'wcmpvzluyzartsjo',    // Kode 16 digit TANPA SPASI
+            'SMTPPort'     => 465,
+            'SMTPCrypto'   => 'ssl',
+            'mailType'     => 'html',
+            'charset'      => 'utf-8',
+            'newline'      => "\r\n",
+            'CRLF'         => "\r\n",
+            'SMTPKeepAlive' => true,
+            'SMTPTimeout'  => 30,
+        ];
+
+        // if (is_file(ROOTPATH . '.env')) {
+        //     $config['DSN'] = true;
+        // }
+
+        $email->initialize($config);
+
+        $email->setFrom('ahmadrhanafy87@gmail.com', 'Admin LASMURA');
+        $email->setTo($data['email']);
+        $email->setSubject('Nomor Anggota LASMURA DKI Jakarta');
+
+        $message = "Halo <b>{$data['nama_lengkap']}</b>,<br><br>Nomor Anggota Anda: <h2>{$data['nomor_anggota']}</h2>";
+        $email->setMessage($message);
+
+        if ($email->send()) {
+            return true;
+            // echo "Email Berhasil Terkirim!";
+        } else {
+            // echo $email->printDebugger(['headers', 'subject', 'body']);
+            // die();
+
+            return false;
+        }
+    }
+
+    // Fungsi Privat Kirim Email
+    // private function _sendEmail($data)
+    // {
+    //     $email = \Config\Services::email();
+    //     $email->setTo($data['email']);
+    //     $email->setSubject('Nomor Anggota LASMURA DKI Jakarta');
+
+    //     $html = "
+    // <div style='font-family: sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 15px;'>
+    //     <h2 style='color: #ea7e13; text-align: center;'>Halo, {$data['nama_lengkap']}!</h2>
+    //     <p>Pendaftaran Anda telah kami terima. Berikut adalah nomor pendaftaran/anggota Anda:</p>
+    //     <div style='background: #fdf2e9; padding: 15px; text-align: center; border-radius: 10px; border: 2px dashed #ea7e13;'>
+    //         <h1 style='color: #ec1309; margin: 0; letter-spacing: 2px;'>{$data['nomor_anggota']}</h1>
+    //     </div>
+    //     <p style='font-size: 12px; color: #666; margin-top: 20px;'>
+    //         *Gunakan nomor ini untuk memantau status pendaftaran atau melakukan aktivasi setelah disetujui Admin.
+    //     </p>
+    //     <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;'>
+    //     <p style='text-align: center; font-weight: bold;'>LASMURA DKI JAKARTA</p>
+    // </div>
+    // ";
+
+    //     $email->setMessage($html);
+
+    //     if ($email->send()) {
+    //         return true;
+    //     } else {
+    //         log_message('error', $email->printDebugger(['headers']));
+    //         return false;
+    //     }
+    // }
 }

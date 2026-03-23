@@ -39,6 +39,13 @@
             </div>
         <?php endif; ?>
 
+        <?php if (session()->getFlashdata('success')): ?>
+            <div id="alert-flash" class="flex items-center bg-success-50 text-success-700 p-4 rounded-xl mb-6 text-xs border border-success-100 animate-pulse">
+                <i class="fa-solid fa-circle-check text-sm mr-3"></i>
+                <span class="font-medium"><?= session()->getFlashdata('success') ?></span>
+            </div>
+        <?php endif; ?>
+
         <form method="post" action="<?= base_url('aktivasi') ?>" class="space-y-5">
             <?= csrf_field() ?>
 
@@ -52,12 +59,13 @@
             </div>
 
             <div>
-                <label class="block text-xs font-bold text-gray-700 mb-1.5 ml-1 uppercase tracking-wider">NIK (Nomor Induk Kependudukan)</label>
+                <label class="block text-xs font-bold text-gray-700 mb-1.5 ml-1 uppercase tracking-wider">Nomor Anggota</label>
                 <div class="relative flex items-center">
-                    <i class="fa-solid fa-id-card absolute left-4 text-gray-400 text-xs"></i>
-                    <input type="text" name="nik" required placeholder="16 Digit NIK"
+                    <i class="fa-solid fa-user-tag absolute left-4 text-gray-400 text-xs"></i>
+                    <input type="text" name="nomor_anggota" required placeholder="LSM-2026-XXXX"
                         class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-[#ea7e13] transition-all bg-gray-50/50">
                 </div>
+                <p class="text-[10px] text-gray-400 mt-1">* Masukkan nomor anggota yang Anda terima di email pendaftaran.</p>
             </div>
 
             <div>

@@ -53,30 +53,35 @@ class Pendaftaran extends BaseController
 
         $pendaftar = $pendaftaranModel->find($id);
 
+        // Validasi data
         if (!$pendaftar || $pendaftar['status'] !== 'menunggu') {
-            return redirect()->back()->with('error', 'Data tidak valid');
+            return redirect()->back()->with('error', 'Data tidak valid atau sudah diproses.');
         }
 
+        // 1. Pindahkan data ke tabel users
+        // Sertakan 'nomor_anggota' yang diambil dari tabel pendaftaran_anggota
         $userModel->insert([
-            'nama_lengkap' => $pendaftar['nama_lengkap'],
-            'username'     => $pendaftar['username'],
-            'nik'          => $pendaftar['nik'],
-            'role'         => 'anggota',
-            'status'       => 'aktif',
-            'password'     => null,
-            'created_at'   => date('Y-m-d H:i:s')
+            'nama_lengkap'  => $pendaftar['nama_lengkap'],
+            'username'      => $pendaftar['username'],
+            'nomor_anggota' => $pendaftar['nomor_anggota'], // Ambil dari pendaftaran
+            'nik'           => $pendaftar['nik'],
+            'role'          => 'anggota',
+            'status'        => 'aktif',
+            'password'      => null, // User perlu aktivasi/set password nanti
+            'created_at'    => date('Y-m-d H:i:s')
         ]);
 
+        // 2. Update status di tabel pendaftaran_anggota
         $pendaftaranModel->update($id, [
             'status' => 'diterima'
         ]);
 
         logAktivitas(
             'Penerimaan Anggota',
-            'Admin menerima pendaftaran anggota: ' . $pendaftar['nama_lengkap']
+            'Admin menerima pendaftaran anggota: ' . $pendaftar['nama_lengkap'] . ' (' . $pendaftar['nomor_anggota'] . ')'
         );
 
-        return redirect()->back()->with('success', 'Pendaftaran berhasil diterima');
+        return redirect()->back()->with('success', 'Pendaftaran berhasil diterima dan akun anggota telah dibuat.');
     }
 
     public function tolak($id)

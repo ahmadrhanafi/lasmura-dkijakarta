@@ -79,16 +79,16 @@
                     </button>
 
                     <div id="aboutMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                        <a href="<?= base_url('/tentang/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <i class="fa-solid fa-circle-info text-slate-400 w-4"></i>
+                        <a href="<?= base_url('/tentang-kami') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Tentang Kami</span>
                         </a>
-                        <a href="<?= base_url('/struktur') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <i class="fa-solid fa-sitemap text-slate-400 w-4"></i>
+                        <a href="<?= base_url('/struktur-manajemen') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Struktur Manajemen</span>
                         </a>
-                        <a href="<?= base_url('/tentang/ad-art') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <i class="fa-solid fa-file-contract text-slate-400 w-4"></i>
+                        <a href="<?= base_url('/laporan-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Laporan Organisasi</span>
                         </a>
                     </div>

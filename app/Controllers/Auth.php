@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\PendaftaranModel;
 
 class Auth extends BaseController
 {
@@ -18,58 +19,68 @@ class Auth extends BaseController
     public function attemptLogin()
     {
         $userModel = new UserModel();
+        $pendaftaranModel = new PendaftaranModel();
 
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $loginIdentity = $this->request->getPost('username');
+        $password      = $this->request->getPost('password');
 
+        // 1. Cek dulu di tabel Users (Akun yang sudah resmi/aktif)
         $user = $userModel
-            ->where('username', $username)
-            ->where('status', 'aktif')
+            ->groupStart()
+            ->where('username', $loginIdentity)
+            ->orWhere('nomor_anggota', $loginIdentity)
+            ->groupEnd()
             ->first();
 
+        // 2. Jika tidak ada di tabel Users, cek di tabel Pendaftaran
         if (!$user) {
-            return redirect()->back()->with('error', 'Username yang Anda masukkan tidak ditemukan atau belum disetujui oleh admin');
+            $pendaftar = $pendaftaranModel->where('username', $loginIdentity)->first();
+
+            if ($pendaftar) {
+                if ($pendaftar['status'] === 'menunggu') {
+                    return redirect()->back()->with('error', 'Pendaftaran Anda masih dalam tahap moderasi Admin. Mohon tunggu beberapa saat lagi.');
+                }
+                if ($pendaftar['status'] === 'ditolak') {
+                    return redirect()->back()->with('error', 'Mohon maaf, pendaftaran Anda ditolak. Silakan hubungi admin untuk informasi lebih lanjut.');
+                }
+            }
+
+            return redirect()->back()->with('error', 'Username atau Nomor Anggota tidak ditemukan.');
         }
 
-        // 🔐 BELUM AKTIVASI (password NULL)
+        // 3. Jika user ada tapi statusnya tidak aktif (misal diblokir)
+        if ($user['status'] !== 'aktif') {
+            return redirect()->back()->with('error', 'Akun Anda telah dinonaktifkan.');
+        }
+
+        // 4. Logika Aktivasi (Password NULL)
         if (is_null($user['password'])) {
-
             session()->set([
-                'id_user'          => $user['id_user'],
-                'username'         => $user['username'],
-                'need_activation'  => true
+                'id_user'         => $user['id_user'],
+                'username'        => $user['username'],
+                'nomor_anggota'   => $user['nomor_anggota'],
+                'need_activation' => true
             ]);
-            // dd(session()->get());
-            return redirect()->to('/aktivasi');
+            return redirect()->to('/aktivasi')->with('success', 'Akun ditemukan! Silakan lakukan aktivasi password.');
         }
 
-        // 🔐 SUDAH AKTIVASI → WAJIB PASSWORD
+        // 5. Verifikasi Password (Untuk yang sudah aktivasi)
         if (empty($password) || !password_verify($password, $user['password'])) {
-            return redirect()->back()->with('error', 'Password salah');
+            return redirect()->back()->with('error', 'Password salah.');
         }
 
+        // 6. Set Session Login Full
         session()->set([
-            'id_user'          => $user['id_user'],
-            'username'         => $user['username'],
-            'nama_lengkap'     => $user['nama_lengkap'],
-            'role'             => $user['role'],
-            'logged_in'        => true,
-            'need_activation'  => false
+            'id_user'      => $user['id_user'],
+            'username'     => $user['username'],
+            'nama_lengkap' => $user['nama_lengkap'],
+            'role'         => $user['role'],
+            'logged_in'    => true
         ]);
 
-        if (in_array($user['role'], ['super_admin', 'admin'])) {
-            return redirect()->to('/admin/dashboard');
-        }
-
-        // if ($user['role'] === 'super_admin') {
-        //     return redirect()->to('/super-admin/dashboard');
-        // }
-
-        // if ($user['role'] === 'admin') {
-        //     return redirect()->to('/admin/dashboard');
-        // }
-
-        return redirect()->to('/');
+        return (in_array($user['role'], ['super_admin', 'admin']))
+            ? redirect()->to('/admin/dashboard')
+            : redirect()->to('/');
     }
 
     public function aktivasi()
@@ -87,43 +98,46 @@ class Auth extends BaseController
 
     public function prosesAktivasi()
     {
+        // 1. Pastikan user memang sedang dalam status 'need_activation'
         if (!session()->get('need_activation')) {
-            return redirect()->to('/');
+            return redirect()->to('/login');
         }
 
-        $username = $this->request->getPost('username');
-        $nik      = $this->request->getPost('nik');
-        $password = $this->request->getPost('password');
-        $confirm  = $this->request->getPost('password_confirm');
+        // 2. Ambil input dari form aktivasi
+        $username      = $this->request->getPost('username');
+        $nomorAnggota  = $this->request->getPost('nomor_anggota'); // Ganti NIK jadi Nomor Anggota
+        $password      = $this->request->getPost('password');
+        $confirm       = $this->request->getPost('password_confirm');
 
+        // 3. Validasi Password Match
         if ($password !== $confirm) {
-            return redirect()->back()->with('error', 'Password tidak cocok');
+            return redirect()->back()->with('error', 'Konfirmasi password tidak cocok');
         }
 
         $userModel = new UserModel();
 
+        // 4. Verifikasi Data: Cocokkan ID (dari session) dengan Username & Nomor Anggota
         $user = $userModel
             ->where('id_user', session()->get('id_user'))
             ->where('username', $username)
-            ->where('nik', $nik)
-            ->where('password', null)
+            ->where('nomor_anggota', $nomorAnggota) // Validasi kunci di sini
+            ->where('password', null) // Pastikan memang belum pernah aktivasi
             ->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Data aktivasi tidak valid');
+            return redirect()->back()->with('error', 'Data aktivasi (Username atau Nomor Anggota) tidak valid');
         }
 
-        // ✅ set password
+        // 5. Update Password (Hash)
         $userModel->update($user['id_user'], [
             'password' => password_hash($password, PASSWORD_DEFAULT),
         ]);
 
-        // 🔴 LOGOUT PAKSA SETELAH AKTIVASI
+        // 6. Bersihkan Session Aktivasi
         session()->remove(['id_user', 'username', 'role', 'logged_in', 'need_activation']);
-        // session()->destroy();
 
         return redirect()->to('/login')
-            ->with('success', 'Selamat, aktivasi akun berhasil. Silakan login dengan password baru.');
+            ->with('success', 'Selamat, akun Anda berhasil diaktivasi. Silakan login menggunakan password baru Anda.');
     }
 
     public function logout()

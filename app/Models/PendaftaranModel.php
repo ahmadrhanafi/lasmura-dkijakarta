@@ -13,6 +13,7 @@ class PendaftaranModel extends Model
         'nama_lengkap',
         'username',
         'nik',
+        'nomor_anggota',
         'jenis_kelamin',
         'tanggal_lahir',
         'no_hp',
