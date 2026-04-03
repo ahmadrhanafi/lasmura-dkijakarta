@@ -83,9 +83,9 @@
                             <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Tentang Kami</span>
                         </a>
-                        <a href="<?= base_url('/struktur-manajemen') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                        <a href="<?= base_url('/struktur-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Struktur Manajemen</span>
+                            <span class="normal-case font-medium">Struktur Organisasi</span>
                         </a>
                         <a href="<?= base_url('/laporan-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
@@ -93,21 +93,77 @@
                         </a>
                     </div>
                 </div>
-                <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Kegiatan</a>
-                <a href="<?= base_url('/berita') ?>" class="nav-link">Berita</a>
-                <a href="<?= base_url('/galeri') ?>" class="nav-link">Galeri</a>
+                <div class="relative group">
+                    <button id="keanggotaanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Keanggotaan</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="keanggotaanChevron"></i>
+                    </button>
+
+                    <div id="keanggotaanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/anggota-terdaftar') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Anggota Terdaftar</span>
+                        </a>
+                        <a href="<?= base_url('/alur-pendaftaran') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Alur Pendaftaran</span>
+                        </a>
+                        <a href="<?= base_url('/daftar-anggota') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Daftar Anggota</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button id="programBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Program</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="programChevron"></i>
+                    </button>
+
+                    <div id="programMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/program-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Program Unggulan</span>
+                        </a>
+                        <a href="<?= base_url('/agenda-bulanan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Agenda Bulanan</span>
+                        </a>
+                        <a href="<?= base_url('/laporan-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Laporan Kegiatan</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button id="mediaBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Media</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="mediaChevron"></i>
+                    </button>
+
+                    <div id="mediaMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/berita') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Berita Terbaru</span>
+                        </a>
+                        <a href="<?= base_url('/galeri-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Galeri Kegiatan</span>
+                        </a>
+                        <a href="<?= base_url('/pengumuman') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Pengumuman</span>
+                        </a>
+                    </div>
+                </div>
 
                 <div class="h-6 w-[1px] bg-white/20 mx-2"></div>
 
                 <?php if (!session()->get('logged_in')): ?>
                     <div class="flex items-center space-x-8">
                         <a href="<?= base_url('/login') ?>"
-                            class="hover:text-white/80 transition-colors">
-                            Login
-                        </a>
-                        <a href="<?= base_url('/daftar') ?>"
                             class="bg-white text-[#ea7e13] px-4 py-1.5 rounded shadow-md hover:bg-slate-100 active:scale-95 transition-all">
-                            Daftar Anggota
+                            Portal Login
                         </a>
                     </div>
 
@@ -161,52 +217,80 @@
             </button>
         </div>
 
-        <div id="menu" class="hidden lg:hidden bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
-            <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
-                <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
-                <div class="space-y-4">
-                    <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                        Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
-                    </button>
-                    <div id="mobileAboutMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                        <a href="<?= base_url('/tentang/profil') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Tentang Kami</a>
-                        <a href="<?= base_url('/struktur') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Manajemen</a>
-                        <a href="<?= base_url('/tentang/ad-art') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Organisasi</a>
-                    </div>
-                </div>
-                <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
-                <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
-                <a href="<?= base_url('/galeri') ?>" class="block hover:text-[#ec1309]">Galeri</a>
-            </div>
-
-            <hr class="border-slate-100">
-
-            <?php if (!session()->get('logged_in')): ?>
-                <div class="grid grid-cols-2 gap-4 p-5 mb-3">
-                    <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
-                    <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
-                </div>
-            <?php else: ?>
-                <div class="space-y-4 p-4">
-                    <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                        <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                            <span class="uppercase text-md font-bold">Profil</span>
-                        </a>
-                    <?php endif; ?>
-                    <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                        <a href="<?= base_url('/admin/dashboard') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                            <span class="text-slate-400">Dashboard</span>
-                        </a>
-                    <?php endif; ?>
-                    <a href="<?= base_url('/logout') ?>"
-                        class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
-                        onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
-                        Logout
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
     </header>
+
+    <div id="menu" class="hidden lg:hidden fixed top-0 w-full z-[100] mt-[72px] bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
+        <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
+            <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
+            <div class="space-y-4">
+                <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
+                </button>
+                <div id="mobileAboutMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Tentang Kami</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Organisasi</a>
+                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Organisasi</a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <button onclick="toggleMobileKeanggotaan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Keanggotaan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKeanggotaanChevron"></i>
+                </button>
+                <div id="mobileKeanggotaanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Anggota Terdaftar</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Alur Pendaftaran</a>
+                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Mendaftar Anggota</a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <button onclick="toggleMobileProgram()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Program <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileProgramChevron"></i>
+                </button>
+                <div id="mobileProgramMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Program Unggulan</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Agenda Kegiatan</a>
+                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Kegiatan</a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <button onclick="toggleMobileMedia()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Media <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileMediaChevron"></i>
+                </button>
+                <div id="mobileMediaMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Berita Terbaru</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Galeri Kegiatan</a>
+                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Pengumuman</a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-slate-100">
+
+        <?php if (!session()->get('logged_in')): ?>
+            <div class="grid grid-cols-2 gap-4 p-5">
+                <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
+                <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
+            </div>
+        <?php else: ?>
+            <div class="space-y-4 p-4">
+                <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                    <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                        <span class="uppercase text-md font-bold">Profil</span>
+                    </a>
+                <?php endif; ?>
+                <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                    <a href="<?= base_url('/admin/dashboard') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                        <span class="text-slate-400">Dashboard</span>
+                    </a>
+                <?php endif; ?>
+                <a href="<?= base_url('/logout') ?>"
+                    class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
+                    onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
+                    Logout
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <?php if (ENVIRONMENT === 'development' && session()->get('logged_in')): ?>
         <div class="fixed bottom-4 right-4 z-[999]">
@@ -225,6 +309,18 @@
         const aboutMenu = document.getElementById('aboutMenu');
         const aboutChevron = document.getElementById('aboutChevron');
 
+        const keanggotaanBtn = document.getElementById('keanggotaanBtn');
+        const keanggotaanMenu = document.getElementById('keanggotaanMenu');
+        const keanggotaanChevron = document.getElementById('keanggotaanChevron');
+
+        const programBtn = document.getElementById('programBtn');
+        const programMenu = document.getElementById('programMenu');
+        const programChevron = document.getElementById('programChevron');
+
+        const mediaBtn = document.getElementById('mediaBtn');
+        const mediaMenu = document.getElementById('mediaMenu');
+        const mediaChevron = document.getElementById('mediaChevron');
+
         // 2. Dropdown Tentang Desktop
         if (aboutBtn) {
             aboutBtn.addEventListener('click', function(e) {
@@ -237,6 +333,39 @@
                 aboutChevron.classList.toggle('rotate-180');
             });
         }
+        if (keanggotaanBtn) {
+            keanggotaanBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Tutup menu profil jika terbuka
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                keanggotaanMenu.classList.toggle('hidden');
+                keanggotaanChevron.classList.toggle('rotate-180');
+            });
+        }
+        if (programBtn) {
+            programBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Tutup menu profil jika terbuka
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                programMenu.classList.toggle('hidden');
+                programChevron.classList.toggle('rotate-180');
+            });
+        }
+        if (mediaBtn) {
+            mediaBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Tutup menu profil jika terbuka
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                mediaMenu.classList.toggle('hidden');
+                mediaChevron.classList.toggle('rotate-180');
+            });
+        }
 
         // 3. Dropdown Profil Desktop
         if (profileBtn) {
@@ -245,6 +374,12 @@
                 // Tutup menu tentang jika terbuka
                 if (aboutMenu) aboutMenu.classList.add('hidden');
                 if (aboutChevron) aboutChevron.classList.remove('rotate-180');
+                if (keanggotaanMenu) keanggotaanMenu.classList.add('hidden');
+                if (keanggotaanChevron) keanggotaanChevron.classList.remove('rotate-180');
+                if (programMenu) programMenu.classList.add('hidden');
+                if (programChevron) programChevron.classList.remove('rotate-180');
+                if (mediaMenu) mediaMenu.classList.add('hidden');
+                if (mediaChevron) mediaChevron.classList.remove('rotate-180');
 
                 profileMenu.classList.toggle('hidden');
                 chevron.classList.toggle('rotate-180');
@@ -257,6 +392,18 @@
                 aboutMenu.classList.add('hidden');
                 aboutChevron.classList.remove('rotate-180');
             }
+            if (keanggotaanMenu) {
+                keanggotaanMenu.classList.add('hidden');
+                keanggotaanChevron.classList.remove('rotate-180');
+            }
+            if (programMenu) {
+                programMenu.classList.add('hidden');
+                programChevron.classList.remove('rotate-180');
+            }
+            if (mediaMenu) {
+                mediaMenu.classList.add('hidden');
+                mediaChevron.classList.remove('rotate-180');
+            }
             if (profileMenu) {
                 profileMenu.classList.add('hidden');
                 chevron.classList.remove('rotate-180');
@@ -267,6 +414,24 @@
         function toggleMobileAbout() {
             const mobileMenu = document.getElementById('mobileAboutMenu');
             const mobileChevron = document.getElementById('mobileAboutChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+        function toggleMobileKeanggotaan() {
+            const mobileMenu = document.getElementById('mobileKeanggotaanMenu');
+            const mobileChevron = document.getElementById('mobileKeanggotaanChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+        function toggleMobileProgram() {
+            const mobileMenu = document.getElementById('mobileProgramMenu');
+            const mobileChevron = document.getElementById('mobileProgramChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+        function toggleMobileMedia() {
+            const mobileMenu = document.getElementById('mobileMediaMenu');
+            const mobileChevron = document.getElementById('mobileMediaChevron');
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }

@@ -18,7 +18,7 @@ $routes->get('/berita', 'Homepage\Berita::index');
 $routes->get('/berita/cari', 'Homepage\Berita::search');
 $routes->get('/berita/(:segment)', 'Homepage\Berita::detail/$1');
 $routes->get('/tentang-kami', 'Homepage\Home::tentang');
-$routes->get('/struktur-manajemen', 'Homepage\Home::struktur');
+$routes->get('/struktur-organisasi', 'Homepage\Home::struktur');
 $routes->get('/laporan-organisasi', 'Homepage\Home::laporan');
 $routes->get('/daftar', 'Homepage\Pendaftaran::index');
 $routes->post('/daftar/simpan', 'Homepage\Pendaftaran::simpan');
