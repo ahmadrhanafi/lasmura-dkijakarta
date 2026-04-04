@@ -54,7 +54,7 @@
 <body class="bg-slate-50 text-slate-800">
 
     <header class="fixed top-0 w-full z-[100] header-solid text-white">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center transition-all duration-500">
 
             <a href="<?= base_url('/') ?>" class="flex items-center space-x-3 group">
                 <div class="bg-white p-1.5 rounded-lg shadow-inner group-hover:scale-110 transition-transform">
@@ -68,22 +68,98 @@
 
             <nav class="hidden lg:flex space-x-8 items-center text-[13px] font-semibold uppercase tracking-wider">
                 <a href="<?= base_url('/') ?>" class="nav-link">Beranda</a>
-                <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Kegiatan</a>
-                <a href="<?= base_url('/berita') ?>" class="nav-link">Berita</a>
-                <a href="<?= base_url('/tentang') ?>" class="nav-link">Tentang</a>
-                <a href="<?= base_url('/struktur') ?>" class="nav-link">Struktur</a>
+                <div class="relative group">
+                    <button id="aboutBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Profil</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="aboutChevron"></i>
+                    </button>
+
+                    <div id="aboutMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/tentang-kami') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Tentang Kami</span>
+                        </a>
+                        <a href="<?= base_url('/struktur-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Struktur Organisasi</span>
+                        </a>
+                        <a href="<?= base_url('/laporan-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Laporan Organisasi</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button id="keanggotaanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Keanggotaan</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="keanggotaanChevron"></i>
+                    </button>
+
+                    <div id="keanggotaanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/anggota-terdaftar') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Anggota Terdaftar</span>
+                        </a>
+                        <a href="<?= base_url('/alur-pendaftaran') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Alur Pendaftaran</span>
+                        </a>
+                        <a href="<?= base_url('/daftar-anggota') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Daftar Anggota</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button id="programBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Program</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="programChevron"></i>
+                    </button>
+
+                    <div id="programMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/program-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Program Unggulan</span>
+                        </a>
+                        <a href="<?= base_url('/agenda-bulanan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Agenda Bulanan</span>
+                        </a>
+                        <a href="<?= base_url('/laporan-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Laporan Kegiatan</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button id="mediaBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Media</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="mediaChevron"></i>
+                    </button>
+
+                    <div id="mediaMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/berita') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Berita Terbaru</span>
+                        </a>
+                        <a href="<?= base_url('/galeri-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Galeri Kegiatan</span>
+                        </a>
+                        <a href="<?= base_url('/pengumuman') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Pengumuman</span>
+                        </a>
+                    </div>
+                </div>
 
                 <div class="h-6 w-[1px] bg-white/20 mx-2"></div>
 
                 <?php if (!session()->get('logged_in')): ?>
                     <div class="flex items-center space-x-8">
                         <a href="<?= base_url('/login') ?>"
-                            class="hover:text-white/80 transition-colors">
-                            Login
-                        </a>
-                        <a href="<?= base_url('/daftar') ?>"
                             class="bg-white text-[#ea7e13] px-4 py-1.5 rounded shadow-md hover:bg-slate-100 active:scale-95 transition-all">
-                            Daftar Anggota
+                            Portal Login
                         </a>
                     </div>
 
@@ -100,19 +176,30 @@
 
                         <div id="profileMenu"
                             class="hidden absolute right-0 mt-3 w-56 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                            <div class="px-4 py-2 border-b border-slate-50 mb-1">
-                                <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Akun Saya</p>
-                            </div>
-                            <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                <i class="fa-solid fa-id-badge text-slate-400 w-5 text-center"></i>
-                                <span>Lihat Profil</span>
-                            </a>
-                            <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                <i class="fa-solid fa-address-card text-slate-400 w-5 text-center"></i>
-                                <span>Cetak KTA</span>
-                            </a>
+                            <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <div class="px-4 py-2 border-b border-slate-50 mb-1">
+                                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Akun Saya</p>
+                                </div>
+                                <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-id-badge text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Lihat Profil</span>
+                                </a>
+                                <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-address-card text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Cetak KTA</span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <a href="<?= base_url('/admin/dashboard') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                    <i class="fa-solid fa-gauge text-slate-400 w-5 text-center"></i>
+                                    <span class="text-slate-400">Dashboard</span>
+                                </a>
+                            <?php endif; ?>
                             <div class="border-t border-slate-50 my-1"></div>
-                            <a href="<?= base_url('/logout') ?>" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 transition-colors">
+
+                            <a href="<?= base_url('/logout') ?>" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 transition-colors"
+                                onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
                                 <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
                                 <span class="font-bold">Logout</span>
                             </a>
@@ -125,32 +212,6 @@
                 <i class="fa-solid fa-bars text-md" id="menuIcon"></i>
             </button>
         </div>
-
-        <div id="menu" class="hidden lg:hidden bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
-            <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
-                <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
-                <a href="#" class="block hover:text-[#ec1309]">Kegiatan</a>
-                <a href="#" class="block hover:text-[#ec1309]">Berita</a>
-                <a href="#" class="block hover:text-[#ec1309]">Tentang</a>
-
-                <hr class="border-slate-100">
-
-                <?php if (!session()->get('logged_in')): ?>
-                    <div class="grid grid-cols-2 gap-4 pt-2">
-                        <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
-                        <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
-                    </div>
-                <?php else: ?>
-                    <div class="space-y-4">
-                        <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl">
-                            <i class="fa-solid fa-circle-user text-[#ea7e13]"></i>
-                            <span class="normal-case uppercase tracking-widest text-xs font-bold">Profil</span>
-                        </a>
-                        <a href="<?= base_url('/logout') ?>" class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold">Logout</a>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
     </header>
 
     <?php if (ENVIRONMENT === 'development' && session()->get('logged_in')): ?>
@@ -161,29 +222,151 @@
     <?php endif; ?>
 
     <script>
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('mainHeader');
-            const scrollIcon = document.querySelector('.animate-bounce'); // Icon panah bawah
+        // 1. Deklarasi Elemen (Posisikan di paling atas)
+        const profileBtn = document.getElementById('profileBtn');
+        const profileMenu = document.getElementById('profileMenu');
+        const chevron = document.getElementById('chevronIcon');
 
-            if (window.scrollY > 50) {
-                // Efek saat scroll ke bawah
-                header.classList.add('header-active', 'backdrop-blur-md');
-                header.classList.remove('border-white/10');
-                // Perkecil padding container
-                header.querySelector('.max-w-7xl').classList.replace('py-4', 'py-2');
+        const aboutBtn = document.getElementById('aboutBtn');
+        const aboutMenu = document.getElementById('aboutMenu');
+        const aboutChevron = document.getElementById('aboutChevron');
 
-                if (scrollIcon) scrollIcon.style.opacity = '0'; // Sembunyikan panah saat scroll
-            } else {
-                // Kembali ke transparan saat di paling atas
-                header.classList.remove('header-active', 'backdrop-blur-md');
-                header.classList.add('border-white/10');
-                header.querySelector('.max-w-7xl').classList.replace('py-2', 'py-4');
+        const keanggotaanBtn = document.getElementById('keanggotaanBtn');
+        const keanggotaanMenu = document.getElementById('keanggotaanMenu');
+        const keanggotaanChevron = document.getElementById('keanggotaanChevron');
 
-                if (scrollIcon) scrollIcon.style.opacity = '1';
+        const programBtn = document.getElementById('programBtn');
+        const programMenu = document.getElementById('programMenu');
+        const programChevron = document.getElementById('programChevron');
+
+        const mediaBtn = document.getElementById('mediaBtn');
+        const mediaMenu = document.getElementById('mediaMenu');
+        const mediaChevron = document.getElementById('mediaChevron');
+
+        // 2. Dropdown Tentang Desktop
+        if (aboutBtn) {
+            aboutBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                aboutMenu.classList.toggle('hidden');
+                aboutChevron.classList.toggle('rotate-180');
+            });
+        }
+        if (keanggotaanBtn) {
+            keanggotaanBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                keanggotaanMenu.classList.toggle('hidden');
+                keanggotaanChevron.classList.toggle('rotate-180');
+            });
+        }
+        if (programBtn) {
+            programBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                programMenu.classList.toggle('hidden');
+                programChevron.classList.toggle('rotate-180');
+            });
+        }
+        if (mediaBtn) {
+            mediaBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (profileMenu) profileMenu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+
+                mediaMenu.classList.toggle('hidden');
+                mediaChevron.classList.toggle('rotate-180');
+            });
+        }
+
+        // 3. Dropdown Profil Desktop
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (aboutMenu) aboutMenu.classList.add('hidden');
+                if (aboutChevron) aboutChevron.classList.remove('rotate-180');
+                if (keanggotaanMenu) keanggotaanMenu.classList.add('hidden');
+                if (keanggotaanChevron) keanggotaanChevron.classList.remove('rotate-180');
+                if (programMenu) programMenu.classList.add('hidden');
+                if (programChevron) programChevron.classList.remove('rotate-180');
+                if (mediaMenu) mediaMenu.classList.add('hidden');
+                if (mediaChevron) mediaChevron.classList.remove('rotate-180');
+
+                profileMenu.classList.toggle('hidden');
+                chevron.classList.toggle('rotate-180');
+            });
+        }
+
+        // 4. Klik di Luar (Global Close)
+        document.addEventListener('click', function() {
+            if (aboutMenu) {
+                aboutMenu.classList.add('hidden');
+                aboutChevron.classList.remove('rotate-180');
+            }
+            if (keanggotaanMenu) {
+                keanggotaanMenu.classList.add('hidden');
+                keanggotaanChevron.classList.remove('rotate-180');
+            }
+            if (programMenu) {
+                programMenu.classList.add('hidden');
+                programChevron.classList.remove('rotate-180');
+            }
+            if (mediaMenu) {
+                mediaMenu.classList.add('hidden');
+                mediaChevron.classList.remove('rotate-180');
+            }
+            if (profileMenu) {
+                profileMenu.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
             }
         });
 
-        // Menu Mobile Toggle
+        // 5. Sisa Logika (Mobile & Scroll)
+        function toggleMobileAbout() {
+            const mobileMenu = document.getElementById('mobileAboutMenu');
+            const mobileChevron = document.getElementById('mobileAboutChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+
+        function toggleMobileKeanggotaan() {
+            const mobileMenu = document.getElementById('mobileKeanggotaanMenu');
+            const mobileChevron = document.getElementById('mobileKeanggotaanChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+
+        function toggleMobileProgram() {
+            const mobileMenu = document.getElementById('mobileProgramMenu');
+            const mobileChevron = document.getElementById('mobileProgramChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+
+        function toggleMobileMedia() {
+            const mobileMenu = document.getElementById('mobileMediaMenu');
+            const mobileChevron = document.getElementById('mobileMediaChevron');
+            mobileMenu.classList.toggle('hidden');
+            mobileChevron.classList.toggle('rotate-180');
+        }
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('header-active', 'backdrop-blur-md');
+                header.querySelector('.max-w-7xl').classList.replace('py-4', 'py-2');
+            } else {
+                header.classList.remove('header-active', 'backdrop-blur-md');
+                header.querySelector('.max-w-7xl').classList.replace('py-2', 'py-4');
+            }
+        });
+
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('menu');
         const menuIcon = document.getElementById('menuIcon');
@@ -193,22 +376,4 @@
             menuIcon.classList.toggle('fa-bars');
             menuIcon.classList.toggle('fa-xmark');
         });
-
-        // Dropdown Profil Desktop
-        const profileBtn = document.getElementById('profileBtn');
-        const profileMenu = document.getElementById('profileMenu');
-        const chevron = document.getElementById('chevronIcon');
-
-        if (profileBtn) {
-            profileBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                profileMenu.classList.toggle('hidden');
-                chevron.classList.toggle('rotate-180');
-            });
-
-            document.addEventListener('click', function() {
-                profileMenu.classList.add('hidden');
-                chevron.classList.remove('rotate-180');
-            });
-        }
     </script>

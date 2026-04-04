@@ -325,7 +325,6 @@
         if (aboutBtn) {
             aboutBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Tutup menu profil jika terbuka
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
@@ -336,7 +335,6 @@
         if (keanggotaanBtn) {
             keanggotaanBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Tutup menu profil jika terbuka
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
@@ -347,7 +345,6 @@
         if (programBtn) {
             programBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Tutup menu profil jika terbuka
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
@@ -358,7 +355,6 @@
         if (mediaBtn) {
             mediaBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Tutup menu profil jika terbuka
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
@@ -371,7 +367,6 @@
         if (profileBtn) {
             profileBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Tutup menu tentang jika terbuka
                 if (aboutMenu) aboutMenu.classList.add('hidden');
                 if (aboutChevron) aboutChevron.classList.remove('rotate-180');
                 if (keanggotaanMenu) keanggotaanMenu.classList.add('hidden');
@@ -417,18 +412,21 @@
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }
+
         function toggleMobileKeanggotaan() {
             const mobileMenu = document.getElementById('mobileKeanggotaanMenu');
             const mobileChevron = document.getElementById('mobileKeanggotaanChevron');
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }
+
         function toggleMobileProgram() {
             const mobileMenu = document.getElementById('mobileProgramMenu');
             const mobileChevron = document.getElementById('mobileProgramChevron');
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }
+
         function toggleMobileMedia() {
             const mobileMenu = document.getElementById('mobileMediaMenu');
             const mobileChevron = document.getElementById('mobileMediaChevron');
