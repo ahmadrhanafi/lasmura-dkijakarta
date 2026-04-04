@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
 
-    <link rel="shortcut icon" href="<?= base_url('assets/favicon/lasmura.ico') ?>" type="image/x-icon">
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/favicon/lasmura.ico?v=1.1') ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
+    <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon">
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/logo/lasmura.png') ?>"> -->
+    <link rel="apple-touch-icon" href="<?= base_url('assets/logo/lasmura.png') ?>">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
