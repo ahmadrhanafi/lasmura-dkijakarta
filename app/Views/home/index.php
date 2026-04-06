@@ -68,8 +68,8 @@
                     <i class="fa-solid fa-users text-gray-300 text-8xl"></i>
                 </div>
                 <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl hidden md:block">
-                    <div class="text-[#ec1309] font-bold text-2xl tracking-tighter">1000+</div>
-                    <div class="text-gray-400 text-xs uppercase font-bold tracking-widest">Kader Aktif</div>
+                    <div class="text-[#ec1309] font-bold text-2xl tracking-tighter">100+</div>
+                    <div class="text-gray-400 text-xs uppercase font-bold tracking-widest">Anggota Aktif</div>
                 </div>
             </div>
         </div>
@@ -119,16 +119,16 @@
                 <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Wilayah Kerja</div>
             </div>
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">1000+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Kader Aktif</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-white">100+</div>
+                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Anggota Aktif</div>
             </div>
             <div class="space-y-2">
                 <div class="text-4xl md:text-5xl font-extrabold text-white">50+</div>
                 <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Program Kerja</div>
             </div>
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">10K+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Masyarakat Terbantu</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-white">10+</div>
+                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Aksi Sosial</div>
             </div>
         </div>
     </div>
@@ -141,7 +141,7 @@
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Kegiatan Utama</h2>
                 <p class="text-gray-500">Ikuti berbagai agenda dan aksi nyata Laskar Muda Hanura dalam membangun Jakarta.</p>
             </div>
-            <a href="<?= base_url('/kegiatan') ?>" class="text-[#ec1309] font-bold flex items-center gap-2 hover:gap-4 transition-all">
+            <a href="<?= base_url('/kegiatan') ?>" class="text-[#ea7e13] font-bold flex items-center gap-2 hover:gap-4 transition-all">
                 Lihat Semua Kegiatan <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
@@ -232,8 +232,10 @@
 <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between mb-12">
-            <h2 class="text-3xl font-bold text-slate-900">Kabar Pilihan</h2>
-            <a href="<?= base_url('/berita') ?>" class="text-sm font-bold text-[#ea7e13] hover:underline">Semua Berita</a>
+            <h2 class="text-3xl font-bold text-slate-900">Berita Terbaru</h2>
+            <a href="<?= base_url('/berita') ?>" class="text-[#ea7e13] font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
