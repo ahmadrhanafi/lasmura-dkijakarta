@@ -17,8 +17,20 @@ class Home extends BaseController
     public function index(): string
     {
         $data = [
-            'title' => 'LASMURA DKI JAKARTA',
+            'title'  => 'LASMURA DKI JAKARTA',
+            'berita' => $this->berita->withUser()
+                ->where('berita.status', 'publish')
+                ->orderBy('berita.created_at', 'DESC')
+                ->limit(3)
+                ->find(),
+            'sponsors' => [
+                ['name' => 'Partai Hanura', 'logo' => 'hanura.png'],
+                ['name' => 'KPU DKI', 'logo' => 'kpu.png'],
+                ['name' => 'Bawaslu', 'logo' => 'bawaslu.png'],
+                ['name' => 'Pemprov DKI', 'logo' => 'jakarta.png'],
+            ]
         ];
+
         return view('home/index', $data);
     }
 
