@@ -4,24 +4,31 @@ namespace App\Controllers\Homepage;
 
 use App\Controllers\BaseController;
 use App\Models\BeritaModel;
+use App\Models\KegiatanModel;
 
 class Home extends BaseController
 {
     protected $berita;
+    protected $kegiatan;
 
     public function __construct()
     {
         $this->berita = new BeritaModel();
+        $this->kegiatan = new KegiatanModel();
     }
 
     public function index(): string
     {
         $data = [
             'title'  => 'LASMURA DKI JAKARTA',
+            'kegiatan' => $this->kegiatan->where('status', 'publish')
+                ->orderBy('tanggal_kegiatan', 'DESC')
+                ->limit(3)
+                ->find(),
             'berita' => $this->berita->withUser()
                 ->where('berita.status', 'publish')
                 ->orderBy('berita.created_at', 'DESC')
-                ->limit(3)
+                ->limit(6)
                 ->find(),
             'sponsors' => [
                 ['name' => 'Partai Hanura', 'logo' => 'hanura.png'],

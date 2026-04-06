@@ -139,7 +139,7 @@
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div class="max-w-xl">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Kegiatan Utama</h2>
-                <p class="text-gray-500">Bukan sekadar organisasi politik, kami adalah kawah candradimuka bagi calon pemimpin masa depan Jakarta.</p>
+                <p class="text-gray-500">Ikuti berbagai agenda dan aksi nyata Laskar Muda Hanura dalam membangun Jakarta.</p>
             </div>
             <a href="<?= base_url('/kegiatan') ?>" class="text-[#ec1309] font-bold flex items-center gap-2 hover:gap-4 transition-all">
                 Lihat Semua Kegiatan <i class="fa-solid fa-arrow-right"></i>
@@ -147,32 +147,40 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="relative group overflow-hidden rounded-3xl h-80">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Leadership">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-0 p-8">
-                    <h4 class="text-xl font-bold text-white mb-2">Leadership Training</h4>
-                    <p class="text-white/70 text-sm">Pelatihan intensif manajemen organisasi dan teknik kepemimpinan modern.</p>
-                </div>
-            </div>
+            <?php if (!empty($kegiatan)): ?>
+                <?php foreach ($kegiatan as $item): ?>
+                    <div class="relative group overflow-hidden rounded-3xl h-80 shadow-lg">
+                        <img src="<?= base_url('uploads/kegiatan/' . $item['thumbnail']) ?>"
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            alt="<?= esc($item['judul']) ?>">
 
-            <div class="relative group overflow-hidden rounded-3xl h-80">
-                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Networking">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-0 p-8">
-                    <h4 class="text-xl font-bold text-white mb-2">Political Networking</h4>
-                    <p class="text-white/70 text-sm">Membangun koneksi dengan tokoh nasional dan pengambil kebijakan di Jakarta.</p>
-                </div>
-            </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-            <div class="relative group overflow-hidden rounded-3xl h-80">
-                <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Social">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-0 p-8">
-                    <h4 class="text-xl font-bold text-white mb-2">Social Movement</h4>
-                    <p class="text-white/70 text-sm">Aksi nyata turun ke masyarakat untuk mengadvokasi aspirasi hati nurani rakyat.</p>
+                        <div class="absolute bottom-0 p-8 w-full">
+                            <div class="mb-3">
+                                <span class="bg-white/20 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full border border-white/30 uppercase tracking-widest font-semibold">
+                                    <i class="fa-regular fa-calendar-check mr-1"></i>
+                                    <?= date('d M Y', strtotime($item['tanggal_kegiatan'])) ?>
+                                </span>
+                            </div>
+
+                            <h4 class="text-xl font-bold text-white mb-2 leading-tight">
+                                <a href="<?= base_url('kegiatan/' . $item['slug']) ?>" class="hover:text-[#ea7e13] transition-colors">
+                                    <?= esc($item['judul']) ?>
+                                </a>
+                            </h4>
+
+                            <p class="text-white/70 text-sm line-clamp-2">
+                                <?= esc($item['deskripsi']) ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-span-full py-10 text-center text-gray-400">
+                    <p>Belum ada kegiatan saat ini.</p>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -181,7 +189,7 @@
     <div class="max-w-7xl mx-auto px-6">
 
         <div class="text-center mb-12">
-            <h2 class="text-sm uppercase tracking-[0.2em] font-bold text-slate-400 mb-2">Bekerja Sama Dengan</h2>
+            <h2 class="text-sm uppercase tracking-[0.2em] font-bold text-slate-400 mb-2">Partners</h2>
             <div class="h-1 w-12 bg-[#ea7e13] mx-auto rounded-full"></div>
         </div>
 
@@ -221,63 +229,38 @@
     </div>
 </section>
 
-<section class="py-24 bg-slate-50">
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
-            <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Berita Terbaru</h2>
-                <p class="text-slate-500 text-sm md:text-base">Ikuti perkembangan gerakan dan kegiatan LASMURA DKI Jakarta.</p>
-            </div>
-            <a href="<?= base_url('/berita') ?>" class="inline-flex items-center gap-2 font-bold text-[#ea7e13] hover:gap-4 transition-all duration-300">
-                Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
-            </a>
+        <div class="flex items-center justify-between mb-12">
+            <h2 class="text-3xl font-bold text-slate-900">Kabar Pilihan</h2>
+            <a href="<?= base_url('/berita') ?>" class="text-sm font-bold text-[#ea7e13] hover:underline">Semua Berita</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php if (!empty($berita)): ?>
-                <?php foreach ($berita as $item): ?>
-                    <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
-                        <div class="h-56 overflow-hidden relative">
-                            <img src="<?= base_url('uploads/berita/' . $item['thumbnail']) ?>"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                alt="<?= esc($item['judul']) ?>">
-                        </div>
-
-                        <div class="p-6">
-                            <div class="flex items-center gap-3 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">
-                                <span class="text-[#ec1309]"><?= date('d M Y', strtotime($item['created_at'])) ?></span>
-                                <span>•</span>
-                                <span><?= esc($item['nama_lengkap'] ?? 'Admin') ?></span>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-slate-800 mb-3 line-clamp-2 hover:text-[#ea7e13] transition-colors">
-                                <a href="<?= base_url('berita/' . $item['slug']) ?>">
-                                    <?= esc($item['judul']) ?>
-                                </a>
-                            </h3>
-
-                            <p class="text-slate-500 text-sm line-clamp-3 mb-6 leading-relaxed">
-                                <?= strip_tags($item['ringkasan'] ?? $item['konten']) ?>
-                            </p>
-
-                            <a href="<?= base_url('berita/' . $item['slug']) ?>" class="font-bold text-sm text-[#ea7e13] flex items-center gap-2 group/btn">
-                                Selengkapnya
-                                <i class="fa-solid fa-arrow-right group-hover/btn:translate-x-2 transition-transform"></i>
-                            </a>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-span-full py-16 text-center">
-                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
-                        <i class="fa-solid fa-newspaper text-2xl"></i>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <?php foreach ($berita as $item): ?>
+                <a href="<?= base_url('berita/' . $item['slug']) ?>" class="group flex gap-6 items-center">
+                    <div class="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden">
+                        <img src="<?= base_url('uploads/berita/' . $item['thumbnail']) ?>" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     </div>
-                    <p class="text-slate-400 italic">Belum ada berita terbaru saat ini.</p>
-                </div>
-            <?php endif; ?>
-        </div>
+                    <div>
+                        <span class="text-slate-500 text-[10px] font-bold bg-slate-200 px-4 py-1 rounded text-center uppercase tracking-widest"><?= date('d M Y', strtotime($item['created_at'])) ?></span>
+                        <h3 class="text-md md:text-lg font-bold text-slate-800 group-hover:text-[#ea7e13] transition-colors line-clamp-2 mt-1">
+                            <?= esc($item['judul']) ?>
+                        </h3>
+                        <p class="text-slate-500 text-sm mt-2 line-clamp-2 hidden md:block">
+                            <?= strip_tags($item['ringkasan'] ?? $item['konten']) ?>
+                        </p>
 
+                        <div class="flex items-center gap-3 mt-5">
+                            <div class="w-8 h-8 rounded-full bg-[#ea7e13]/10 flex items-center justify-center text-[#ea7e13]">
+                                <i class="fa-solid fa-user text-[10px]"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-700"><?= esc($item['nama_lengkap'] ?? 'Admin') ?></span>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
     </div>
 </section>
 
