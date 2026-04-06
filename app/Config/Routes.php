@@ -12,18 +12,26 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Homepage\Home::index');
 
 // ********* head **********
-$routes->get('/kegiatan', 'Homepage\Kegiatan::index');
-$routes->get('/kegiatan/(:segment)', 'Homepage\Kegiatan::detail/$1');
-$routes->get('/berita', 'Homepage\Berita::index');
-$routes->get('/berita/cari', 'Homepage\Berita::search');
-$routes->get('/berita/(:segment)', 'Homepage\Berita::detail/$1');
 $routes->get('/tentang-kami', 'Homepage\Home::tentang');
 $routes->get('/struktur-organisasi', 'Homepage\Home::struktur');
-$routes->get('/laporan-organisasi', 'Homepage\Home::laporan');
+$routes->get('/visi-misi', 'Homepage\Home::visi_misi');
+$routes->get('/anggota-terdaftar', 'Homepage\Home::anggota_terdaftar');
+$routes->get('/alur-pendaftaran', 'Homepage\Home::alur_pendaftaran');
+$routes->get('/daftar-anggota', 'Homepage\Pendaftaran::index');
+$routes->get('/kegiatan-utama', 'Homepage\Kegiatan::index');
+$routes->get('/kegiatan/(:segment)', 'Homepage\Kegiatan::detail/$1');
+$routes->get('/agenda-bulanan', 'Homepage\Kegiatan::index');
+$routes->get('/laporan-kegiatan', 'Homepage\Kegiatan::index');
+$routes->get('/berita', 'Homepage\Berita::index');
+$routes->get('/berita-terbaru', 'Homepage\Berita::index');
+$routes->get('/berita/cari', 'Homepage\Berita::search');
+$routes->get('/berita/(:segment)', 'Homepage\Berita::detail/$1');
+$routes->get('/galeri-kegiatan', 'Homepage\Home::laporan');
+$routes->get('/pengumuman', 'Homepage\Home::laporan');
 $routes->get('/daftar', 'Homepage\Pendaftaran::index');
 $routes->post('/daftar/simpan', 'Homepage\Pendaftaran::simpan');
 // ********* foot **********
-$routes->get('/alur-aktivasi', 'Homepage\Home::alur');
+$routes->get('/alur-aktivasi', 'Homepage\Home::alur_aktivasi');
 $routes->get('/bantuan', 'Homepage\Home::bantuan');
 $routes->get('/privacy', 'Homepage\Home::privacy');
 $routes->get('/terms', 'Homepage\Home::terms');

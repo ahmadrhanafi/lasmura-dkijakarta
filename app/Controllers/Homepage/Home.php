@@ -57,12 +57,20 @@ class Home extends BaseController
         return view('home/pages/struktur', $data);
     }
 
-    public function alur(): string
+    public function alur_pendaftaran(): string
+    {
+        $data = [
+            'title' => 'Alur Pendaftaran | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/alur_pendaftaran', $data);
+    }
+
+    public function alur_aktivasi(): string
     {
         $data = [
             'title' => 'Alur Aktivasi Akun | LASMURA DKI JAKARTA',
         ];
-        return view('home/pages/alur', $data);
+        return view('home/pages/alur_aktivasi', $data);
     }
 
     public function bantuan(): string

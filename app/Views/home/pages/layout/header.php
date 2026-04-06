@@ -83,16 +83,19 @@
                             <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Tentang Kami</span>
                         </a>
+                        <a href="<?= base_url('/visi-misi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
+                            <span class="normal-case font-medium">Visi & Misi</span>
+                        </a>
                         <a href="<?= base_url('/struktur-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Struktur Organisasi</span>
                         </a>
-                        <a href="<?= base_url('/laporan-organisasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Laporan Organisasi</span>
-                        </a>
                     </div>
                 </div>
+
+                <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Kegiatan</a>
+
                 <div class="relative group">
                     <button id="keanggotaanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
                         <span class="mr-1">Keanggotaan</span>
@@ -114,7 +117,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="relative group">
+
+                <a href="<?= base_url('/berita') ?>" class="nav-link">Berita</a>
+
+                <!-- <div class="relative group">
                     <button id="kegiatanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
                         <span class="mr-1">Kegiatan</span>
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="kegiatanChevron"></i>
@@ -122,20 +128,18 @@
 
                     <div id="kegiatanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/kegiatan-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Kegiatan Utama</span>
                         </a>
                         <a href="<?= base_url('/agenda-bulanan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Agenda Bulanan</span>
                         </a>
                         <a href="<?= base_url('/laporan-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Laporan Kegiatan</span>
                         </a>
                     </div>
-                </div>
-                <div class="relative group">
+                </div> -->
+
+                <!-- <div class="relative group">
                     <button id="mediaBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
                         <span class="mr-1">Media</span>
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="mediaChevron"></i>
@@ -143,19 +147,16 @@
 
                     <div id="mediaMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/berita') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Berita Terbaru</span>
                         </a>
                         <a href="<?= base_url('/galeri-kegiatan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Galeri Kegiatan</span>
                         </a>
                         <a href="<?= base_url('/pengumuman') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Pengumuman</span>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="h-6 w-[1px] bg-white/20 mx-2"></div>
 
@@ -217,6 +218,81 @@
             </button>
         </div>
     </header>
+
+    <div id="menu" class="hidden lg:hidden fixed top-0 w-full z-[100] mt-[72px] bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
+        <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
+            <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
+            <div class="space-y-4">
+                <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
+                </button>
+                <div id="mobileAboutMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Tentang Kami</a>
+                    <a href="<?= base_url('/visi-misi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Visi & Misi</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Organisasi</a>
+                </div>
+            </div>
+            <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
+            <div class="space-y-4">
+                <button onclick="toggleMobileKeanggotaan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Keanggotaan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKeanggotaanChevron"></i>
+                </button>
+                <div id="mobileKeanggotaanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Anggota Terdaftar</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Alur Pendaftaran</a>
+                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Mendaftar Anggota</a>
+                </div>
+            </div>
+            <!-- <div class="space-y-4">
+                <button onclick="toggleMobileKegiatan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Kegiatan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKegiatanChevron"></i>
+                </button>
+                <div id="mobileKegiatanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Kegiatan Utama</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Agenda Kegiatan</a>
+                    <a href="<?= base_url('/laporan-kegiatan') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Kegiatan</a>
+                </div>
+            </div> -->
+            <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
+            <!-- <div class="space-y-4">
+                <button onclick="toggleMobileMedia()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Media <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileMediaChevron"></i>
+                </button>
+                <div id="mobileMediaMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Berita Terbaru</a>
+                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Galeri Kegiatan</a>
+                    <a href="<?= base_url('/pengumuman') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Pengumuman</a>
+                </div>
+            </div> -->
+        </div>
+
+        <hr class="border-slate-100">
+
+        <?php if (!session()->get('logged_in')): ?>
+            <div class="grid grid-cols-2 gap-4 p-5">
+                <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
+                <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
+            </div>
+        <?php else: ?>
+            <div class="space-y-4 p-4">
+                <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                    <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                        <span class="uppercase text-md font-bold">Profil</span>
+                    </a>
+                <?php endif; ?>
+                <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                    <a href="<?= base_url('/admin/dashboard') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
+                        <span class="text-slate-400">Dashboard</span>
+                    </a>
+                <?php endif; ?>
+                <a href="<?= base_url('/logout') ?>"
+                    class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
+                    onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
+                    Logout
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <?php if (ENVIRONMENT === 'development' && session()->get('logged_in')): ?>
         <div class="fixed bottom-4 right-4 z-[999]">
