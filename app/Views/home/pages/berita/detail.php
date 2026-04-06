@@ -1,100 +1,114 @@
 <?= $this->include('home/pages/layout/header') ?>
 
-<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+<main class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Breadcrumb -->
-    <nav class="flex mb-8" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-[10px] sm:text-xs text-gray-400 uppercase tracking-[0.15em] font-bold">
-            <li>
-                <a href="<?= base_url('/') ?>" class="hover:text-[#ea7e13]">Beranda</a>
-            </li>
-            <li><i class="fa-solid fa-chevron-right text-[8px] opacity-50"></i></li>
-            <li>
-                <a href="<?= base_url('/berita') ?>" class="hover:text-[#ea7e13]">Kabar Terkini</a>
-            </li>
-            <li><i class="fa-solid fa-chevron-right text-[8px] opacity-50"></i></li>
-            <li class="text-[#ea7e13] line-clamp-1"><?= esc($berita['judul']) ?></li>
-        </ol>
-    </nav>
-
-    <!-- Thumbnail -->
-    <?php if ($berita['thumbnail']): ?>
-        <div class="relative w-full h-[320px] md:h-[420px] rounded-[2.5rem] overflow-hidden mb-10 shadow-xl">
-            <img src="<?= base_url('uploads/berita/' . $berita['thumbnail']) ?>"
-                class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        </div>
-    <?php endif; ?>
-
-    <!-- Meta -->
-    <div class="flex flex-wrap items-center gap-4 mb-6 text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em]">
-        <span class="text-[#ea7e13]">
-            <i class="fa-solid fa-user mr-2"></i><?= esc($berita['nama_lengkap']) ?>
-        </span>
-        <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span>
-        <span>
-            <i class="fa-regular fa-calendar mr-2"></i>
-            <?= date('d F Y', strtotime($berita['created_at'])) ?>
-        </span>
-    </div>
-
-    <!-- Judul -->
-    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-6">
-        <?= esc($berita['judul']) ?>
-    </h1>
-
-    <!-- Ringkasan -->
-    <?php if ($berita['ringkasan']): ?>
-        <p class="text-lg text-gray-600 font-medium mb-10 border-l-4 border-[#ea7e13] pl-6">
-            <?= esc($berita['ringkasan']) ?>
-        </p>
-    <?php endif; ?>
-
-    <!-- Konten -->
-    <article class="prose prose-lg max-w-none prose-img:rounded-xl prose-a:text-[#ea7e13]">
-        <?= $berita['konten'] ?>
-    </article>
-
-    <!-- Back -->
-    <div class="mt-16">
-        <a href="<?= base_url('/berita') ?>"
-            class="inline-flex items-center gap-3 bg-gray-100 hover:bg-[#ea7e13] hover:text-white transition-all px-6 py-3 rounded-xl font-bold text-sm">
-            <i class="fa-solid fa-arrow-left"></i>
-            Kembali ke Daftar Berita
-        </a>
-    </div>
-
-    <?php if (!empty($related)): ?>
-        <section class="mt-20">
-            <h3 class="text-2xl font-extrabold text-gray-900 mb-8">
-                Berita Terkait
-            </h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <?php foreach ($related as $r): ?>
-                    <article class="group">
-                        <div class="relative h-48 rounded-[1.5rem] overflow-hidden mb-4 bg-gray-100 shadow">
-                            <img src="<?= base_url('uploads/berita/' . $r['thumbnail']) ?>"
-                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                        </div>
-
-                        <div>
-                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">
-                                <?= date('d M Y', strtotime($r['created_at'])) ?>
-                            </div>
-
-                            <h4 class="font-bold text-gray-800 leading-snug line-clamp-2 group-hover:text-[#ea7e13] transition-colors">
-                                <a href="<?= base_url('/berita/' . $r['slug']) ?>">
-                                    <?= esc($r['judul']) ?>
-                                </a>
-                            </h4>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
+        <header class="max-w-4xl mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="w-12 h-[2px] bg-[#ea7e13]"></span>
+                <span class="text-[11px] font-black uppercase tracking-[0.3em] text-[#ea7e13]">Isi Berita</span>
             </div>
-        </section>
-    <?php endif; ?>
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8">
+                <?= esc($berita['judul']) ?>
+            </h1>
 
+            <div class="flex flex-wrap items-center gap-6 text-sm text-slate-500 font-medium">
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=<?= urlencode($berita['nama_lengkap']) ?>&background=0D0D0D&color=fff" class="w-6 h-6 rounded-full">
+                    <span class="text-slate-900 font-bold"><?= esc($berita['nama_lengkap']) ?></span>
+                </div>
+                <time class="bg-slate-200 px-3 py-2 rounded">
+                    <i class="fa-regular fa-calendar mr-2"></i>
+                    <?= date('d M Y', strtotime($berita['created_at'])) ?>
+                </time>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+            <div class="lg:col-span-8">
+                <?php if ($berita['thumbnail']): ?>
+                    <div class="relative mb-12 group">
+                        <div class="absolute -inset-4 bg-slate-100 rounded-[3rem] -z-10 scale-95 group-hover:scale-100 transition-transform duration-700"></div>
+                        <img src="<?= base_url('uploads/berita/' . $berita['thumbnail']) ?>"
+                            class="w-full aspect-[16/10] object-cover rounded-[2.5rem] shadow-2xl transition-all duration-700">
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($berita['ringkasan']): ?>
+                    <div class="mb-12">
+                        <p class="text-2xl font-bold text-slate-800 leading-relaxed tracking-tight">
+                            <?= esc($berita['ringkasan']) ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+
+                <article class="prose prose-slate prose-xl max-w-none 
+                    prose-p:text-slate-600 prose-p:leading-[1.9] prose-p:text-justify
+                    prose-headings:text-slate-900 prose-headings:font-black
+                    prose-strong:text-slate-900 prose-blockquote:border-[#ea7e13]
+                    prose-img:rounded-3xl prose-a:text-[#ea7e13] font-serif-reading">
+                    <?= $berita['konten'] ?>
+                </article>
+
+                <div class="mt-16 p-8 bg-slate-50 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-100">
+                    <h4 class="font-black text-slate-900 uppercase text-xs tracking-widest">Bagikan Berita Ini:</h4>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm hover:bg-green-500 hover:text-white transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm hover:bg-black hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm hover:bg-blue-600 hover:text-white transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="lg:col-span-4">
+                <div class="sticky top-32 space-y-12">
+
+                    <div class="p-8 rounded-[2.5rem] border-2 border-slate-900 relative overflow-hidden group">
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-black text-slate-900 mb-4">Langkah Perubahan Dimulai Dari Sini.</h3>
+                            <p class="text-sm text-slate-500 mb-6 leading-relaxed">Jadilah bagian dari barisan pemuda yang bergerak nyata untuk Jakarta.</p>
+                            <a href="<?= base_url('/daftar') ?>" class="inline-flex items-center gap-2 bg-[#ea7e13] text-white px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-colors">
+                                Bergabung Sekarang <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <i class="fa-solid fa-hand-fist absolute -bottom-6 -right-6 text-slate-100 text-8xl group-hover:text-orange-50 transition-colors"></i>
+                    </div>
+
+                    <?php if (!empty($related)): ?>
+                        <div>
+                            <h4 class="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-8 flex items-center gap-4">
+                                Baca Lainnya <span class="h-px flex-1 bg-slate-100"></span>
+                            </h4>
+                            <div class="space-y-8">
+                                <?php foreach (array_slice($related, 0, 3) as $r): ?>
+                                    <a href="<?= base_url('/berita/' . $r['slug']) ?>" class="group block">
+                                        <div class="flex gap-4">
+                                            <div class="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-slate-100">
+                                                <img src="<?= base_url('uploads/berita/' . $r['thumbnail']) ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                            </div>
+                                            <div class="flex flex-col justify-center">
+                                                <span class="text-[9px] font-black text-[#ea7e13] uppercase mb-1"><?= date('d M Y', strtotime($r['created_at'])) ?></span>
+                                                <h5 class="text-sm font-bold text-slate-800 leading-tight group-hover:underline decoration-2 underline-offset-4 decoration-[#ea7e13]">
+                                                    <?= esc($r['judul']) ?>
+                                                </h5>
+                                                <div class="flex items-center gap-2 mt-3">
+                                                    <img src="https://ui-avatars.com/api/?name=<?= urlencode($berita['nama_lengkap']) ?>&background=0D0D0D&color=fff" class="w-4 h-4 rounded-full">
+                                                    <span class="text-slate-800 text-[10px]"><?= esc($berita['nama_lengkap']) ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                </div>
+            </aside>
+
+        </div>
+    </div>
 </main>
 
 <?= $this->include('home/pages/layout/footer') ?>

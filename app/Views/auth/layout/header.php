@@ -18,7 +18,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop');
+            background-image: url('<?= base_url("assets/wallpaper/wall2.png") ?>');
+            /* background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop'); */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

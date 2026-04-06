@@ -48,11 +48,18 @@ class Home extends BaseController
         ];
         return view('home/pages/tentang', $data);
     }
+    public function visi_misi(): string
+    {
+        $data = [
+            'title' => 'Visi & Misi | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/visi_misi', $data);
+    }
 
     public function struktur(): string
     {
         $data = [
-            'title' => 'Struktur | LASMURA DKI JAKARTA',
+            'title' => 'Struktur Organisasi | LASMURA DKI JAKARTA',
         ];
         return view('home/pages/struktur', $data);
     }

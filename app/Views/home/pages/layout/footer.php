@@ -32,17 +32,21 @@
                 <h4 class="font-bold text-lg mb-6 border-b border-slate-800 pb-2">Navigasi</h4>
                 <ul class="space-y-4 text-slate-400 text-sm">
                     <li><a href="<?= base_url('/') ?>" class="hover:text-white transition-colors">Beranda</a></li>
-                    <li><a href="<?= base_url('/kegiatan') ?>" class="hover:text-white transition-colors">Kegiatan Terbaru</a></li>
-                    <li><a href="<?= base_url('/berita') ?>" class="hover:text-white transition-colors">Berita Terkini</a></li>
-                    <li><a href="<?= base_url('/struktur') ?>" class="hover:text-white transition-colors">Struktur Organisasi</a></li>
+                    <li><a href="<?= base_url('/tentang-kami') ?>" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="<?= base_url('/visi-misi') ?>" class="hover:text-white transition-colors">Visi & Misi</a></li>
+                    <li><a href="<?= base_url('/struktur-organisasi') ?>" class="hover:text-white transition-colors">Struktur Organisasi</a></li>
+                    <li><a href="<?= base_url('/kegiatan') ?>" class="hover:text-white transition-colors">Kegiatan</a></li>
+                    <li><a href="<?= base_url('/berita') ?>" class="hover:text-white transition-colors">Berita</a></li>
                 </ul>
             </div>
 
             <div>
                 <h4 class="font-bold text-lg mb-6 border-b border-slate-800 pb-2">Keanggotaan</h4>
                 <ul class="space-y-4 text-slate-400 text-sm">
+                    <li><a href="<?= base_url('/anggota-terdaftar') ?>" class="hover:text-white transition-colors">Anggota Terdaftar</a></li>
                     <li><a href="<?= base_url('/daftar') ?>" class="hover:text-white transition-colors">Pendaftaran Online</a></li>
                     <li><a href="<?= base_url('/login') ?>" class="hover:text-white transition-colors">Login Anggota</a></li>
+                    <li><a href="<?= base_url('/alur-pendaftaran') ?>" class="hover:text-white transition-colors">Alur Pendaftaran</a></li>
                     <li><a href="<?= base_url('/alur-aktivasi') ?>" class="hover:text-white transition-colors">Alur Aktivasi Akun</a></li>
                     <li><a href="<?= base_url('/bantuan') ?>" class="hover:text-white transition-colors">Bantuan/FAQ</a></li>
                 </ul>

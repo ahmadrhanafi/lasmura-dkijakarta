@@ -209,50 +209,30 @@
             </h5>
         </div>
 
-        <section class="mt-16">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                <!-- DEPARTEMEN CARD -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition">
+        <div class="relative pt-12">
+            <h3 class="text-xs text-center font-black uppercase tracking-widest text-gray-400 mb-12">Departemen: <br> Organisasi, Kaderisasi dan Keanggotaan</h3>
 
-                    <!-- Nama Departemen -->
-                    <h3 class="text-xs font-black uppercase tracking-widest text-gray-400 text-center mb-6">
-                        Organisasi, Kaderisasi<br>dan Keanggotaan
-                    </h3>
-
-                    <!-- Ketua -->
-                    <div class="text-center mb-4">
-                        <p class="text-[#ea7e13] text-[9px] font-black uppercase tracking-widest">
-                            Ketua
-                        </p>
-                        <h4 class="text-sm font-bold text-gray-900">
-                            Falah Arrahman, S.Sos
-                        </h4>
-                    </div>
-
-                    <!-- Divider -->
-                    <div class="border-t border-dashed border-gray-200 my-4"></div>
-
-                    <!-- Anggota -->
-                    <ul class="space-y-3 text-center">
-                        <li>
-                            <p class="text-[8px] uppercase font-black text-gray-400">Anggota</p>
-                            <p class="text-sm font-semibold text-gray-900">Muhammad Sofyan</p>
-                        </li>
-                        <li>
-                            <p class="text-[8px] uppercase font-black text-gray-400">Anggota</p>
-                            <p class="text-sm font-semibold text-gray-900">Umar Falih</p>
-                        </li>
-                        <li>
-                            <p class="text-[8px] uppercase font-black text-gray-400">Anggota</p>
-                            <p class="text-sm font-semibold text-gray-900">Muhammad Reza Rosyid</p>
-                        </li>
-                    </ul>
-
+            <div class="flex flex-wrap justify-center gap-6 w-full max-w-6xl mx-auto mb-6">
+                <div class="group bg-white p-6 rounded-2xl border border-gray-100 text-center transition-all hover:shadow-lg hover:border-[#ea7e13] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <p class="text-[#ea7e13] text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Ketua</p>
+                    <h4 class="text-sm md:text-base font-bold text-gray-900">Falah Arrahman, S.Sos</h4>
                 </div>
-                <!-- END DEPARTEMEN CARD -->
             </div>
-        </section>
-
+            <div class="flex flex-wrap justify-center gap-6 w-full max-w-6xl mx-auto">
+                <div class="group bg-white p-6 rounded-2xl border border-gray-100 text-center transition-all hover:shadow-lg hover:border-[#ea7e13] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <p class="text-gray-400 text-[8px] font-black uppercase mb-1">Anggota</p>
+                    <h4 class="text-sm font-bold text-gray-900">Muhammad Sofyan</h4>
+                </div>
+                <div class="group bg-white p-6 rounded-2xl border border-gray-100 text-center transition-all hover:shadow-lg hover:border-[#ea7e13] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <p class="text-gray-400 text-[8px] font-black uppercase mb-1">Anggota</p>
+                    <h4 class="text-sm font-bold text-gray-900">Umar Falih</h4>
+                </div>
+                <div class="group bg-white p-6 rounded-2xl border border-gray-100 text-center transition-all hover:shadow-lg hover:border-[#ea7e13] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <p class="text-gray-400 text-[8px] font-black uppercase mb-1">Anggota</p>
+                    <h4 class="text-sm font-bold text-gray-900">Muhammad Reza Rosyid</h4>
+                </div>
+            </div>
+        </div>
 
         <div class="relative pt-12">
             <h3 class="text-xs text-center font-black uppercase tracking-widest text-gray-400 mb-12">Departemen: <br> Hukum, HAM dan Advokasi</h3>

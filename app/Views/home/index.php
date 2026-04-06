@@ -17,7 +17,7 @@
         </h1>
 
         <p class="text-sm md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Bergabunglah bersama Laskar Muda Hanura DKI Jakarta. Wadah perjuangan pemuda untuk membawa perubahan nyata melalui hati nurani.
+            Bergabunglah bersama Laskar Muda Hanura DKI Jakarta sebagai wadah perjuangan pemuda untuk membawa perubahan nyata melalui hati nurani.
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -71,41 +71,6 @@
                     <div class="text-[#ec1309] font-bold text-2xl tracking-tighter">100+</div>
                     <div class="text-gray-400 text-xs uppercase font-bold tracking-widest">Anggota Aktif</div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Visi & Misi Strategis</h2>
-            <div class="h-1.5 w-24 bg-gradient-to-r from-[#ea7e13] to-[#ec1309] mx-auto rounded-full"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-[#ea7e13] mb-6 group-hover:bg-[#ea7e13] group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-shield-halved text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Integritas Tinggi</h3>
-                <p class="text-gray-500 leading-relaxed">Membangun karakter kader muda yang jujur, disiplin, dan setia pada nilai-nilai Hati Nurani Rakyat.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-[#ec1309] mb-6 group-hover:bg-[#ec1309] group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-bolt text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Partisipasi Politik</h3>
-                <p class="text-gray-500 leading-relaxed">Meningkatkan kesadaran dan partisipasi aktif generasi muda dalam menentukan arah kebijakan politik nasional.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                <div class="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-700 mb-6 group-hover:bg-gray-800 group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-flag text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Garda Terdepan</h3>
-                <p class="text-gray-500 leading-relaxed">Menjadi pilar utama perjuangan Partai Hanura dalam memenangkan aspirasi rakyat di wilayah DKI Jakarta.</p>
             </div>
         </div>
     </div>

@@ -15,11 +15,12 @@
     </nav>
 
     <div class="relative w-full h-[300px] md:h-[400px] rounded-[3rem] overflow-hidden mb-16 shadow-2xl">
-        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=2070"
+        <!-- <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=2070" -->
+        <img src="<?= base_url('assets/wallpaper/wall.png') ?>"
             class="w-full h-full object-cover grayscale brightness-50" alt="Tentang Kami">
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
             <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                Tentang <span class="text-[#ea7e13]">LASMURA</span>
+                Tentang <span class="text-[#ea7e13]">LASMURA DKI JAKARTA</span>
             </h2>
             <p class="text-gray-200 max-w-2xl text-sm md:text-base leading-relaxed">
                 Membangun semangat kepemudaan yang progresif, inovatif, dan berintegritas untuk masa depan DKI Jakarta yang lebih baik.
