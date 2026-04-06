@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
 
-    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
-    <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('lasmura.ico') ?>">
+    <link rel="shortcut icon" href="<?= base_url('lasmura.ico') ?>" type="image/x-icon">
     <!-- <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/logo/lasmura.png') ?>"> -->
     <link rel="apple-touch-icon" href="<?= base_url('assets/logo/lasmura.png') ?>">
 
@@ -117,15 +117,15 @@
                     </div>
                 </div>
                 <div class="relative group">
-                    <button id="programBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
-                        <span class="mr-1">Program</span>
-                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="programChevron"></i>
+                    <button id="kegiatanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Kegiatan</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="kegiatanChevron"></i>
                     </button>
 
-                    <div id="programMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                        <a href="<?= base_url('/program-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                    <div id="kegiatanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/kegiatan-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Program Unggulan</span>
+                            <span class="normal-case font-medium">Kegiatan Utama</span>
                         </a>
                         <a href="<?= base_url('/agenda-bulanan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
@@ -245,11 +245,11 @@
                 </div>
             </div>
             <div class="space-y-4">
-                <button onclick="toggleMobileProgram()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    Program <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileProgramChevron"></i>
+                <button onclick="toggleMobileKegiatan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    Kegiatan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKegiatanChevron"></i>
                 </button>
-                <div id="mobileProgramMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Program Unggulan</a>
+                <div id="mobileKegiatanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Kegiatan Utama</a>
                     <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Agenda Kegiatan</a>
                     <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Kegiatan</a>
                 </div>
@@ -315,9 +315,9 @@
         const keanggotaanMenu = document.getElementById('keanggotaanMenu');
         const keanggotaanChevron = document.getElementById('keanggotaanChevron');
 
-        const programBtn = document.getElementById('programBtn');
-        const programMenu = document.getElementById('programMenu');
-        const programChevron = document.getElementById('programChevron');
+        const kegiatanBtn = document.getElementById('kegiatanBtn');
+        const kegiatanMenu = document.getElementById('kegiatanMenu');
+        const kegiatanChevron = document.getElementById('kegiatanChevron');
 
         const mediaBtn = document.getElementById('mediaBtn');
         const mediaMenu = document.getElementById('mediaMenu');
@@ -344,14 +344,14 @@
                 keanggotaanChevron.classList.toggle('rotate-180');
             });
         }
-        if (programBtn) {
-            programBtn.addEventListener('click', function(e) {
+        if (kegiatanBtn) {
+            kegiatanBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
-                programMenu.classList.toggle('hidden');
-                programChevron.classList.toggle('rotate-180');
+                kegiatanMenu.classList.toggle('hidden');
+                kegiatanChevron.classList.toggle('rotate-180');
             });
         }
         if (mediaBtn) {
@@ -373,8 +373,8 @@
                 if (aboutChevron) aboutChevron.classList.remove('rotate-180');
                 if (keanggotaanMenu) keanggotaanMenu.classList.add('hidden');
                 if (keanggotaanChevron) keanggotaanChevron.classList.remove('rotate-180');
-                if (programMenu) programMenu.classList.add('hidden');
-                if (programChevron) programChevron.classList.remove('rotate-180');
+                if (kegiatanMenu) kegiatanMenu.classList.add('hidden');
+                if (kegiatanChevron) kegiatanChevron.classList.remove('rotate-180');
                 if (mediaMenu) mediaMenu.classList.add('hidden');
                 if (mediaChevron) mediaChevron.classList.remove('rotate-180');
 
@@ -393,9 +393,9 @@
                 keanggotaanMenu.classList.add('hidden');
                 keanggotaanChevron.classList.remove('rotate-180');
             }
-            if (programMenu) {
-                programMenu.classList.add('hidden');
-                programChevron.classList.remove('rotate-180');
+            if (kegiatanMenu) {
+                kegiatanMenu.classList.add('hidden');
+                kegiatanChevron.classList.remove('rotate-180');
             }
             if (mediaMenu) {
                 mediaMenu.classList.add('hidden');
@@ -422,9 +422,9 @@
             mobileChevron.classList.toggle('rotate-180');
         }
 
-        function toggleMobileProgram() {
-            const mobileMenu = document.getElementById('mobileProgramMenu');
-            const mobileChevron = document.getElementById('mobileProgramChevron');
+        function toggleMobileKegiatan() {
+            const mobileMenu = document.getElementById('mobileKegiatanMenu');
+            const mobileChevron = document.getElementById('mobileKegiatanChevron');
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }

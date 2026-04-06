@@ -138,11 +138,11 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div class="max-w-xl">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Program Unggulan Kami</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Kegiatan Utama</h2>
                 <p class="text-gray-500">Bukan sekadar organisasi politik, kami adalah kawah candradimuka bagi calon pemimpin masa depan Jakarta.</p>
             </div>
-            <a href="<?= base_url('/program') ?>" class="text-[#ec1309] font-bold flex items-center gap-2 hover:gap-4 transition-all">
-                Lihat Semua Program <i class="fa-solid fa-arrow-right"></i>
+            <a href="<?= base_url('/kegiatan') ?>" class="text-[#ec1309] font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                Lihat Semua Kegiatan <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
 
