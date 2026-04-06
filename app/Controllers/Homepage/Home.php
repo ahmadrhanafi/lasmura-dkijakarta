@@ -64,6 +64,34 @@ class Home extends BaseController
         ];
         return view('home/pages/alur_pendaftaran', $data);
     }
+    public function dokumen_legalitas(): string
+    {
+        $data = [
+            'title' => 'Dokumen Legalitas | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/dokumen_legalitas', $data);
+    }
+    public function laporan_kinerja(): string
+    {
+        $data = [
+            'title' => 'Laporan Kinerja | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/laporan_kinerja', $data);
+    }
+    public function regulasi_kebijakan(): string
+    {
+        $data = [
+            'title' => 'Regulasi & Kebijakan | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/regulasi_kebijakan', $data);
+    }
+    public function layanan_advokasi(): string
+    {
+        $data = [
+            'title' => 'Layanan Advokasi | LASMURA DKI JAKARTA',
+        ];
+        return view('home/pages/layanan_advokasi', $data);
+    }
 
     public function alur_aktivasi(): string
     {

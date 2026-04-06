@@ -25,6 +25,10 @@ $routes->get('/berita', 'Homepage\Berita::index');
 $routes->get('/berita-terbaru', 'Homepage\Berita::index');
 $routes->get('/berita/cari', 'Homepage\Berita::search');
 $routes->get('/berita/(:segment)', 'Homepage\Berita::detail/$1');
+$routes->get('/dokumen-legalitas', 'Homepage\Home::dokumen_legalitas');
+$routes->get('/laporan-kinerja', 'Homepage\Home::laporan_kinerja');
+$routes->get('/layanan-advokasi', 'Homepage\Home::layanan_advokasi');
+$routes->get('/regulasi-kebijakan', 'Homepage\Home::regulasi_kebijakan');
 $routes->get('/daftar', 'Homepage\Pendaftaran::index');
 $routes->post('/daftar/simpan', 'Homepage\Pendaftaran::simpan');
 // ********* foot **********

@@ -2,7 +2,7 @@
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&q=80"
+        <img src="<?= base_url('assets/wallpaper/wall.png') ?>"
             class="w-full h-full object-cover opacity-50" alt="Background">
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-slate-900/90"></div>
     </div>

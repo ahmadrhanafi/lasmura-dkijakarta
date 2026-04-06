@@ -96,26 +96,26 @@
                     </div>
                 </div>
 
-                <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Kegiatan</a>
+                <a href="<?= base_url('/kegiatan') ?>" class="nav-link">Aktivitas</a>
 
                 <div class="relative group">
-                    <button id="keanggotaanBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
-                        <span class="mr-1">Keanggotaan</span>
-                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="keanggotaanChevron"></i>
+                    <button id="infolikBtn" class="nav-link flex items-center space-x-1 focus:outline-none uppercase tracking-wider">
+                        <span class="mr-1">Informasi Publik</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="infolikChevron"></i>
                     </button>
 
-                    <div id="keanggotaanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                        <a href="<?= base_url('/anggota-terdaftar') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Anggota Terdaftar</span>
+                    <div id="infolikMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                        <a href="<?= base_url('/dokumen-legalitas') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <span class="normal-case font-medium">Dokumen Legalitas</span>
                         </a>
-                        <a href="<?= base_url('/alur-pendaftaran') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-sitemap text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Alur Pendaftaran</span>
+                        <a href="<?= base_url('/laporan-kinerja') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <span class="normal-case font-medium">Laporan Kinerja</span>
                         </a>
-                        <a href="<?= base_url('/daftar-anggota') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
-                            <!-- <i class="fa-solid fa-file-contract text-slate-400 w-4"></i> -->
-                            <span class="normal-case font-medium">Daftar Anggota</span>
+                        <a href="<?= base_url('/layanan-advokasi') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <span class="normal-case font-medium">Layanan Advokasi</span>
+                        </a>
+                        <a href="<?= base_url('/regulasi-kebijakan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
+                            <span class="normal-case font-medium">Regulasi & Kebijakan</span>
                         </a>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                     <div class="flex items-center space-x-8">
                         <a href="<?= base_url('/login') ?>"
                             class="bg-white text-[#ea7e13] px-4 py-1.5 rounded shadow-md hover:bg-slate-100 active:scale-95 transition-all">
-                            Portal Login
+                            <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Portal Login
                         </a>
                     </div>
 
@@ -237,10 +237,10 @@
             </div>
             <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
             <div class="space-y-4">
-                <button onclick="toggleMobileKeanggotaan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    Keanggotaan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKeanggotaanChevron"></i>
+                <button onclick="toggleMobileinfolik()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
+                    infolik <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileinfolikChevron"></i>
                 </button>
-                <div id="mobileKeanggotaanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
+                <div id="mobileinfolikMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
                     <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Anggota Terdaftar</a>
                     <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Alur Pendaftaran</a>
                     <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Mendaftar Anggota</a>
@@ -314,9 +314,9 @@
         const aboutMenu = document.getElementById('aboutMenu');
         const aboutChevron = document.getElementById('aboutChevron');
 
-        const keanggotaanBtn = document.getElementById('keanggotaanBtn');
-        const keanggotaanMenu = document.getElementById('keanggotaanMenu');
-        const keanggotaanChevron = document.getElementById('keanggotaanChevron');
+        const infolikBtn = document.getElementById('infolikBtn');
+        const infolikMenu = document.getElementById('infolikMenu');
+        const infolikChevron = document.getElementById('infolikChevron');
 
         const kegiatanBtn = document.getElementById('kegiatanBtn');
         const kegiatanMenu = document.getElementById('kegiatanMenu');
@@ -337,14 +337,14 @@
                 aboutChevron.classList.toggle('rotate-180');
             });
         }
-        if (keanggotaanBtn) {
-            keanggotaanBtn.addEventListener('click', function(e) {
+        if (infolikBtn) {
+            infolikBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (profileMenu) profileMenu.classList.add('hidden');
                 if (chevron) chevron.classList.remove('rotate-180');
 
-                keanggotaanMenu.classList.toggle('hidden');
-                keanggotaanChevron.classList.toggle('rotate-180');
+                infolikMenu.classList.toggle('hidden');
+                infolikChevron.classList.toggle('rotate-180');
             });
         }
         if (kegiatanBtn) {
@@ -374,8 +374,8 @@
                 e.stopPropagation();
                 if (aboutMenu) aboutMenu.classList.add('hidden');
                 if (aboutChevron) aboutChevron.classList.remove('rotate-180');
-                if (keanggotaanMenu) keanggotaanMenu.classList.add('hidden');
-                if (keanggotaanChevron) keanggotaanChevron.classList.remove('rotate-180');
+                if (infolikMenu) infolikMenu.classList.add('hidden');
+                if (infolikChevron) infolikChevron.classList.remove('rotate-180');
                 if (kegiatanMenu) kegiatanMenu.classList.add('hidden');
                 if (kegiatanChevron) kegiatanChevron.classList.remove('rotate-180');
                 if (mediaMenu) mediaMenu.classList.add('hidden');
@@ -392,9 +392,9 @@
                 aboutMenu.classList.add('hidden');
                 aboutChevron.classList.remove('rotate-180');
             }
-            if (keanggotaanMenu) {
-                keanggotaanMenu.classList.add('hidden');
-                keanggotaanChevron.classList.remove('rotate-180');
+            if (infolikMenu) {
+                infolikMenu.classList.add('hidden');
+                infolikChevron.classList.remove('rotate-180');
             }
             if (kegiatanMenu) {
                 kegiatanMenu.classList.add('hidden');
@@ -418,9 +418,9 @@
             mobileChevron.classList.toggle('rotate-180');
         }
 
-        function toggleMobileKeanggotaan() {
-            const mobileMenu = document.getElementById('mobileKeanggotaanMenu');
-            const mobileChevron = document.getElementById('mobileKeanggotaanChevron');
+        function toggleMobileinfolik() {
+            const mobileMenu = document.getElementById('mobileinfolikMenu');
+            const mobileChevron = document.getElementById('mobileinfolikChevron');
             mobileMenu.classList.toggle('hidden');
             mobileChevron.classList.toggle('rotate-180');
         }
