@@ -225,6 +225,7 @@
     <div id="menu" class="hidden lg:hidden fixed top-0 w-full z-[100] mt-[72px] bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
         <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
             <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
+
             <div class="space-y-4">
                 <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
                     Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
@@ -235,7 +236,9 @@
                     <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Organisasi</a>
                 </div>
             </div>
+
             <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
+
             <div class="space-y-4">
                 <button onclick="toggleMobileinfolik()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
                     infolik <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileinfolikChevron"></i>
@@ -246,27 +249,9 @@
                     <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Mendaftar Anggota</a>
                 </div>
             </div>
-            <!-- <div class="space-y-4">
-                <button onclick="toggleMobileKegiatan()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    Kegiatan <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileKegiatanChevron"></i>
-                </button>
-                <div id="mobileKegiatanMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Kegiatan Utama</a>
-                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Agenda Kegiatan</a>
-                    <a href="<?= base_url('/laporan-kegiatan') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Laporan Kegiatan</a>
-                </div>
-            </div> -->
+
             <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
-            <!-- <div class="space-y-4">
-                <button onclick="toggleMobileMedia()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    Media <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileMediaChevron"></i>
-                </button>
-                <div id="mobileMediaMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Berita Terbaru</a>
-                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Galeri Kegiatan</a>
-                    <a href="<?= base_url('/pengumuman') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Pengumuman</a>
-                </div>
-            </div> -->
+
         </div>
 
         <hr class="border-slate-100">
