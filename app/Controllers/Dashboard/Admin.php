@@ -49,4 +49,45 @@ class Admin extends BaseController
 
         return view('board/super/manage', $data);
     }
+
+    public function promote($id = null)
+    {
+        if (session()->get('role') !== 'super_admin') {
+            return redirect()->to('/login');
+        }
+
+        $userModel = new \App\Models\UserModel();
+
+        // Cek apakah user ada
+        $user = $userModel->find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        // Update role
+        $userModel->update($id, ['role' => 'admin']);
+
+        return redirect()->back()->with('success', 'User ' . $user['nama_lengkap'] . ' berhasil dipromosikan menjadi Admin.');
+    }
+
+    public function demote($id = null)
+    {
+        // Hanya Super Admin yang boleh akses
+        if (session()->get('role') !== 'super_admin') {
+            return redirect()->back();
+        }
+
+        $userModel = new \App\Models\UserModel();
+
+        // Cek apakah user ada
+        $user = $userModel->find($id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        // Update role kembali menjadi 'anggota'
+        $userModel->update($id, ['role' => 'anggota']);
+
+        return redirect()->back()->with('success', 'User ' . $user['nama_lengkap'] . ' telah diturunkan menjadi Anggota.');
+    }
 }

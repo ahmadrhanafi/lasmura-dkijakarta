@@ -124,6 +124,10 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
     $routes->get('logs', 'Dashboard\Logs::index');
     $routes->post('logs/cleanup', 'Dashboard\Logs::cleanup');
     $routes->get('manajemen-admin', 'Dashboard\Admin::index');
+
+    $routes->get('manajemen-admin/promote/(:num)', 'Dashboard\Admin::promote/$1');
+    $routes->get('manajemen-admin/demote/(:num)', 'Dashboard\Admin::demote/$1');
+
     $routes->get('pengaturan', 'Dashboard\Pengaturan::index');
     $routes->post('pengaturan/save', 'Dashboard\Pengaturan::save');
 });

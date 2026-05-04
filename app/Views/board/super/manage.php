@@ -112,13 +112,13 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <?php if ($u['role'] === 'anggota'): ?>
-                                        <a href="<?= base_url('super-admin/admin/promote/' . $u['id_user']) ?>"
+                                        <a href="<?= base_url('admin/manajemen-admin/promote/' . $u['id_user']) ?>"
                                             class="text-emerald-600 hover:text-emerald-700 font-bold flex items-center justify-end gap-1 group">
                                             <span>Promosikan</span>
                                             <i class="fa-solid fa-chevron-up text-[10px] group-hover:-translate-y-1 transition-transform"></i>
                                         </a>
                                     <?php elseif ($u['role'] === 'admin'): ?>
-                                        <a href="<?= base_url('super-admin/admin/demote/' . $u['id_user']) ?>"
+                                        <a href="<?= base_url('admin/manajemen-admin/demote/' . $u['id_user']) ?>" onclick="return confirm('Yakin ingin menurunkan jabatan user ini?')"
                                             class="text-red-500 hover:text-red-600 font-bold flex items-center justify-end gap-1 group">
                                             <span>Turunkan</span>
                                             <i class="fa-solid fa-chevron-down text-[10px] group-hover:translate-y-1 transition-transform"></i>
