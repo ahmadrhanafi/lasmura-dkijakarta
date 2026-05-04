@@ -1,111 +1,111 @@
 <?= $this->include('board/layout/header') ?>
 
-<div class="min-h-screen bg-[#f8f9fa] pb-20">
-
+<div class="min-h-screen bg-slate-50 pb-20">
     <main class="p-4 md:p-8 max-w-5xl mx-auto">
 
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <!-- Navigation & Actions -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div>
-                <nav class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-400 mb-2">
-                    <a href="<?= base_url('admin/kegiatan') ?>" class="hover:text-[#ea7e13] transition-colors">Kegiatan</a>
-                    <span>/</span>
-                    <span class="text-gray-600">Preview Detail</span>
-                </nav>
-                <h1 class="text-3xl font-black text-gray-900 tracking-tighter uppercase italic">
-                    Preview <span class="text-[#ea7e13]">Kegiatan</span>
-                </h1>
+                <?php if (isset($breadcrumb)): ?>
+                    <?= $this->include('board/layout/breadcrumb') ?>
+                <?php endif; ?>
+                <h1 class="text-2xl font-bold text-slate-800 mt-2">Detail Kegiatan</h1>
             </div>
 
             <div class="flex items-center gap-3">
                 <a href="<?= base_url('admin/kegiatan') ?>"
-                    class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-600 text-sm font-bold hover:bg-gray-50 transition-all shadow-sm">
-                    <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
-                    Kembali
+                    class="px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 transition-all shadow-sm">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
                 </a>
                 <a href="<?= base_url('admin/kegiatan/edit/' . $kegiatan['id_kegiatan']) ?>"
-                    class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gray-900 text-white text-sm font-bold hover:bg-[#ea7e13] transition-all shadow-lg shadow-gray-200">
-                    <i class="fa-regular fa-pen-to-square text-xs"></i>
-                    Edit Data
+                    class="px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all shadow-md shadow-blue-100">
+                    <i class="fa-regular fa-pen-to-square mr-2"></i> Edit Kegiatan
                 </a>
             </div>
         </div>
 
-        <article class="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+        <!-- Main Article Card -->
+        <article class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
 
+            <!-- Featured Image -->
             <?php if (!empty($kegiatan['thumbnail'])): ?>
-                <div class="relative h-[300px] md:h-[450px] w-full overflow-hidden">
+                <div class="relative h-[350px] md:h-[500px] w-full">
                     <img src="<?= base_url('uploads/kegiatan/' . $kegiatan['thumbnail']) ?>"
-                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-
-                    <div class="absolute bottom-6 left-8">
-                        <span class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg
+                        class="w-full h-full object-cover">
+                    <!-- Status Badge -->
+                    <div class="absolute top-6 right-6">
+                        <span class="px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl border
                             <?= $kegiatan['status'] === 'publish'
-                                ? 'bg-green-500 text-white'
-                                : 'bg-yellow-500 text-white' ?>">
-                            <i class="fa-solid <?= $kegiatan['status'] === 'publish' ? 'fa-check-circle' : 'fa-clock' ?> mr-1"></i>
+                                ? 'bg-emerald-500 text-white border-emerald-400'
+                                : 'bg-amber-500 text-white border-amber-400' ?>">
+                            <i class="fa-solid <?= $kegiatan['status'] === 'publish' ? 'fa-check-circle' : 'fa-clock' ?> mr-1.5"></i>
                             <?= esc($kegiatan['status']) ?>
                         </span>
                     </div>
                 </div>
             <?php endif ?>
 
-            <div class="p-8 md:p-12">
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 pb-8 border-b border-gray-100">
+            <div class="p-6 md:p-12">
+                <!-- Info Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 p-6 bg-slate-50 rounded-2xl border border-slate-100">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-[#ea7e13]">
-                            <i class="fa-regular fa-calendar-days"></i>
+                        <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fa-regular fa-calendar-check"></i>
                         </div>
                         <div>
-                            <p class="text-[9px] uppercase font-bold text-gray-400 tracking-wider">Tanggal</p>
-                            <p class="text-sm font-bold text-gray-800"><?= date('d F Y', strtotime($kegiatan['tanggal_kegiatan'])) ?></p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Waktu Pelaksanaan</p>
+                            <p class="text-sm font-bold text-slate-700"><?= date('d M Y', strtotime($kegiatan['tanggal_kegiatan'])) ?></p>
                         </div>
                     </div>
 
-                    <?php if (!empty($kegiatan['lokasi'])): ?>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div>
-                                <p class="text-[9px] uppercase font-bold text-gray-400 tracking-wider">Lokasi</p>
-                                <p class="text-sm font-bold text-gray-800"><?= esc($kegiatan['lokasi']) ?></p>
-                            </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-rose-100 flex items-center justify-center text-rose-600">
+                            <i class="fa-solid fa-location-dot"></i>
                         </div>
-                    <?php endif ?>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lokasi</p>
+                            <p class="text-sm font-bold text-slate-700"><?= esc($kegiatan['lokasi'] ?: 'Lokasi belum diatur') ?></p>
+                        </div>
+                    </div>
 
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-500">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600">
                             <i class="fa-regular fa-user"></i>
                         </div>
                         <div>
-                            <p class="text-[9px] uppercase font-bold text-gray-400 tracking-wider">Penulis</p>
-                            <p class="text-sm font-bold text-gray-800"><?= esc($kegiatan['nama_user'] ?? 'Admin') ?></p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Penanggung Jawab</p>
+                            <p class="text-sm font-bold text-slate-700"><?= esc($kegiatan['nama_user'] ?? 'Administrator') ?></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="max-w-3xl mb-10">
-                    <h2 class="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-4 uppercase italic tracking-tighter">
+                <!-- Content -->
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-6">
                         <?= esc($kegiatan['judul']) ?>
                     </h2>
-                    <?php if (!empty($kegiatan['deskripsi'])): ?>
-                        <p class="text-lg text-gray-500 leading-relaxed font-medium italic border-l-4 border-gray-200 pl-4">
-                            "<?= esc($kegiatan['deskripsi']) ?>"
-                        </p>
-                    <?php endif ?>
-                </div>
 
-                <div class="prose prose-lg max-w-none prose-orange prose-img:rounded-3xl prose-headings:text-gray-900 prose-headings:font-black prose-p:text-gray-600 prose-p:leading-loose">
-                    <?= $kegiatan['konten'] ?>
+                    <?php if (!empty($kegiatan['deskripsi'])): ?>
+                        <div class="mb-10 p-5 border-l-4 border-blue-500 bg-blue-50/50 rounded-r-xl">
+                            <p class="text-slate-600 leading-relaxed font-medium">
+                                <?= esc($kegiatan['deskripsi']) ?>
+                            </p>
+                        </div>
+                    <?php endif ?>
+
+                    <div class="prose prose-slate prose-lg max-w-none 
+                                prose-p:text-slate-600 prose-p:leading-relaxed 
+                                prose-headings:text-slate-800 prose-headings:font-bold
+                                prose-img:rounded-2xl prose-strong:text-slate-900">
+                        <?= $kegiatan['konten'] ?>
+                    </div>
                 </div>
 
             </div>
         </article>
 
-        <div class="mt-8 text-center text-gray-400 text-xs tracking-widest uppercase">
-            Terakhir diupdate: <?= date('d/m/Y H:i') ?> WIB
+        <div class="mt-8 text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+            Sistem Informasi Manajemen • Terakhir diupdate: <?= date('d/m/Y H:i') ?> WIB
         </div>
 
     </main>

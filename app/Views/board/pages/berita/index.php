@@ -1,180 +1,184 @@
 <?= $this->include('board/layout/header') ?>
 
-<main class="p-4 md:p-8 bg-[#fbfbfb] min-h-screen overflow-x-hidden">
-    <div class="max-w-7xl mx-auto space-y-6 md:space-y-8 min-w-0">
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="min-w-0">
-                <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter uppercase italic truncate">
-                    Manajemen <span class="text-[#b91c1c]">Berita</span>
-                </h1>
-                <p class="text-xs md:text-sm text-gray-400 font-medium">Publikasikan kabar terbaru LASMURA</p>
-            </div>
-
-            <a href="<?= base_url('/admin/berita/tambah') ?>"
-                class="inline-flex items-center justify-center gap-2 bg-[#b91c1c] text-white px-5 py-3 md:px-6 md:py-4 rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-red-800 transition-all active:scale-95 shadow-lg shadow-red-100 whitespace-nowrap">
-                <i class="fa-solid fa-plus text-[10px]"></i>
-                Tambah Berita
-            </a>
+<div class="container mx-auto px-6 py-8 max-w-7xl">
+    <!-- Header Page -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Manajemen Berita</h1>
+            <p class="text-sm text-slate-500">Publikasikan kabar terbaru dan artikel LASMURA.</p>
         </div>
+        <a href="<?= base_url('/admin/berita/tambah') ?>"
+            class="inline-flex items-center justify-center bg-[#ea7e13] hover:bg-[#d46d0e] text-white px-6 py-2.5 rounded-xl font-semibold transition-all shadow-md shadow-red-50 gap-2 active:scale-95 text-sm">
+            <i class="fa-solid fa-plus text-xs"></i>
+            Tambah Berita
+        </a>
+    </div>
 
-        <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
-            <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
-                <?php if ($msg = session()->getFlashdata('error')): ?>
-                    <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
-                        <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
-                        <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
-                    </div>
-                <?php endif; ?>
-                <?php if ($msg = session()->getFlashdata('success')): ?>
-                    <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
-                        <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
-                        <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
-                    </div>
+    <!-- Alert System -->
+    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
+            <?php if ($msg = session()->getFlashdata('error')): ?>
+                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+            <?php if ($msg = session()->getFlashdata('success')): ?>
+                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Statistik Ringkas -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-nowrap">Total Berita</p>
+            <p class="text-2xl font-bold text-slate-800"><?= count($berita) ?></p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-[10px] font-bold text-green-500 uppercase tracking-widest text-nowrap">Published</p>
+            <p class="text-2xl font-bold text-slate-800">
+                <?= count(array_filter($berita, fn($b) => $b['status'] === 'publish')) ?>
+            </p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-[10px] font-bold text-orange-500 uppercase tracking-widest text-nowrap">Draft</p>
+            <p class="text-2xl font-bold text-slate-800">
+                <?= count(array_filter($berita, fn($b) => $b['status'] !== 'publish')) ?>
+            </p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest text-nowrap">Headline</p>
+            <p class="text-2xl font-bold text-slate-800">
+                <?= count(array_filter($berita, fn($b) => $b['is_headline'] == 1)) ?>
+            </p>
+        </div>
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 mb-6">
+        <form method="get" class="flex flex-col md:flex-row gap-3">
+            <div class="relative flex-1 group">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#b91c1c] transition-colors text-sm"></i>
+                <input type="text" name="q" value="<?= esc($keyword) ?>"
+                    placeholder="Cari berita atau penulis..."
+                    class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 focus:border-red-200 focus:ring-4 focus:ring-red-50 text-sm transition-all outline-none">
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="bg-slate-800 text-white px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-black transition-all">
+                    Cari
+                </button>
+                <?php if ($keyword): ?>
+                    <a href="<?= base_url('/admin/berita') ?>" class="flex items-center justify-center bg-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm hover:bg-slate-300">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </a>
                 <?php endif; ?>
             </div>
-        <?php endif; ?>
+        </form>
+    </div>
 
-        <div class="bg-white rounded-[2rem] p-4 md:p-6 shadow-sm border border-gray-100">
-            <form method="get" class="flex flex-col md:flex-row gap-3">
-                <div class="relative flex-1 group">
-                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#b91c1c] transition-colors"></i>
-                    <input type="text" name="q" value="<?= esc($keyword) ?>"
-                        placeholder="Cari judul atau penulis..."
-                        class="w-full pl-12 pr-6 py-3 md:py-3.5 rounded-xl md:rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-red-50 text-sm font-medium transition-all">
-                </div>
-
-                <div class="flex gap-2">
-                    <button type="submit" class="flex-1 md:flex-none bg-gray-900 text-white px-6 py-3 md:py-3.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#b91c1c] transition-all">
-                        Cari
-                    </button>
-                    <?php if ($keyword): ?>
-                        <a href="<?= base_url('/admin/berita') ?>" class="flex-1 md:flex-none bg-gray-100 text-center text-gray-500 px-6 py-3 md:py-3.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-200">
-                            Reset
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </form>
-        </div>
-
-        <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-            <div class="w-full overflow-x-auto custom-scrollbar">
-                <table class="w-full text-sm min-w-[700px]">
-                    <thead>
-                        <tr class="bg-gray-50/50 border-b border-gray-100 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
-                            <th class="px-6 md:px-8 py-5 text-left w-24">Thumbnail</th>
-                            <th class="px-6 md:px-8 py-5 text-left">Konten Berita</th>
-                            <th class="px-4 py-5 text-left hidden md:table-cell">Penulis</th>
-                            <th class="px-4 py-5 text-left hidden lg:table-cell">Tanggal</th>
-                            <th class="px-4 py-5 text-center">Status</th>
-                            <th class="px-6 md:px-8 py-5 text-center">Aksi</th>
+    <!-- Main Table Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-100">
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest w-24">Media</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Informasi Berita</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden md:table-cell">Penulis</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Status</th>
+                        <th class="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <?php if (empty($berita)): ?>
+                        <tr>
+                            <td colspan="5" class="px-6 py-16 text-center">
+                                <div class="flex flex-col items-center justify-center text-slate-300">
+                                    <i class="fa-regular fa-newspaper text-3xl mb-3 opacity-20"></i>
+                                    <p class="text-xs italic">Tidak ada kabar berita ditemukan.</p>
+                                </div>
+                            </td>
                         </tr>
-                    </thead>
-
-                    <tbody class="divide-y divide-gray-50">
-                        <?php if (empty($berita)): ?>
-                            <tr>
-                                <td colspan="6" class="px-8 py-20 text-center">
-                                    <i class="fa-regular fa-newspaper text-gray-200 text-4xl mb-3 block"></i>
-                                    <p class="font-black text-gray-800 uppercase tracking-tighter">Kosong</p>
+                    <?php else: ?>
+                        <?php foreach ($berita as $b): ?>
+                            <tr class="hover:bg-slate-50/80 transition-colors group">
+                                <td class="px-6 py-4">
+                                    <div class="relative w-16 h-12">
+                                        <?php if ($b['thumbnail']): ?>
+                                            <img src="<?= base_url('uploads/berita/' . $b['thumbnail']) ?>"
+                                                class="w-full h-full rounded-lg object-cover border border-slate-100 shadow-sm">
+                                        <?php else: ?>
+                                            <div class="w-full h-full rounded-lg bg-slate-50 flex items-center justify-center border border-dashed border-slate-200">
+                                                <i class="fa-solid fa-image text-slate-200 text-xs"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($b['is_headline']): ?>
+                                            <div class="absolute -top-1 -right-1 bg-orange-500 text-white text-[7px] font-black px-1 py-0.5 rounded shadow-sm">HOT</div>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-slate-700 leading-tight group-hover:text-[#b91c1c] transition-colors line-clamp-1 uppercase tracking-tight">
+                                            <?= esc($b['judul']) ?>
+                                        </span>
+                                        <span class="text-[10px] text-slate-400 font-medium mt-1">
+                                            <i class="fa-regular fa-clock mr-1"></i><?= date('d M Y', strtotime($b['created_at'])) ?>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 hidden md:table-cell text-slate-600 font-medium text-xs">
+                                    <?= esc($b['nama_lengkap']) ?>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[9px] font-bold uppercase border
+                                        <?= $b['status'] === 'publish' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-slate-100 text-slate-500 border-slate-200' ?>">
+                                        <?= $b['status'] ?>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <a href="<?= base_url('admin/berita/headline/' . $b['id_berita']) ?>"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg transition-all <?= $b['is_headline'] ? 'bg-orange-500 text-white shadow-md shadow-orange-100' : 'bg-slate-50 text-slate-400 hover:bg-orange-50 hover:text-orange-500' ?>"
+                                            title="Set Headline">
+                                            <i class="fa-solid fa-star text-[10px]"></i>
+                                        </a>
+                                        <a href="<?= base_url('admin/berita/preview/' . $b['slug']) ?>"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all" title="Lihat">
+                                            <i class="fa-solid fa-eye text-xs"></i>
+                                        </a>
+                                        <a href="<?= base_url('admin/berita/edit/' . $b['id_berita']) ?>"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all" title="Edit">
+                                            <i class="fa-solid fa-pen-to-square text-xs"></i>
+                                        </a>
+                                        <?php if (session()->get('role') === 'super_admin'): ?>
+                                            <form action="<?= base_url('/admin/berita/hapus/' . $b['id_berita']) ?>" method="post" class="inline" onsubmit="return confirm('Hapus?')">
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-500 hover:bg-red-600 hover:text-white transition-all">
+                                                    <i class="fa-solid fa-trash-can text-xs"></i>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </div>
                                 </td>
                             </tr>
-                        <?php else: ?>
-                            <?php foreach ($berita as $b): ?>
-                                <tr class="group hover:bg-gray-50/50 transition-all">
-                                    <td class="px-6 md:px-8 py-4">
-                                        <div class="relative w-16 h-12 flex-shrink-0">
-                                            <?php if ($b['thumbnail']): ?>
-                                                <img src="<?= base_url('uploads/berita/' . $b['thumbnail']) ?>"
-                                                    class="w-full h-full rounded-xl object-cover shadow-sm">
-                                            <?php else: ?>
-                                                <div class="w-full h-full rounded-xl bg-gray-100 flex items-center justify-center text-gray-300">
-                                                    <i class="fa-solid fa-image text-xs"></i>
-                                                </div>
-                                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
-                                            <?php if ($b['is_headline']): ?>
-                                                <div class="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm">
-                                                    HOT
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
-
-                                    <td class="px-6 md:px-8 py-4">
-                                        <div class="max-w-[200px] md:max-w-md">
-                                            <p class="font-black text-gray-800 text-sm leading-tight uppercase italic truncate">
-                                                <?= esc($b['judul']) ?>
-                                            </p>
-                                            <div class="flex items-center gap-2 mt-1">
-                                                <span class="text-[9px] text-gray-400 md:hidden italic">
-                                                    By: <?= esc($b['nama_lengkap']) ?>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="px-4 py-4 hidden md:table-cell">
-                                        <span class="text-xs font-bold text-gray-600"><?= esc($b['nama_lengkap']) ?></span>
-                                    </td>
-
-                                    <td class="px-4 py-4 hidden lg:table-cell">
-                                        <span class="text-[10px] font-medium text-gray-400 italic">
-                                            <?= date('d/m/y', strtotime($b['created_at'])) ?>
-                                        </span>
-                                    </td>
-
-                                    <td class="px-4 py-4 text-center">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest
-                                            <?= $b['status'] === 'publish' ? 'bg-green-50 text-green-600' : 'bg-yellow-50 text-yellow-600' ?>">
-                                            <?= $b['status'] ?>
-                                        </span>
-                                    </td>
-
-                                    <td class="px-6 md:px-8 py-4">
-                                        <div class="flex items-center justify-end gap-2">
-                                            <a href="<?= base_url('admin/berita/headline/' . $b['id_berita']) ?>"
-                                                class="p-2 w-8 h-8 flex items-center justify-center rounded-lg transition-all <?= $b['is_headline'] ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-400 hover:bg-gray-200' ?>">
-                                                <i class="fa-solid fa-star text-[10px]"></i>
-                                            </a>
-
-                                            <a href="<?= base_url('admin/berita/edit/' . $b['id_berita']) ?>"
-                                                class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-green-500 hover:bg-green-100 rounded-lg transition-all">
-                                                <i class="fa-solid fa-pen-to-square text-sm"></i>
-                                            </a>
-
-                                            <a href="<?= base_url('admin/berita/preview/' . $b['slug']) ?>"
-                                                class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 hover:bg-blue-100 rounded-lg transition-all"
-                                                title="Preview">
-                                                <i class="fa-regular fa-eye text-xs"></i>
-                                            </a>
-
-                                            <?php if (session()->get('role') === 'super_admin'): ?>
-                                                <form action="<?= base_url('/admin/berita/hapus/' . $b['id_berita']) ?>" method="post" class="inline" onsubmit="return confirm('Hapus?')">
-                                                    <button type="submit" class="p-2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
-                                                        <i class="fa-solid fa-trash-can text-sm"></i>
-                                                    </button>
-                                                </form>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="px-6 md:px-8 py-6 border-t border-gray-50 bg-gray-50/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
-                    &copy; 2026 LASMURA SYSTEM
-                </p>
-                <div class="admin-pagination scale-90 md:scale-100">
-                    <?= $pager->links('berita', 'admin_pagination') ?>
-                </div>
+        <!-- Pagination Footer -->
+        <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">LASMURA &copy; 2026 CMS</p>
+            <div class="admin-pagination">
+                <?= $pager->links('berita', 'admin_pagination') ?>
             </div>
         </div>
     </div>
-</main>
+</div>
 
 <?= $this->include('board/layout/footer') ?>

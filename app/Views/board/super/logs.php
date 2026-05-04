@@ -1,126 +1,112 @@
 <?= $this->include('board/layout/header') ?>
 
-<div class="p-6">
-    <h1 class="text-2xl font-bold mb-6">Log Aktivitas Sistem</h1>
+<!-- Tambahkan wrapper utama dengan overflow-x-hidden untuk mencegah scroll body -->
+<div class="max-w-full overflow-x-hidden p-4 md:p-6 space-y-6">
 
-    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
-        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500">
-            <?php if ($msg = session()->getFlashdata('error')): ?>
-                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
-                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
-                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
-                </div>
-            <?php endif; ?>
-            <?php if ($msg = session()->getFlashdata('success')): ?>
-                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4">
-                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
-                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
-                </div>
-            <?php endif; ?>
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="min-w-0"> <!-- min-w-0 mencegah flex child meluap -->
+            <h1 class="text-xl md:text-2xl font-bold text-slate-800 truncate">Log Aktivitas Sistem</h1>
+            <p class="text-xs md:text-sm text-slate-500">Pantau seluruh riwayat perubahan dan aktivitas admin.</p>
         </div>
-    <?php endif; ?>
+        <div class="flex-shrink-0">
+            <form action="<?= base_url('admin/logs/cleanup') ?>" method="post"
+                onsubmit="return confirm('Hapus log lama?')">
+                <button class="w-full md:w-auto flex items-center justify-center gap-2 bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-100 transition shadow-sm">
+                    <i class="fa-solid fa-trash-can text-xs"></i>
+                    <span>Bersihkan Log</span>
+                </button>
+            </form>
+        </div>
+    </div>
 
-    <div class="overflow-x-auto bg-white rounded-xl shadow-sm border">
-        <form method="get" class="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
-            <input type="date" name="from"
-                value="<?= esc($filter['from'] ?? '') ?>"
-                class="border rounded px-3 py-2">
+    <!-- Table Card -->
+    <div class="bg-white rounded-xl border shadow-sm overflow-hidden max-w-full">
 
-            <input type="date" name="to"
-                value="<?= esc($filter['to'] ?? '') ?>"
-                class="border rounded px-3 py-2">
+        <!-- Filter Section -->
+        <div class="p-4 border-b bg-slate-50">
+            <form method="get" id="filterForm" class="flex flex-col lg:flex-row lg:items-center gap-3">
+                <div class="grid grid-cols-2 lg:flex items-center gap-2 flex-grow">
+                    <input type="date" name="from" value="<?= esc($filter['from'] ?? '') ?>"
+                        class="text-sm border rounded-lg px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#d66a0c] shadow-sm w-full">
+                    <input type="date" name="to" value="<?= esc($filter['to'] ?? '') ?>"
+                        class="text-sm border rounded-lg px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#d66a0c] shadow-sm w-full">
+                </div>
 
-            <select name="modul" class="border rounded px-3 py-2">
-                <option value="">-- Semua Modul --</option>
-                <option value="dashboard" <?= ($filter['modul'] ?? '') == 'dashboard' ? 'selected' : '' ?>>Dashboard</option>
-                <option value="penerimaan anggota" <?= ($filter['modul'] ?? '') == 'penerimaan anggota' ? 'selected' : '' ?>>Penerimaan Anggota</option>
-                <option value="anggota lasmura" <?= ($filter['modul'] ?? '') == 'anggota lasmura' ? 'selected' : '' ?>>Anggota Lasmura</option>
-                <option value="pengelolaan berita" <?= ($filter['modul'] ?? '') == 'pengelolaan berita' ? 'selected' : '' ?>>Pengelolaan Berita</option>
-                <option value="kegiatan lasmura" <?= ($filter['modul'] ?? '') == 'kegiatan lasmura' ? 'selected' : '' ?>>Kegiatan Lasmura</option>
-                <option value="struktur organisasi" <?= ($filter['modul'] ?? '') == 'struktur organisasi' ? 'selected' : '' ?>>Struktur Organisasi</option>
-                <option value="manajemen admin" <?= ($filter['modul'] ?? '') == 'manajemen admin' ? 'selected' : '' ?>>Manajemen Admin</option>
-            </select>
+                <select name="modul" class="text-sm border rounded-lg px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#d66a0c] shadow-sm w-full lg:w-[250px]">
+                    <option value="">-- Semua Modul --</option>
+                    <?php
+                    $moduls = ['dashboard', 'penerimaan anggota', 'anggota lasmura', 'pengelolaan berita', 'kegiatan lasmura', 'struktur organisasi', 'manajemen admin'];
+                    foreach ($moduls as $m): ?>
+                        <option value="<?= $m ?>" <?= ($filter['modul'] ?? '') == $m ? 'selected' : '' ?>><?= ucwords($m) ?></option>
+                    <?php endforeach; ?>
+                </select>
 
-            <button class="bg-slate-800 text-white rounded px-4 py-2">
-                Filter
-            </button>
-        </form>
+                <div class="flex gap-2">
+                    <button type="submit" class="flex-1 lg:flex-none bg-slate-800 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-slate-900 transition">
+                        Filter
+                    </button>
+                    <?php if (!empty($filter['from']) || !empty($filter['modul'])): ?>
+                        <a href="<?= base_url('admin/logs') ?>" class="flex items-center justify-center bg-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm hover:bg-slate-300">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
 
-        <form action="<?= base_url('admin/logs/cleanup') ?>" method="post"
-            onsubmit="return confirm('Hapus log lama sesuai pengaturan sistem?')"
-            class="mb-4">
-            <button class="bg-red-600 text-white px-4 py-2 rounded">
-                Bersihkan Log Lama
-            </button>
-        </form>
-
-        <div id="logTable">
-            <table class="w-full text-sm">
-                <thead class="bg-slate-100">
+        <!-- Bagian Penting: Kontainer Scroll Tabel -->
+        <div class="w-full overflow-x-auto bg-white">
+            <table class="w-full text-sm text-left border-collapse min-w-[800px]"> <!-- min-w memaksa tabel punya lebar minimal agar bisa di-scroll di dalam div ini -->
+                <thead class="bg-white border-b text-slate-600 uppercase text-[10px] font-bold tracking-wider">
                     <tr>
-                        <th class="px-4 py-3 text-left">Waktu</th>
-                        <th class="px-4 py-3 text-left">User</th>
-                        <th class="px-4 py-3 text-left">Role</th>
-                        <th class="px-4 py-3 text-left">Modul</th>
-                        <th class="px-4 py-3 text-left">Aktivitas</th>
-                        <th class="px-4 py-3 text-left">Alamat IP</th>
+                        <th class="px-6 py-4 w-32">Waktu</th>
+                        <th class="px-6 py-4 w-40">Pengguna</th>
+                        <th class="px-6 py-4 w-32 text-center">Modul</th>
+                        <th class="px-6 py-4">Aktivitas</th>
+                        <th class="px-6 py-4 w-28">IP Address</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y divide-slate-100">
                     <?php foreach ($logs as $log): ?>
-                        <tr class="border-t hover:bg-slate-50">
-                            <td class="px-4 py-2 whitespace-nowrap">
-                                <?= date('d M Y H:i', strtotime($log['created_at'])) ?>
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="block font-bold text-slate-700 text-[11px]"><?= date('d/m/Y', strtotime($log['created_at'])) ?></span>
+                                <span class="text-[10px] text-slate-400 font-mono"><?= date('H:i', strtotime($log['created_at'])) ?> WIB</span>
                             </td>
-                            <td class="px-4 py-2"><?= esc($log['nama_lengkap']) ?? '-' ?></td>
-                            <td class="px-4 py-2"><?= esc($log['role']) ?></td>
-                            <td class="px-4 py-2 font-semibold text-indigo-600">
-                                <?= esc($log['modul']) ?>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="font-bold text-slate-700 uppercase text-[10px] block truncate max-w-[120px]"><?= esc($log['nama_lengkap']) ?></span>
+                                <span class="text-[9px] text-slate-400 italic"><?= strtoupper($log['role']) ?></span>
                             </td>
-                            <td class="px-4 py-2"><?= esc($log['aksi']) ?></td>
-                            <td class="px-4 py-2 text-slate-500"><?= $log['ip_address'] ?></td>
+                            <td class="px-6 py-4 text-center whitespace-nowrap">
+                                <span class="px-2 py-0.5 rounded text-[9px] font-black bg-indigo-50 text-indigo-600 border border-indigo-100 uppercase">
+                                    <?= esc($log['modul']) ?>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="text-slate-600 text-[11px] leading-tight italic line-clamp-2">
+                                    <?= esc($log['aksi']) ?>
+                                </p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap font-mono text-[10px] text-slate-400">
+                                <?= $log['ip_address'] ?>
+                            </td>
                         </tr>
-
-                        <?php if (empty($logs)): ?>
-                            <tr>
-                                <td colspan="6" class="px-4 py-6 text-center text-slate-500">
-                                    Tidak ada data log
-                                </td>
-                            </tr>
-                        <?php endif ?>
-
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
-    </div>
 
-    <div class="mt-4">
-        <?= $pager->links('logs', 'admin_pagination') ?>
+        <!-- Footer / Pagination -->
+        <div class="px-6 py-4 bg-slate-50 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                Showing <?= count($logs) ?> logs
+            </span>
+            <div class="pagination-custom scale-90 sm:scale-100">
+                <?= $pager->links('logs', 'admin_pagination') ?>
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const form = this;
-        const params = new URLSearchParams(new FormData(form)).toString();
-
-        fetch(form.action + '?' + params, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(res => res.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                const newTable = doc.querySelector('#logTable');
-                document.querySelector('#logTable').innerHTML = newTable.innerHTML;
-            });
-    });
-</script>
 
 <?= $this->include('board/layout/footer') ?>

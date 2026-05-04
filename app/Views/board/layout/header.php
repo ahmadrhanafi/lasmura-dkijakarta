@@ -238,7 +238,3 @@ if ($role === 'super_admin') {
                         : 'Admin' ?>
                 </div>
             </header>
-
-            <?php if (isset($breadcrumb)): ?>
-                <?= $this->include('board/layout/breadcrumb') ?>
-            <?php endif; ?>

@@ -16,13 +16,28 @@ class Kegiatan extends BaseController
 
     public function index()
     {
+        $keyword = $this->request->getGet('q');
+
+        $query = $this->kegiatan->withUser();
+
+        if ($keyword) {
+            $query->like('judul', $keyword);
+        }
+        logAktivitas(
+            'Pengelolaan Kegiatan',
+            'Mengakses halaman pengelolaan kegiatan'
+                . ($keyword ? " | keyword: {$keyword}" : '')
+        );
+
         return view('board/pages/kegiatan/index', [
-            'title' => 'Pengelolaan Kegiatan',
-            'kegiatan' => $this->kegiatan
-                ->withUser()
-                ->orderBy('tanggal_kegiatan', 'DESC')
-                ->paginate(5),
-            'pager' => $this->kegiatan->pager
+            'title' => 'Pengelolaan Kegiatan | Dashboard LASMURA DKI JAKARTA',
+            'kegiatan' => $query->orderBy('tanggal_kegiatan', 'DESC')->paginate(5),
+            'pager' => $query->pager,
+            'keyword' => $keyword,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
+                ['label' => 'Pengelolaan Kegiatan']
+            ]
         ]);
     }
 

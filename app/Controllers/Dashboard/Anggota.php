@@ -3,6 +3,7 @@
 namespace App\Controllers\Dashboard;
 
 use App\Controllers\BaseController;
+use App\Models\PendaftaranModel;
 use App\Models\UserModel;
 
 class Anggota extends BaseController
@@ -14,35 +15,39 @@ class Anggota extends BaseController
         $keyword = $this->request->getGet('q');
         $status  = $this->request->getGet('status');
 
-        $builder = $userModel->where('role', 'anggota');
+        $builder = $userModel->select('
+                        users.id_user, 
+                        users.nama_lengkap, 
+                        users.nomor_anggota, 
+                        users.status, 
+                        pendaftaran_anggota.no_hp, 
+                        pendaftaran_anggota.email, 
+                        pendaftaran_anggota.alamat
+                     ')
+            ->join('pendaftaran_anggota', 'pendaftaran_anggota.nik = users.nik', 'left')
+            ->where('users.role', 'anggota');
 
         if ($keyword) {
             $builder->groupStart()
-                ->like('nama_lengkap', $keyword)
-                ->orLike('nik', $keyword)
+                ->like('users.nama_lengkap', $keyword)
+                ->orLike('users.nomor_anggota', $keyword)
+                ->orLike('pendaftaran_anggota.no_hp', $keyword)
                 ->groupEnd();
         }
 
         if ($status) {
-            $builder->where('status', $status);
+            $builder->where('users.status', $status);
         }
 
-        logAktivitas(
-            'Anggota LASMURA',
-            'Mengakses halaman daftar anggota'
-                . ($keyword ? " | keyword: {$keyword}" : '')
-                . ($status ? " | status: {$status}" : '')
-        );
-
+        // Perbaikan breadcrumb agar sesuai dengan format yang kita buat tadi (Label => Link)
         $data = [
-            'title'   => 'Anggota LASMURA | Dashboard LASMURA DKI JAKARTA',
-            'anggota' => $builder->paginate(10, 'anggota'),
-            'pager'   => $userModel->pager,
-            'keyword' => $keyword,
-            'status'  => $status,
+            'title'      => 'Anggota LASMURA | Dashboard LASMURA DKI JAKARTA',
+            'anggota'    => $builder->paginate(10, 'anggota'),
+            'pager'      => $userModel->pager,
+            'keyword'    => $keyword,
+            'status'     => $status,
             'breadcrumb' => [
-                ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
-                ['label' => 'Anggota LASMURA'],
+                'Manajemen Anggota' => '' // Link kosong karena ini halaman aktif
             ],
         ];
 
