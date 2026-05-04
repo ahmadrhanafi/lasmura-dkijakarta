@@ -69,7 +69,7 @@ class Pendaftaran extends BaseController
 
         fputcsv($output, [
             'No',
-            'NIK',
+            'Nomor Anggota',
             'Nama Lengkap',
             'Email',
             'WhatsApp',
@@ -82,7 +82,7 @@ class Pendaftaran extends BaseController
         foreach ($data as $row) {
             fputcsv($output, [
                 $no++,
-                $row['nik'] ?? '-',
+                $row['nomor_anggota'] ?? '-',
                 $row['nama_lengkap'] ?? '-',
                 $row['email'] ?? '-',
                 $row['whatsapp'] ?? '-',
