@@ -91,6 +91,7 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
 
     // ===== MANAJEMEN PENDAFTARAN =====
     $routes->get('pendaftaran', 'Dashboard\Pendaftaran::index');
+    $routes->get('pendaftaran/export', 'Dashboard\Pendaftaran::exportPendaftaran');
     $routes->post('pendaftaran/terima/(:num)', 'Dashboard\Pendaftaran::terima/$1');
     $routes->post('pendaftaran/tolak/(:num)', 'Dashboard\Pendaftaran::tolak/$1');
 
@@ -133,6 +134,6 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
 });
 
 // ================= SUPER ADMIN PANEL =================
-$routes->group('admin', ['filter' => 'role:super_admin'], function ($routes) {
-    $routes->get('dashboard', 'Dashboard\Dashboard::index');
-});
+// $routes->group('admin', ['filter' => 'role:super_admin'], function ($routes) {
+//     $routes->get('dashboard', 'Dashboard\Dashboard::index');
+// });

@@ -39,7 +39,6 @@ class Anggota extends BaseController
             $builder->where('users.status', $status);
         }
 
-        // Perbaikan breadcrumb agar sesuai dengan format yang kita buat tadi (Label => Link)
         $data = [
             'title'      => 'Anggota LASMURA | Dashboard LASMURA DKI JAKARTA',
             'anggota'    => $builder->paginate(10, 'anggota'),
@@ -47,7 +46,7 @@ class Anggota extends BaseController
             'keyword'    => $keyword,
             'status'     => $status,
             'breadcrumb' => [
-                'Manajemen Anggota' => '' // Link kosong karena ini halaman aktif
+                'Manajemen Anggota' => ''
             ],
         ];
 
@@ -56,39 +55,62 @@ class Anggota extends BaseController
 
     public function exportAnggota()
     {
-        $userModel = new UserModel();
+        $userModel = new \App\Models\UserModel();
 
-        $data = $userModel
-            ->where('role', 'anggota')
-            ->findAll();
+        $builder = $userModel->select('
+            users.nama_lengkap, 
+            users.nomor_anggota, 
+            users.status, 
+            pendaftaran_anggota.jenis_kelamin, 
+            pendaftaran_anggota.tanggal_lahir, 
+            pendaftaran_anggota.no_hp, 
+            pendaftaran_anggota.email, 
+            pendaftaran_anggota.alamat
+        ')
+            ->join('pendaftaran_anggota', 'pendaftaran_anggota.nik = users.nik', 'left')
+            ->where('users.role', 'anggota');
+
+        $data = $builder->findAll();
 
         logAktivitas('Anggota LASMURA', 'Export data anggota ke CSV');
 
-        header("Content-Type: text/csv");
-        header("Content-Disposition: attachment; filename=anggota_lasmura.csv");
+        if (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        header("Content-Type: text/csv; charset=utf-8");
+        header("Content-Disposition: attachment; filename=anggota_lasmura_" . date('Ymd_His') . ".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
 
         $output = fopen("php://output", "w");
 
         fputcsv($output, [
             'Nama Lengkap',
-            'NIK',
+            'Nomor Anggota',
             'Jenis Kelamin',
             'Tanggal Lahir',
+            'No. HP',
+            'Email',
+            'Alamat',
             'Status'
         ]);
 
         foreach ($data as $row) {
             fputcsv($output, [
-                $row['nama_lengkap'],
-                $row['nik'],
-                $row['jenis_kelamin'],
-                $row['tanggal_lahir'],
-                $row['status']
+                $row['nama_lengkap'] ?? '-',
+                $row['nomor_anggota'] ?? '-',
+                $row['jenis_kelamin'] ?? '-',
+                $row['tanggal_lahir'] ?? '-',
+                $row['no_hp'] ?? '-',
+                $row['email'] ?? '-',
+                $row['alamat'] ?? '-',
+                $row['status'] ?? '-'
             ]);
         }
 
         fclose($output);
-        exit;
+        exit();
     }
 
     public function detailAnggota($id)

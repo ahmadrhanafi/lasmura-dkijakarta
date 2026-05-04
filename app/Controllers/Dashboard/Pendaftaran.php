@@ -46,6 +46,56 @@ class Pendaftaran extends BaseController
         ]);
     }
 
+    public function exportPendaftaran()
+    {
+        $pendaftaranModel = new \App\Models\PendaftaranModel();
+
+        $data = $pendaftaranModel->findAll();
+
+        if (function_exists('logAktivitas')) {
+            logAktivitas('Pendaftaran LASMURA', 'Export data pendaftaran ke CSV');
+        }
+
+        if (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        header("Content-Type: text/csv; charset=utf-8");
+        header("Content-Disposition: attachment; filename=data_pendaftaran_lasmura_" . date('Ymd_His') . ".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $output = fopen("php://output", "w");
+
+        fputcsv($output, [
+            'No',
+            'NIK',
+            'Nama Lengkap',
+            'Email',
+            'WhatsApp',
+            'Alamat',
+            'Tanggal Daftar',
+            'Status'
+        ]);
+
+        $no = 1;
+        foreach ($data as $row) {
+            fputcsv($output, [
+                $no++,
+                $row['nik'] ?? '-',
+                $row['nama_lengkap'] ?? '-',
+                $row['email'] ?? '-',
+                $row['whatsapp'] ?? '-',
+                $row['alamat'] ?? '-',
+                $row['created_at'] ?? '-',
+                $row['status'] ?? 'pending'
+            ]);
+        }
+
+        fclose($output);
+        exit();
+    }
+
     public function terima($id)
     {
         $pendaftaranModel = new PendaftaranModel();

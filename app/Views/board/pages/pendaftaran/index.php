@@ -8,7 +8,7 @@
             <p class="text-sm text-slate-500">Tinjau dan proses permohonan keanggotaan baru.</p>
         </div>
         <div class="flex flex-wrap gap-2">
-            <a href="<?= base_url('/anggota/export') ?>"
+            <a href="<?= base_url('admin/pendaftaran/export') ?>"
                 class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-sm shadow-emerald-50 gap-2 active:scale-95 text-sm">
                 <i class="fa-solid fa-file-export text-xs"></i>
                 Export CSV
