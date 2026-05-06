@@ -39,7 +39,7 @@
             <p class="text-2xl font-bold text-slate-800"><?= count($kegiatan) ?></p>
         </div>
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-[10px] font-bold text-[#ea7e13] uppercase tracking-widest">Published</p>
+            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Published</p>
             <p class="text-2xl font-bold text-slate-800">
                 <?php
                 $pub = array_filter($kegiatan, fn($k) => $k['status'] === 'publish');
@@ -84,7 +84,7 @@
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-white">
             <h2 class="text-lg font-bold text-slate-800">Daftar Event</h2>
-            <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Arsip Kegiatan</span>
+            <span class="bg-slate-100 text-slate-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Total: <?= count($kegiatan) ?> Data</span>
         </div>
 
         <div class="overflow-x-auto">
@@ -175,7 +175,7 @@
 
         <!-- Footer Tabel / Pagination -->
         <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Menampilkan <?= count($kegiatan) ?> Entri</p>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">&copy; Lasmura Activity Management</p>
             <div class="admin-pagination">
                 <?= $pager->links('kegiatan', 'admin_pagination') ?>
             </div>

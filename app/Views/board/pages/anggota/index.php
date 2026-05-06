@@ -41,7 +41,7 @@
             <div class="md:col-span-6 relative group">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors text-sm"></i>
                 <input type="text" name="q" value="<?= esc($keyword) ?>"
-                    placeholder="Cari nama atau nomor anggota..."
+                    placeholder="Cari nama, alamat atau nomor anggota..."
                     class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 focus:border-blue-200 focus:ring-4 focus:ring-blue-50 text-sm transition-all outline-none">
             </div>
 
@@ -57,7 +57,7 @@
             <!-- Actions -->
             <div class="md:col-span-3 flex gap-2">
                 <button type="submit" class="flex-1 bg-slate-800 text-white px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-black transition-all">
-                    Filter
+                    <i class="fa-solid fa-filter mr-2"></i> Filter
                 </button>
                 <?php if ($keyword || $status): ?>
                     <a href="<?= base_url('/admin/anggota') ?>" class="bg-slate-100 text-slate-500 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-200 flex items-center justify-center">
@@ -71,9 +71,9 @@
     <!-- Main Table Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-            <h2 class="text-[11px] font-black text-slate-500 uppercase tracking-[0.1em]">Database Anggota</h2>
-            <span class="text-[10px] bg-white border border-slate-200 px-2 py-1 rounded-md text-slate-400 font-bold">
-                Total: <?= count($anggota) ?> Entri
+            <h2 class="text-lg font-bold text-slate-800">Database Anggota</h2>
+            <span class="bg-slate-100 text-slate-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-slate-200">
+                Total: <?= count($anggota) ?> Anggota
             </span>
         </div>
 
@@ -139,7 +139,7 @@
 
         <!-- Pagination Footer -->
         <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lasmura &copy; 2026 Membership System</p>
+            <p class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">&copy; Lasmura Membership Database</p>
             <div class="admin-pagination">
                 <?= $pager->links('anggota', 'admin_pagination') ?>
             </div>

@@ -39,19 +39,19 @@
             <p class="text-2xl font-bold text-slate-800"><?= count($berita) ?></p>
         </div>
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-[10px] font-bold text-green-500 uppercase tracking-widest text-nowrap">Published</p>
+            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest text-nowrap">Published</p>
             <p class="text-2xl font-bold text-slate-800">
                 <?= count(array_filter($berita, fn($b) => $b['status'] === 'publish')) ?>
             </p>
         </div>
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-[10px] font-bold text-orange-500 uppercase tracking-widest text-nowrap">Draft</p>
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-nowrap">Draft</p>
             <p class="text-2xl font-bold text-slate-800">
                 <?= count(array_filter($berita, fn($b) => $b['status'] !== 'publish')) ?>
             </p>
         </div>
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-[10px] font-bold text-red-600 uppercase tracking-widest text-nowrap">Headline</p>
+            <p class="text-[10px] font-bold text-orange-600 uppercase tracking-widest text-nowrap">Headline</p>
             <p class="text-2xl font-bold text-slate-800">
                 <?= count(array_filter($berita, fn($b) => $b['is_headline'] == 1)) ?>
             </p>
@@ -173,7 +173,7 @@
 
         <!-- Pagination Footer -->
         <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">LASMURA &copy; 2026 CMS</p>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">&copy; Lasmura News Management</p>
             <div class="admin-pagination">
                 <?= $pager->links('berita', 'admin_pagination') ?>
             </div>

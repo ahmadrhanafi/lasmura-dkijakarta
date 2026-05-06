@@ -10,7 +10,7 @@
         <div class="flex flex-wrap gap-2">
             <a href="<?= base_url('admin/pendaftaran/export') ?>"
                 class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-semibold transition-all shadow-sm shadow-emerald-50 gap-2 active:scale-95 text-sm">
-                <i class="fa-solid fa-file-export text-xs"></i>
+                <i class="fa-solid fa-file-csv text-xs"></i>
                 Export CSV
             </a>
         </div>
@@ -38,17 +38,15 @@
     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 mb-8">
         <form method="get" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <div class="md:col-span-5 space-y-1.5">
-                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Cari Calon Anggota</label>
                 <div class="relative group">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#ea7e13] transition-colors text-sm"></i>
                     <input type="text" name="q" value="<?= esc($keyword) ?>"
-                        placeholder="Nama / Nomor Anggota / Email / Alamat ..."
+                        placeholder="Cari nama atau alamat calon anggota..."
                         class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 focus:border-orange-200 focus:ring-4 focus:ring-orange-50 text-sm transition-all outline-none">
                 </div>
             </div>
 
             <div class="md:col-span-3 space-y-1.5">
-                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Status Verifikasi</label>
                 <select name="status" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 focus:border-orange-200 focus:ring-4 focus:ring-orange-50 text-sm transition-all outline-none appearance-none cursor-pointer">
                     <option value="">Semua Status</option>
                     <option value="menunggu" <?= $status === 'menunggu' ? 'selected' : '' ?>>Menunggu</option>
@@ -63,7 +61,7 @@
                 </button>
                 <?php if ($keyword || $status): ?>
                     <a href="<?= base_url('/admin/anggota') ?>" class="bg-slate-100 text-slate-500 px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-200 flex items-center justify-center h-[42px]">
-                        Reset
+                        <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 <?php endif; ?>
             </div>
