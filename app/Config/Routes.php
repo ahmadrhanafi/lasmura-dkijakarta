@@ -84,10 +84,12 @@ $routes->group('admin', ['filter' => 'role:admin,super_admin'], function ($route
     $routes->get('kegiatan', 'Dashboard\Kegiatan::index');
     $routes->get('kegiatan/tambah', 'Dashboard\Kegiatan::create');
     $routes->post('kegiatan/simpan', 'Dashboard\Kegiatan::store');
+    $routes->post('kegiatan/store', 'Dashboard\Kegiatan::store');
     $routes->get('kegiatan/preview/(:segment)', 'Dashboard\Kegiatan::preview/$1');
     $routes->get('kegiatan/edit/(:num)', 'Dashboard\Kegiatan::edit/$1');
     $routes->post('kegiatan/update/(:num)', 'Dashboard\Kegiatan::update/$1');
     $routes->post('kegiatan/hapus/(:num)', 'Dashboard\Kegiatan::delete/$1');
+
 
     // ===== MANAJEMEN PENDAFTARAN =====
     $routes->get('pendaftaran', 'Dashboard\Pendaftaran::index');
