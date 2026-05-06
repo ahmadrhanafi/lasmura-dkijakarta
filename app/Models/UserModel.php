@@ -33,7 +33,7 @@ class UserModel extends Model
         ')
             ->join(
                 'pendaftaran_anggota',
-                'TRIM(pendaftaran_anggota.nomor_anggota) = TRIM(users.nomor_anggota)',
+                'pendaftaran_anggota.username = users.username',
                 'left'
             );
     }

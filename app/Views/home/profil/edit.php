@@ -57,14 +57,14 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-gray-800">Biodata Lengkap</h3>
-                    <p class="text-xs text-gray-400">Pastikan NIK sesuai dengan KTP</p>
+                    <p class="text-xs text-gray-400">Identitas dan data kontak anggota</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div class="space-y-2">
-                    <label class="block text-sm font-bold text-gray-600 ml-1">NIK (Read-only)</label>
-                    <input type="text" name="nik" value="<?= esc($user['nik']) ?>"
+                    <label class="block text-sm font-bold text-gray-600 ml-1">Nomor Anggota</label>
+                    <input type="text" name="nomor_anggota" value="<?= esc($user['nomor_anggota'] ?? '') ?>"
                         class="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-gray-200/50 cursor-not-allowed text-gray-500 outline-none"
                         readonly>
                 </div>
@@ -73,8 +73,9 @@
                     <label class="block text-sm font-bold text-gray-600 ml-1">Jenis Kelamin</label>
                     <select name="jenis_kelamin"
                         class="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-orange-100 focus:border-[#ea7e13] transition-all duration-300 outline-none text-gray-700 appearance-none" required>
-                        <option value="Laki-laki" <?= ($user['jenis_kelamin'] ?? '') === 'Laki-laki' ? 'selected' : '' ?>>Laki-laki</option>
-                        <option value="Perempuan" <?= ($user['jenis_kelamin'] ?? '') === 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
+                        <option value="" disabled <?= empty($user['jk_asli']) ? 'selected' : '' ?>>-- Pilih Jenis Kelamin --</option>
+                        <option value="Laki-laki" <?= ($user['jk_asli'] ?? '') === 'Laki-laki' ? 'selected' : '' ?>>Laki-laki</option>
+                        <option value="Perempuan" <?= ($user['jk_asli'] ?? '') === 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
                     </select>
                 </div>
 

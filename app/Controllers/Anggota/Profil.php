@@ -4,8 +4,8 @@ namespace App\Controllers\Anggota;
 
 use App\Controllers\BaseController;
 use App\Models\PendaftaranModel;
-use App\Models\UserModel;
 use App\Models\StrukturAnggotaModel;
+use App\Models\UserModel;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -26,8 +26,9 @@ class Profil extends BaseController
     {
         $idUser = session()->get('id_user');
 
-        $user = $this->userModel
-            ->withPendaftaran()
+        $user = $this->pendaftaranModel
+            ->select('pendaftaran_anggota.*, users.id_user, users.nomor_anggota as no_anggota_user, users.status as status_akun')
+            ->join('users', 'users.username = pendaftaran_anggota.username', 'inner')
             ->where('users.id_user', $idUser)
             ->first();
 
@@ -72,7 +73,7 @@ class Profil extends BaseController
 
         $dataPendaftaran = [
             'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
-            'nik'           => $this->request->getPost('nik'),
+            'nomor_anggota' => $this->request->getPost('nomor_anggota'),
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
             'no_hp'         => $this->request->getPost('no_hp'),

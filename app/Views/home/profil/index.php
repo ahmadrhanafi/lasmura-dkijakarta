@@ -32,7 +32,7 @@
                     <div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
                 </div>
                 <h2 class="text-xl font-bold text-gray-900 leading-tight"><?= esc($user['nama_lengkap']) ?></h2>
-                <p class="text-gray-400 text-sm mb-4 font-mono"><?= esc($user['nomor_anggota'] ?? 'Belum Ada No. Anggota') ?></p>
+                <p class="text-gray-400 text-sm mb-4 font-mono"><?= esc($user['nomor_anggota'] ?? 'Belum Resmi Terdaftar') ?></p>
 
                 <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-green-50 text-green-600 border border-green-100">
                     <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="group">
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Alamat Email</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['email'] ?? '-') ?></p>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['email']) ?></p>
                     </div>
                 </div>
             </div>
@@ -72,8 +72,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
                     <div>
-                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Nomor Induk Kependudukan (NIK)</label>
-                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['nik'] ?? '-') ?></p>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Nomor HP</label>
+                        <p class="text-gray-700 font-semibold leading-relaxed"><?= esc($user['no_hp'] ?? '-') ?></p>
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">Jenis Kelamin</label>
