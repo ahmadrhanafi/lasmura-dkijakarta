@@ -25,7 +25,7 @@ class UserModel extends Model
     {
         return $this->select('
             users.*,
-            pendaftaran_anggota.jenis_kelamin,
+            pendaftaran_anggota.jenis_kelamin AS jk_asli,
             pendaftaran_anggota.tanggal_lahir,
             pendaftaran_anggota.no_hp,
             pendaftaran_anggota.email,
@@ -33,7 +33,7 @@ class UserModel extends Model
         ')
             ->join(
                 'pendaftaran_anggota',
-                'pendaftaran_anggota.nik = users.nik',
+                'TRIM(pendaftaran_anggota.nomor_anggota) = TRIM(users.nomor_anggota)',
                 'left'
             );
     }

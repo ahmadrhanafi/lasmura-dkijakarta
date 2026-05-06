@@ -83,11 +83,11 @@ if ($role === 'super_admin') {
                         <span>Kegiatan LASMURA</span>
                     </a>
 
-                    <a href="<?= base_url('/admin/struktur') ?>"
+                    <!-- <a href="<?= base_url('/admin/struktur') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-sitemap w-5 mt-1 text-center"></i>
                         <span>Struktur Organisasi</span>
-                    </a>
+                    </a> -->
                 <?php endif; ?>
 
                 <?php if (session()->get('role') === 'super_admin'): ?>
@@ -175,11 +175,11 @@ if ($role === 'super_admin') {
                         <span>Kegiatan LASMURA</span>
                     </a>
 
-                    <a href="<?= base_url('/admin/anggota') ?>"
+                    <!-- <a href="<?= base_url('/admin/anggota') ?>"
                         class="flex item-center gap-3 px-4 py-2 rounded <?= $theme['hover'] ?>">
                         <i class="fa-solid fa-sitemap w-5 mt-1 text-center"></i>
                         <span>Struktur Organisasi</span>
-                    </a>
+                    </a> -->
                 <?php endif; ?>
 
                 <?php if (session()->get('role') === 'super_admin'): ?>

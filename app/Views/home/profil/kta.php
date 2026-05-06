@@ -40,12 +40,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
                     <div class="space-y-1">
-                        <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">NIK</label>
-                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['nik']) ?></p>
+                        <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Nomor Anggota</label>
+                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['nomor_anggota']) ?></p>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Jenis Kelamin</label>
-                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['jenis_kelamin'] ?? '-') ?></p>
+                        <p class="text-gray-900 font-semibold border-b border-gray-50 pb-2"><?= esc($user['jk_asli'] ?? '-') ?></p>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Tanggal Lahir</label>
