@@ -31,7 +31,7 @@
     <?php if ($headline): ?>
         <div class="group relative w-full h-[450px] md:h-[550px] rounded-[3rem] overflow-hidden mb-16 shadow-2xl border border-gray-100">
             <img src="<?= base_url('uploads/berita/' . $headline['thumbnail']) ?>"
-                class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-in-out">
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-in-out">
 
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90"></div>
 
@@ -85,7 +85,7 @@
                 <article class="group">
                     <div class="relative h-64 rounded-[2.5rem] overflow-hidden mb-6 shadow-lg bg-gray-100">
                         <img src="<?= base_url('uploads/berita/' . $b['thumbnail']) ?>"
-                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            class="w-full h-full object-cover transition-all duration-700">
                     </div>
 
                     <div class="px-2">

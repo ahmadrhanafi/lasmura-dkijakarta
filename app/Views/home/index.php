@@ -21,13 +21,16 @@
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="<?= base_url('/daftar') ?>"
-                class="bg-gradient-lasmura text-white 
+
+            <?php if (!session()->get('id_user')) : ?>
+                <a href="<?= base_url('/daftar') ?>"
+                    class="bg-gradient-lasmura text-white 
               px-3 py-3 text-sm        /* Ukuran Mobile */
               sm:px-8 sm:py-4 sm:text-lg /* Ukuran Desktop (sm ke atas) */
               rounded-full font-bold shadow-2xl shadow-orange-600/20 hover:scale-105 transition-all duration-300 text-center">
-                Gabung Sekarang
-            </a>
+                    Gabung Sekarang
+                </a>
+            <?php endif; ?>
 
             <a href="<?= base_url('/tentang') ?>"
                 class="bg-white/10 backdrop-blur-md border border-white/20 text-white 
@@ -65,7 +68,7 @@
             </div>
             <div class="md:w-1/2 relative">
                 <div class="bg-gradient-to-tr from-gray-200 to-gray-100 h-80 w-full rounded-3xl shadow-inner flex items-center justify-center border-4 border-white overflow-hidden">
-                    <i class="fa-solid fa-users text-gray-300 text-8xl"></i>
+                    <img src="<?= base_url('assets/banner/w.jpg') ?>" alt="Anggota LASMURA" class="w-full h-full object-cover rounded-3xl shadow-lg">
                 </div>
                 <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl hidden md:block">
                     <div class="text-[#ec1309] font-bold text-2xl tracking-tighter">100+</div>

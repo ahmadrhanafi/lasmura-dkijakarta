@@ -222,64 +222,111 @@
 
     </header>
 
-    <div id="menu" class="hidden lg:hidden fixed top-0 w-full z-[100] mt-[72px] bg-white text-slate-800 border-t border-slate-100 shadow-2xl animate-in fade-in zoom-in-95">
-        <div class="px-6 py-8 space-y-6 font-semibold uppercase tracking-wider text-sm">
-            <a href="<?= base_url('/') ?>" class="block hover:text-[#ec1309]">Beranda</a>
-
-            <div class="space-y-4">
-                <button onclick="toggleMobileAbout()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    Profil <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileAboutChevron"></i>
-                </button>
-                <div id="mobileAboutMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Tentang Kami</a>
-                    <a href="<?= base_url('/visi-misi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Visi & Misi</a>
-                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Struktur Organisasi</a>
-                </div>
+    <div id="menu" class="hidden lg:hidden fixed inset-0 z-[110] bg-white text-slate-800 transition-all duration-300 overflow-hidden">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
+            <div class="flex items-center space-x-3">
+                <img src="<?= base_url('assets/logo/lasmura.png') ?>" class="w-8 h-8" alt="Logo">
+                <span class="font-extrabold text-slate-800 tracking-tight text-sm uppercase">Menu Utama</span>
             </div>
-
-            <a href="<?= base_url('/kegiatan') ?>" class="block hover:text-[#ec1309]">Kegiatan</a>
-
-            <div class="space-y-4">
-                <button onclick="toggleMobileinfolik()" class="flex justify-between items-center w-full uppercase font-semibold tracking-wider hover:text-[#ec1309]">
-                    infolik <i class="fa-solid fa-chevron-down text-xs transition-transform" id="mobileinfolikChevron"></i>
-                </button>
-                <div id="mobileinfolikMenu" class="hidden pl-4 space-y-4 border-l-2 border-slate-100 ml-1">
-                    <a href="<?= base_url('/tentang-kami') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Anggota Terdaftar</a>
-                    <a href="<?= base_url('/struktur-organisasi') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Alur Pendaftaran</a>
-                    <a href="<?= base_url('') ?>" class="block text-slate-500 hover:text-[#ec1309] normal-case">Mendaftar Anggota</a>
-                </div>
-            </div>
-
-            <a href="<?= base_url('/berita') ?>" class="block hover:text-[#ec1309]">Berita</a>
-
+            <button id="close-menu-btn" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-500 active:scale-90 transition-all">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
         </div>
 
-        <hr class="border-slate-100">
-
-        <?php if (!session()->get('logged_in')): ?>
-            <div class="grid grid-cols-2 gap-4 p-5">
-                <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-3 rounded-xl border border-slate-200 text-slate-600">Login</a>
-                <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-3 rounded-xl bg-gradient-lasmura text-white shadow-lg">Daftar</a>
-            </div>
-        <?php else: ?>
-            <div class="space-y-4 p-4">
-                <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                    <a href="<?= base_url('/anggota/profil') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                        <span class="uppercase text-md font-bold">Profil</span>
-                    </a>
-                <?php endif; ?>
-                <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                    <a href="<?= base_url('/admin/dashboard') ?>" class="block text-center py-3 rounded-xl bg-blue-50 text-blue-600 font-bold">
-                        <span class="text-slate-400">Dashboard</span>
-                    </a>
-                <?php endif; ?>
-                <a href="<?= base_url('/logout') ?>"
-                    class="block text-center py-3 rounded-xl bg-red-50 text-red-600 font-bold"
-                    onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
-                    Logout
+        <?php if (session()->get('logged_in')): ?>
+            <div class="px-6 py-5 bg-slate-50/50 border-b border-slate-100">
+                <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-4 p-4 bg-white rounded-3xl shadow-sm border border-slate-200 active:scale-[0.98] transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-lasmura flex items-center justify-center text-white text-xl font-black shadow-orange-500/20 shadow-lg">
+                        <?= substr(session()->get('nama_lengkap') ?? 'U', 0, 1) ?>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-bold text-slate-800 truncate"><?= session()->get('nama_lengkap') ?? 'User' ?></p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Anggota Lasmura</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center">
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                    </div>
                 </a>
             </div>
         <?php endif; ?>
+
+        <div class="<?= session()->get('logged_in') ? 'h-[calc(100vh-280px)]' : 'h-[calc(100vh-180px)]' ?> overflow-y-auto px-6 py-6 pb-24">
+            <nav class="space-y-2">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-4 mb-4">Navigasi Utama</p>
+
+                <a href="<?= base_url('/') ?>" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-orange-50 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-[#ea7e13] group-hover:text-white transition-all">
+                        <i class="fa-solid fa-house text-sm"></i>
+                    </div>
+                    <span class="font-bold text-slate-700 text-sm uppercase">Beranda</span>
+                </a>
+
+                <div class="space-y-1">
+                    <button onclick="toggleMobileAbout()" class="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-orange-50 transition-all group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-[#ea7e13] group-hover:text-white transition-all">
+                                <i class="fa-solid fa-user-tie text-sm"></i>
+                            </div>
+                            <span class="font-bold text-slate-700 text-sm uppercase">Profil Organisasi</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300" id="mobileAboutChevron"></i>
+                    </button>
+                    <div id="mobileAboutMenu" class="hidden ml-14 space-y-1 pr-4 border-l-2 border-orange-50">
+                        <a href="<?= base_url('/tentang-kami') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium">Tentang Kami</a>
+                        <a href="<?= base_url('/visi-misi') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium">Visi & Misi</a>
+                        <a href="<?= base_url('/struktur-organisasi') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium">Struktur Organisasi</a>
+                    </div>
+                </div>
+
+                <a href="<?= base_url('/kegiatan') ?>" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-orange-50 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-[#ea7e13] group-hover:text-white transition-all">
+                        <i class="fa-solid fa-calendar-check text-sm"></i>
+                    </div>
+                    <span class="font-bold text-slate-700 text-sm uppercase">Kegiatan Lasmura</span>
+                </a>
+
+                <div class="space-y-1">
+                    <button onclick="toggleMobileinfolik()" class="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-orange-50 transition-all group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-[#ea7e13] group-hover:text-white transition-all">
+                                <i class="fa-solid fa-circle-info text-sm"></i>
+                            </div>
+                            <span class="font-bold text-slate-700 text-sm uppercase">Informasi Publik</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300" id="mobileinfolikChevron"></i>
+                    </button>
+                    <div id="mobileinfolikMenu" class="hidden ml-14 space-y-1 pr-4 border-l-2 border-orange-50">
+                        <a href="<?= base_url('/tentang-kami') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium">Anggota Terdaftar</a>
+                        <a href="<?= base_url('/struktur-organisasi') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium">Alur Pendaftaran</a>
+                        <a href="<?= base_url('') ?>" class="block p-3 text-sm text-slate-500 hover:text-[#ea7e13] font-medium font-bold">Mendaftar Anggota</a>
+                    </div>
+                </div>
+
+                <a href="<?= base_url('/berita') ?>" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-orange-50 transition-colors group">
+                    <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 group-hover:bg-[#ea7e13] group-hover:text-white transition-all">
+                        <i class="fa-solid fa-newspaper text-sm"></i>
+                    </div>
+                    <span class="font-bold text-slate-700 text-sm uppercase">Berita Organisasi</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full p-6 bg-white/80 backdrop-blur-md border-t border-slate-100 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+            <?php if (!session()->get('logged_in')): ?>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="<?= base_url('/login') ?>" class="flex items-center justify-center py-4 rounded-2xl border border-slate-200 text-slate-600 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all">Login</a>
+                    <a href="<?= base_url('/daftar') ?>" class="flex items-center justify-center py-4 rounded-2xl bg-gradient-lasmura text-white font-bold text-xs uppercase tracking-widest shadow-lg shadow-orange-500/20 active:scale-95 transition-all">Daftar</a>
+                </div>
+            <?php else: ?>
+                <div class="flex items-center justify-between">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sesi Aktif</p>
+                    <a href="<?= base_url('/logout') ?>" onclick="return confirm('Keluar sesi?')" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs active:scale-95 transition-all">
+                        <i class="fa-solid fa-power-off text-[10px]"></i>
+                        <span>LOGOUT</span>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 
     <?php if (ENVIRONMENT === 'development' && session()->get('logged_in')): ?>
@@ -290,158 +337,63 @@
     <?php endif; ?>
 
     <script>
-        // 1. Deklarasi Elemen (Posisikan di paling atas)
-        const profileBtn = document.getElementById('profileBtn');
-        const profileMenu = document.getElementById('profileMenu');
-        const chevron = document.getElementById('chevronIcon');
+        // 1. Variabel Utama
+        const menuBtn = document.getElementById('menu-btn'); // Tombol Hamburger
+        const closeBtn = document.getElementById('close-menu-btn'); // Tombol X baru
+        const mobileMenu = document.getElementById('menu');
 
-        const aboutBtn = document.getElementById('aboutBtn');
-        const aboutMenu = document.getElementById('aboutMenu');
-        const aboutChevron = document.getElementById('aboutChevron');
-
-        const infolikBtn = document.getElementById('infolikBtn');
-        const infolikMenu = document.getElementById('infolikMenu');
-        const infolikChevron = document.getElementById('infolikChevron');
-
-        const kegiatanBtn = document.getElementById('kegiatanBtn');
-        const kegiatanMenu = document.getElementById('kegiatanMenu');
-        const kegiatanChevron = document.getElementById('kegiatanChevron');
-
-        const mediaBtn = document.getElementById('mediaBtn');
-        const mediaMenu = document.getElementById('mediaMenu');
-        const mediaChevron = document.getElementById('mediaChevron');
-
-        // 2. Dropdown Tentang Desktop
-        if (aboutBtn) {
-            aboutBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (profileMenu) profileMenu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-
-                aboutMenu.classList.toggle('hidden');
-                aboutChevron.classList.toggle('rotate-180');
-            });
-        }
-        if (infolikBtn) {
-            infolikBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (profileMenu) profileMenu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-
-                infolikMenu.classList.toggle('hidden');
-                infolikChevron.classList.toggle('rotate-180');
-            });
-        }
-        if (kegiatanBtn) {
-            kegiatanBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (profileMenu) profileMenu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-
-                kegiatanMenu.classList.toggle('hidden');
-                kegiatanChevron.classList.toggle('rotate-180');
-            });
-        }
-        if (mediaBtn) {
-            mediaBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (profileMenu) profileMenu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-
-                mediaMenu.classList.toggle('hidden');
-                mediaChevron.classList.toggle('rotate-180');
+        // 2. Fungsi Buka Menu
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Biar layar gak bisa di-scroll pas menu buka
             });
         }
 
-        // 3. Dropdown Profil Desktop
-        if (profileBtn) {
-            profileBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (aboutMenu) aboutMenu.classList.add('hidden');
-                if (aboutChevron) aboutChevron.classList.remove('rotate-180');
-                if (infolikMenu) infolikMenu.classList.add('hidden');
-                if (infolikChevron) infolikChevron.classList.remove('rotate-180');
-                if (kegiatanMenu) kegiatanMenu.classList.add('hidden');
-                if (kegiatanChevron) kegiatanChevron.classList.remove('rotate-180');
-                if (mediaMenu) mediaMenu.classList.add('hidden');
-                if (mediaChevron) mediaChevron.classList.remove('rotate-180');
-
-                profileMenu.classList.toggle('hidden');
-                chevron.classList.toggle('rotate-180');
+        // 3. Fungsi Tutup Menu
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Layar bisa scroll lagi
             });
         }
 
-        // 4. Klik di Luar (Global Close)
-        document.addEventListener('click', function() {
-            if (aboutMenu) {
-                aboutMenu.classList.add('hidden');
-                aboutChevron.classList.remove('rotate-180');
-            }
-            if (infolikMenu) {
-                infolikMenu.classList.add('hidden');
-                infolikChevron.classList.remove('rotate-180');
-            }
-            if (kegiatanMenu) {
-                kegiatanMenu.classList.add('hidden');
-                kegiatanChevron.classList.remove('rotate-180');
-            }
-            if (mediaMenu) {
-                mediaMenu.classList.add('hidden');
-                mediaChevron.classList.remove('rotate-180');
-            }
-            if (profileMenu) {
-                profileMenu.classList.add('hidden');
-                chevron.classList.remove('rotate-180');
-            }
-        });
+        // 4. Logika Dropdown di dalam Mobile Menu
+        function toggleMobileMenu(menuId, chevronId) {
+            const menus = ['mobileAboutMenu', 'mobileinfolikMenu']; // List menu mobile
+            const chevrons = ['mobileAboutChevron', 'mobileinfolikChevron'];
 
-        // 5. Sisa Logika (Mobile & Scroll)
+            menus.forEach((id, index) => {
+                const el = document.getElementById(id);
+                const chev = document.getElementById(chevrons[index]);
+
+                if (id === menuId) {
+                    el.classList.toggle('hidden');
+                    if (chev) chev.classList.toggle('rotate-180');
+                } else {
+                    // Tutup yang lain kalau ada yang dibuka
+                    el.classList.add('hidden');
+                    if (chev) chev.classList.remove('rotate-180');
+                }
+            });
+        }
+
+        // Fungsi trigger untuk masing-masing button
         function toggleMobileAbout() {
-            const mobileMenu = document.getElementById('mobileAboutMenu');
-            const mobileChevron = document.getElementById('mobileAboutChevron');
-            mobileMenu.classList.toggle('hidden');
-            mobileChevron.classList.toggle('rotate-180');
+            toggleMobileMenu('mobileAboutMenu', 'mobileAboutChevron');
         }
 
         function toggleMobileinfolik() {
-            const mobileMenu = document.getElementById('mobileinfolikMenu');
-            const mobileChevron = document.getElementById('mobileinfolikChevron');
-            mobileMenu.classList.toggle('hidden');
-            mobileChevron.classList.toggle('rotate-180');
+            toggleMobileMenu('mobileinfolikMenu', 'mobileinfolikChevron');
         }
 
-        function toggleMobileKegiatan() {
-            const mobileMenu = document.getElementById('mobileKegiatanMenu');
-            const mobileChevron = document.getElementById('mobileKegiatanChevron');
-            mobileMenu.classList.toggle('hidden');
-            mobileChevron.classList.toggle('rotate-180');
-        }
-
-        function toggleMobileMedia() {
-            const mobileMenu = document.getElementById('mobileMediaMenu');
-            const mobileChevron = document.getElementById('mobileMediaChevron');
-            mobileMenu.classList.toggle('hidden');
-            mobileChevron.classList.toggle('rotate-180');
-        }
-
+        // 5. Efek Scroll Header (Tetap dipasang)
         window.addEventListener('scroll', function() {
             const header = document.getElementById('mainHeader');
             if (window.scrollY > 50) {
                 header.classList.add('header-active', 'backdrop-blur-md');
-                header.querySelector('.max-w-7xl').classList.replace('py-4', 'py-2');
             } else {
                 header.classList.remove('header-active', 'backdrop-blur-md');
-                header.querySelector('.max-w-7xl').classList.replace('py-2', 'py-4');
             }
-        });
-
-        const btn = document.getElementById('menu-btn');
-        const menu = document.getElementById('menu');
-        const menuIcon = document.getElementById('menuIcon');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            menuIcon.classList.toggle('fa-bars');
-            menuIcon.classList.toggle('fa-xmark');
         });
     </script>
