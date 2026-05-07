@@ -18,6 +18,8 @@ class Auth extends BaseController
 
     public function attemptLogin()
     {
+        session()->set('login_at', time());
+
         $userModel = new UserModel();
         $pendaftaranModel = new PendaftaranModel();
 
@@ -105,7 +107,7 @@ class Auth extends BaseController
 
         // 2. Ambil input dari form aktivasi
         $username      = $this->request->getPost('username');
-        $nomorAnggota  = $this->request->getPost('nomor_anggota'); // Ganti NIK jadi Nomor Anggota
+        $nomorAnggota  = $this->request->getPost('nomor_anggota');
         $password      = $this->request->getPost('password');
         $confirm       = $this->request->getPost('password_confirm');
 
@@ -120,8 +122,8 @@ class Auth extends BaseController
         $user = $userModel
             ->where('id_user', session()->get('id_user'))
             ->where('username', $username)
-            ->where('nomor_anggota', $nomorAnggota) // Validasi kunci di sini
-            ->where('password', null) // Pastikan memang belum pernah aktivasi
+            ->where('nomor_anggota', $nomorAnggota)
+            ->where('password', null)
             ->first();
 
         if (!$user) {

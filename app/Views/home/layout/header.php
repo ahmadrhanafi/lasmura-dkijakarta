@@ -80,7 +80,7 @@
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="aboutChevron"></i>
                     </button>
 
-                    <div id="aboutMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                    <div id="aboutMenu" onclick="toggleDropdown('aboutMenu')" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/tentang-kami') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <!-- <i class="fa-solid fa-circle-info text-slate-400 w-4"></i> -->
                             <span class="normal-case font-medium">Tentang Kami</span>
@@ -104,7 +104,7 @@
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="infolikChevron"></i>
                     </button>
 
-                    <div id="infolikMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                    <div id="infolikMenu" onclick="toggleDropdown('infolikMenu')" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/dokumen-legalitas') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <span class="normal-case font-medium">Dokumen Legalitas</span>
                         </a>
@@ -128,7 +128,7 @@
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="kegiatanChevron"></i>
                     </button>
 
-                    <div id="kegiatanMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                    <div id="kegiatanMenu" onclick="toggleDropdown('kegiatanMenu')" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/kegiatan-unggulan') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <span class="normal-case font-medium">Kegiatan Utama</span>
                         </a>
@@ -147,7 +147,7 @@
                         <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300 mb-1" id="mediaChevron"></i>
                     </button>
 
-                    <div id="mediaMenu" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                    <div id="mediaMenu" onclick="toggleDropdown('mediaMenu')" class="hidden absolute left-0 mt-3 w-52 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
                         <a href="<?= base_url('/berita') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-100 transition-colors">
                             <span class="normal-case font-medium">Berita Terbaru</span>
                         </a>
@@ -171,45 +171,66 @@
                     </div>
 
                 <?php elseif (session()->get('logged_in')): ?>
-                    <div class="relative">
-                        <button id="profileBtn"
-                            class="flex items-center space-x-3 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all focus:outline-none">
-                            <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#ec1309]">
-                                <i class="fa-solid fa-user text-xs"></i>
+                    <div class="relative dropdown-wrapper">
+                        <button id="profileBtn" class="flex items-center space-x-3 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-[1.5rem] transition-all focus:outline-none">
+                            <div class="w-7 h-7 bg-white rounded-full flex items-center justify-center text-[#ec1309] shadow-sm">
+                                <i class="fa-solid fa-user text-[10px]"></i>
                             </div>
-                            <span class="normal-case font-medium"><?= explode(' ', (session()->get('nama_lengkap')))[0] ?></span>
-                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300" id="chevronIcon"></i>
+                            <span class="normal-case font-medium text-sm"><?= explode(' ', (session()->get('nama_lengkap')))[0] ?></span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300" id="profileChevron"></i>
                         </button>
 
-                        <div id="profileMenu"
-                            class="hidden absolute right-0 mt-3 w-56 bg-white text-slate-700 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
-                            <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                                <div class="px-4 py-2 border-b border-slate-50 mb-1">
-                                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Akun Saya</p>
+                        <div id="profileMenu" class="hidden absolute right-0 mt-3 w-64 bg-white text-slate-700 rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-top-2 normal-case">
+
+                            <div class="p-4 bg-slate-50/80 border-b border-slate-100">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-gradient-lasmura flex items-center justify-center text-white text-lg font-black shadow-lg shadow-orange-500/20">
+                                        <?= substr(session()->get('nama_lengkap') ?? 'U', 0, 1) ?>
+                                    </div>
+                                    <div class="flex-1 min-w-0 text-left">
+                                        <p class="text-[13px] font-bold text-slate-800 truncate leading-none mb-1"><?= session()->get('nama_lengkap') ?? 'User' ?></p>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Sesi Aktif:</span>
+                                            <span id="session-timer-desktop" class="text-[10px] font-black text-orange-600 font-mono tracking-tighter">00:00:00</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                    <i class="fa-solid fa-id-badge text-slate-400 w-5 text-center"></i>
-                                    <span class="text-slate-400">Lihat Profil</span>
-                                </a>
-                                <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                    <i class="fa-solid fa-address-card text-slate-400 w-5 text-center"></i>
-                                    <span class="text-slate-400">Cetak KTA</span>
-                                </a>
-                            <?php endif; ?>
+                            </div>
 
-                            <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
-                                <a href="<?= base_url('/admin/dashboard') ?>" class="flex items-center space-x-3 px-4 py-3 hover:bg-slate-50 transition-colors">
-                                    <i class="fa-solid fa-gauge text-slate-400 w-5 text-center"></i>
-                                    <span class="text-slate-400">Dashboard</span>
-                                </a>
-                            <?php endif; ?>
-                            <div class="border-t border-slate-50 my-1"></div>
+                            <div class="py-2">
+                                <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                    <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-5 py-3 hover:bg-slate-50 transition-colors group">
+                                        <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-orange-100 group-hover:text-orange-600 transition-all">
+                                            <i class="fa-solid fa-id-badge text-xs"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-600">Profil Saya</span>
+                                    </a>
+                                    <a href="<?= base_url('/anggota/kta') ?>" class="flex items-center space-x-3 px-5 py-3 hover:bg-slate-50 transition-colors group">
+                                        <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-orange-100 group-hover:text-orange-600 transition-all">
+                                            <i class="fa-solid fa-address-card text-xs"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-600">Cetak KTA</span>
+                                    </a>
+                                <?php endif; ?>
 
-                            <a href="<?= base_url('/logout') ?>" class="flex items-center space-x-3 px-4 py-3 text-red-500 hover:bg-red-50 transition-colors"
-                                onclick="return confirm('Anda yakin ingin mengakhiri sesi ini??')">
-                                <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
-                                <span class="font-bold">Logout</span>
-                            </a>
+                                <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                    <a href="<?= base_url('/admin/dashboard') ?>" class="flex items-center space-x-3 px-5 py-3 hover:bg-slate-50 transition-colors group">
+                                        <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-orange-100 group-hover:text-orange-600 transition-all">
+                                            <i class="fa-solid fa-gauge text-xs"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold text-slate-600">Dashboard</span>
+                                    </a>
+                                <?php endif; ?>
+
+                                <div class="border-t border-slate-50 my-2 px-5"></div>
+
+                                <a href="<?= base_url('/logout') ?>" onclick="return confirm('Anda yakin ingin mengakhiri sesi?')" class="flex items-center space-x-3 px-5 py-3 text-red-500 hover:bg-red-50 transition-colors group">
+                                    <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-400 group-hover:bg-red-500 group-hover:text-white transition-all">
+                                        <i class="fa-solid fa-power-off text-xs"></i>
+                                    </div>
+                                    <span class="font-bold text-xs">Logout</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -241,7 +262,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-bold text-slate-800 truncate"><?= session()->get('nama_lengkap') ?? 'User' ?></p>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Anggota Lasmura</p>
+                        <p class="text-[8px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Anggota Lasmura</p>
                     </div>
                     <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center">
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
@@ -319,8 +340,11 @@
                 </div>
             <?php else: ?>
                 <div class="flex items-center justify-between">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sesi Aktif</p>
-                    <a href="<?= base_url('/logout') ?>" onclick="return confirm('Keluar sesi?')" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs active:scale-95 transition-all">
+                    <div class="flex flex-col">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Sesi Aktif</p>
+                        <p id="session-timer" class="text-[11px] font-black text-orange-600 font-mono tracking-tighter">00:00:00</p>
+                    </div>
+                    <a href="<?= base_url('/logout') ?>" onclick="return confirm('Anda yakin ingin mengakhiri sesi?')" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-red-50 text-red-600 font-bold text-xs active:scale-95 transition-all">
                         <i class="fa-solid fa-power-off text-[10px]"></i>
                         <span>LOGOUT</span>
                     </a>
@@ -337,48 +361,75 @@
     <?php endif; ?>
 
     <script>
-        // 1. Variabel Utama
-        const menuBtn = document.getElementById('menu-btn'); // Tombol Hamburger
-        const closeBtn = document.getElementById('close-menu-btn'); // Tombol X baru
+        // 1. VARIABEL UTAMA
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
         const mobileMenu = document.getElementById('menu');
 
-        // 2. Fungsi Buka Menu
+        // 2. LOGIKA DROPDOWN DESKTOP (LAPTOP)
+        // Kita pake event delegation biar nggak ribet pasang onclick satu-satu
+        document.addEventListener('click', function(e) {
+            // Toggle About Menu
+            if (e.target.closest('#aboutBtn')) {
+                document.getElementById('aboutMenu').classList.toggle('hidden');
+                document.getElementById('infolikMenu').classList.add('hidden');
+                if (document.getElementById('profileMenu')) document.getElementById('profileMenu').classList.add('hidden');
+            }
+            // Toggle Infolik Menu
+            else if (e.target.closest('#infolikBtn')) {
+                document.getElementById('infolikMenu').classList.toggle('hidden');
+                document.getElementById('aboutMenu').classList.add('hidden');
+                if (document.getElementById('profileMenu')) document.getElementById('profileMenu').classList.add('hidden');
+            }
+            // Toggle Profile Menu
+            else if (e.target.closest('#profileBtn')) {
+                document.getElementById('profileMenu').classList.toggle('hidden');
+                document.getElementById('aboutMenu').classList.add('hidden');
+                document.getElementById('infolikMenu').classList.add('hidden');
+            }
+            // Klik di mana saja selain tombol di atas, tutup semua dropdown desktop
+            else {
+                const menus = ['aboutMenu', 'infolikMenu', 'profileMenu'];
+                menus.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && !e.target.closest(`#${id}`)) el.classList.add('hidden');
+                });
+            }
+        });
+
+        // 3. FUNGSI BUKA/TUTUP MENU MOBILE
         if (menuBtn) {
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Biar layar gak bisa di-scroll pas menu buka
+                document.body.style.overflow = 'hidden';
             });
         }
 
-        // 3. Fungsi Tutup Menu
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto'; // Layar bisa scroll lagi
+                document.body.style.overflow = 'auto';
             });
         }
 
-        // 4. Logika Dropdown di dalam Mobile Menu
+        // 4. LOGIKA DROPDOWN DI DALAM MOBILE MENU
         function toggleMobileMenu(menuId, chevronId) {
-            const menus = ['mobileAboutMenu', 'mobileinfolikMenu']; // List menu mobile
+            const menus = ['mobileAboutMenu', 'mobileinfolikMenu'];
             const chevrons = ['mobileAboutChevron', 'mobileinfolikChevron'];
 
             menus.forEach((id, index) => {
                 const el = document.getElementById(id);
                 const chev = document.getElementById(chevrons[index]);
-
                 if (id === menuId) {
                     el.classList.toggle('hidden');
                     if (chev) chev.classList.toggle('rotate-180');
                 } else {
-                    // Tutup yang lain kalau ada yang dibuka
                     el.classList.add('hidden');
                     if (chev) chev.classList.remove('rotate-180');
                 }
             });
         }
 
-        // Fungsi trigger untuk masing-masing button
         function toggleMobileAbout() {
             toggleMobileMenu('mobileAboutMenu', 'mobileAboutChevron');
         }
@@ -387,13 +438,49 @@
             toggleMobileMenu('mobileinfolikMenu', 'mobileinfolikChevron');
         }
 
-        // 5. Efek Scroll Header (Tetap dipasang)
+        // 5. EFEK SCROLL HEADER
         window.addEventListener('scroll', function() {
             const header = document.getElementById('mainHeader');
-            if (window.scrollY > 50) {
-                header.classList.add('header-active', 'backdrop-blur-md');
-            } else {
-                header.classList.remove('header-active', 'backdrop-blur-md');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-active', 'backdrop-blur-md');
+                } else {
+                    header.classList.remove('header-active', 'backdrop-blur-md');
+                }
             }
         });
+
+        // 6. TIMER SESI AKTIF
+        function startSessionTimer() {
+            const loginTime = parseInt("<?= session()->get('login_at') ?? time() ?>");
+
+            const timerMobile = document.getElementById('session-timer');
+            const timerDesktop = document.getElementById('session-timer-desktop');
+
+            console.log("Timer Init - Mobile:", !!timerMobile, "Desktop:", !!timerDesktop);
+
+            if (!timerMobile && !timerDesktop) return;
+
+            setInterval(() => {
+                const now = Math.floor(Date.now() / 1000);
+                const diff = now - loginTime;
+
+                const secondsElapsed = diff < 0 ? 0 : diff;
+
+                const hours = Math.floor(secondsElapsed / 3600);
+                const minutes = Math.floor((secondsElapsed % 3600) / 60);
+                const seconds = secondsElapsed % 60;
+
+                const timeStr = [
+                    hours.toString().padStart(2, '0'),
+                    minutes.toString().padStart(2, '0'),
+                    seconds.toString().padStart(2, '0')
+                ].join(':');
+
+                if (timerMobile) timerMobile.textContent = timeStr;
+                if (timerDesktop) timerDesktop.textContent = timeStr;
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', startSessionTimer);
     </script>
