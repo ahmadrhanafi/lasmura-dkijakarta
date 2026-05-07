@@ -23,6 +23,23 @@
         </div>
     </div>
 
+    <?php if (session()->getFlashdata('error') || session()->getFlashdata('success')): ?>
+        <div class="js-flash-alert mb-6 overflow-hidden rounded-xl border shadow-sm transition-all duration-500 animate-pulse">
+            <?php if ($msg = session()->getFlashdata('error')): ?>
+                <div class="flex items-center bg-red-50 border-l-4 border-red-500 p-4">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 mr-3"></i>
+                    <span class="text-red-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+            <?php if ($msg = session()->getFlashdata('success')): ?>
+                <div class="flex items-center bg-emerald-50 border-l-4 border-emerald-500 p-4 animate-bounce">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i>
+                    <span class="text-emerald-800 text-sm font-medium"><?= $msg ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-1 space-y-6">
             <div class="bg-white rounded-[2.5rem] border border-gray-100 p-8 text-center shadow-sm">

@@ -27,8 +27,8 @@ class Profil extends BaseController
         $idUser = session()->get('id_user');
 
         $user = $this->pendaftaranModel
-            ->select('pendaftaran_anggota.*, users.id_user, users.nomor_anggota as no_anggota_user, users.status as status_akun')
-            ->join('users', 'users.username = pendaftaran_anggota.username', 'inner')
+            ->select('pendaftaran_anggota.*, users.id_user, users.username, users.status as status_akun')
+            ->join('users', 'users.nomor_anggota = pendaftaran_anggota.nomor_anggota', 'inner')
             ->where('users.id_user', $idUser)
             ->first();
 
@@ -61,19 +61,43 @@ class Profil extends BaseController
     public function update()
     {
         $idUser = session()->get('id_user');
+        $newUsername = $this->request->getPost('username');
+
+        $validationRules = [
+            'username' => [
+                'rules'  => "required|alpha_dash|min_length[3]|is_unique[users.username,id_user,{$idUser}]",
+                'errors' => [
+                    'required'   => 'Username wajib diisi.',
+                    'is_unique'  => 'Username sudah terdaftar, gunakan username yang lain.',
+                    'alpha_dash' => 'Username hanya boleh huruf, angka, underscore, dan dash.',
+                    'min_length' => 'Username minimal 3 karakter.'
+                ]
+            ],
+            'nama_lengkap' => 'required|min_length[3]'
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
 
         $this->userModel->update($idUser, [
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'username'     => $this->request->getPost('username'),
         ]);
 
+        $nomorAnggota = $this->request->getPost('nomor_anggota');
+        $nik = $this->request->getPost('nik');
+
         $pendaftaran = $this->pendaftaranModel
-            ->where('nik', $this->request->getPost('nik'))
+            ->groupStart()
+            ->where('nik', $nik)
+            ->orWhere('nomor_anggota', $nomorAnggota)
+            ->groupEnd()
             ->first();
 
         $dataPendaftaran = [
             'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
-            'nomor_anggota' => $this->request->getPost('nomor_anggota'),
+            'nomor_anggota' => $nomorAnggota,
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
             'no_hp'         => $this->request->getPost('no_hp'),
@@ -83,16 +107,34 @@ class Profil extends BaseController
         ];
 
         if ($pendaftaran) {
-            $this->pendaftaranModel->update(
-                $pendaftaran['id_pendaftaran'],
-                $dataPendaftaran
-            );
+            $this->pendaftaranModel->update($pendaftaran['id_pendaftaran'], $dataPendaftaran);
         } else {
             $this->pendaftaranModel->insert($dataPendaftaran);
         }
 
+        session()->set('username', $this->request->getPost('username'));
+        session()->set('nama_lengkap', $this->request->getPost('nama_lengkap'));
+
         return redirect()->to('/anggota/profil')
             ->with('success', 'Profil berhasil diperbarui');
+    }
+
+    public function checkUsername()
+    {
+        if ($this->request->isAJAX()) {
+            $username = $this->request->getPost('username');
+            $idUser = session()->get('id_user');
+
+            $user = $this->userModel->where('username', $username)
+                ->where('id_user !=', $idUser)
+                ->first();
+
+            if ($user) {
+                return $this->response->setJSON(['status' => 'taken', 'message' => 'Username ini sudah terdaftar!']);
+            } else {
+                return $this->response->setJSON(['status' => 'available', 'message' => 'Username tersedia.']);
+            }
+        }
     }
 
     public function kta()

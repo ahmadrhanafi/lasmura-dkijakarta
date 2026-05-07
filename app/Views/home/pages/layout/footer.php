@@ -100,4 +100,16 @@
 
 </body>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const flashAlert = document.querySelector('.js-flash-alert');
+        if (flashAlert) {
+            setTimeout(() => {
+                flashAlert.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => flashAlert.remove(), 500);
+            }, 5000);
+        }
+    });
+</script>
+
 </html>

@@ -34,9 +34,15 @@
 
                 <div class="space-y-2">
                     <label class="block text-sm font-bold text-gray-600 ml-1">Username</label>
-                    <input type="text" name="username" value="<?= esc($user['username']) ?>"
-                        class="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-orange-100 focus:border-[#ea7e13] transition-all duration-300 outline-none text-gray-700"
+                    <input type="text" name="username" value="<?= old('username', esc($user['username'])) ?>"
+                        class="w-full px-5 py-4 rounded-2xl border <?= session('errors.username') ? 'border-red-500' : 'border-gray-200' ?> bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-orange-100 focus:border-[#ea7e13] transition-all duration-300 outline-none text-gray-700"
                         placeholder="Username" required>
+
+                    <?php if (session('errors.username')) : ?>
+                        <p class="text-red-500 text-xs mt-1 ml-1 font-medium italic">
+                            <i class="fa-solid fa-circle-exclamation mr-1"></i> <?= session('errors.username') ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="space-y-2 md:col-span-2">
@@ -113,5 +119,72 @@
 
     </form>
 </main>
+
+<script>
+    const usernameInput = document.querySelector('input[name="username"]');
+    const updateBtn = document.querySelector('button[type="submit"]');
+
+    const msgLabel = document.createElement('p');
+    msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic';
+    usernameInput.parentNode.appendChild(msgLabel);
+
+    usernameInput.addEventListener('input', function() {
+        const username = this.value.trim();
+
+        if (username === "") {
+            msgLabel.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-1"></i> Username tidak boleh kosong atau cuma spasi!`;
+            msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-red-500';
+            usernameInput.classList.add('border-red-500');
+            updateBtn.disabled = true;
+            return;
+        }
+
+        usernameInput.classList.remove('border-red-500', 'border-green-500', 'border-gray-200');
+        usernameInput.classList.add('border-blue-400');
+
+        msgLabel.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengecek...`;
+        msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-blue-500';
+
+        if (username.length < 3) {
+            msgLabel.textContent = "Username terlalu pendek...";
+            msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-gray-400';
+            return;
+        }
+
+        fetch('<?= base_url('anggota/check-username') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: 'username=' + encodeURIComponent(username)
+            })
+            .then(response => response.json())
+            .then(data => {
+                usernameInput.classList.remove('border-blue-400');
+
+                if (data.status === 'taken') {
+                    msgLabel.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> ${data.message}`;
+                    msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-red-500 animate-pulse'; // Kasih efek kedip dikit
+                    usernameInput.classList.replace('border-gray-200', 'border-red-500');
+
+                    updateBtn.disabled = true;
+                    updateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    msgLabel.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> ${data.message}`;
+                    msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-green-500';
+                    usernameInput.classList.replace('border-red-500', 'border-green-500');
+
+                    updateBtn.disabled = false;
+                    updateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            })
+            .catch(error => {
+                msgLabel.textContent = "Gagal mengecek server...";
+                msgLabel.className = 'text-xs mt-1 ml-1 font-medium italic text-gray-500';
+            });
+
+    });
+</script>
 
 <?= $this->include('home/pages/layout/footer') ?>

@@ -49,6 +49,7 @@ $routes->group('anggota', ['filter' => 'role:anggota'], function ($routes) {
     $routes->get('profil', 'Anggota\Profil::index');
     $routes->get('profil/edit', 'Anggota\Profil::edit');
     $routes->post('profil/update', 'Anggota\Profil::update');
+    $routes->post('check-username', 'Anggota\Profil::checkUsername');
     $routes->get('kta', 'Anggota\Profil::kta');
     $routes->get('kta/cetak', 'Anggota\Profil::cetak');
 });
