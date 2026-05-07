@@ -198,7 +198,7 @@
                             </div>
 
                             <div class="py-2">
-                                <?php if (!in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <?php if (!in_array(session()->get('role'), ['admin', 'super_admin'])): ?>
                                     <a href="<?= base_url('/anggota/profil') ?>" class="flex items-center space-x-3 px-5 py-3 hover:bg-slate-50 transition-colors group">
                                         <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-orange-100 group-hover:text-orange-600 transition-all">
                                             <i class="fa-solid fa-id-badge text-xs"></i>
@@ -213,7 +213,7 @@
                                     </a>
                                 <?php endif; ?>
 
-                                <?php if (in_array(session()->get('role'), ['admin', 'superadmin'])): ?>
+                                <?php if (in_array(session()->get('role'), ['admin', 'super_admin'])): ?>
                                     <a href="<?= base_url('/admin/dashboard') ?>" class="flex items-center space-x-3 px-5 py-3 hover:bg-slate-50 transition-colors group">
                                         <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-orange-100 group-hover:text-orange-600 transition-all">
                                             <i class="fa-solid fa-gauge text-xs"></i>
