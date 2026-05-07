@@ -55,7 +55,7 @@
                     Tentang Kami
                 </div>
                 <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-6 leading-snug">
-                    Gerakan Pemuda Pelopor <br> <span class="text-[#ec1309]">Hati Nurani Rakyat</span>
+                    Gerakan Pemuda Pelopor <br> <span class="text-[#ea7e13]">Hati Nurani Rakyat</span>
                 </h2>
                 <p class="text-gray-600 leading-relaxed text-md mb-6 text-justify">
                     Laskar Muda Hanura (LASMURA) merupakan organisasi sayap pemuda Partai Hanura
@@ -71,7 +71,7 @@
                     <img src="<?= base_url('assets/banner/w.jpg') ?>" alt="Anggota LASMURA" class="w-full h-full object-cover rounded-3xl shadow-lg">
                 </div>
                 <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl hidden md:block">
-                    <div class="text-[#ec1309] font-bold text-2xl tracking-tighter">100+</div>
+                    <div class="text-[#ea7e13] font-bold text-2xl tracking-tighter">5000+</div>
                     <div class="text-gray-400 text-xs uppercase font-bold tracking-widest">Anggota Aktif</div>
                 </div>
             </div>
@@ -79,24 +79,24 @@
     </div>
 </section>
 
-<section class="py-16 bg-gradient-lasmura">
+<section class="py-16 bg-white border-y border-slate-100">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">5+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Wilayah Kerja</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-[#ea7e13] counter" data-target="25">0</div>
+                <div class="text-orange-500 text-xs md:text-sm uppercase tracking-widest font-medium">Wilayah Kerja</div>
             </div>
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">100+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Anggota Aktif</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-[#ea7e13] counter" data-target="5000">0</div>
+                <div class="text-orange-500 text-xs md:text-sm uppercase tracking-widest font-medium">Anggota Aktif</div>
             </div>
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">50+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Program Kerja</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-[#ea7e13] counter" data-target="5">0</div>
+                <div class="text-orange-500 text-xs md:text-sm uppercase tracking-widest font-medium">Program Kerja</div>
             </div>
             <div class="space-y-2">
-                <div class="text-4xl md:text-5xl font-extrabold text-white">10+</div>
-                <div class="text-white/80 text-xs md:text-sm uppercase tracking-widest font-medium">Aksi Sosial</div>
+                <div class="text-4xl md:text-5xl font-extrabold text-[#ea7e13] counter" data-target="25">0</div>
+                <div class="text-orange-500 text-xs md:text-sm uppercase tracking-widest font-medium">Aksi Sosial</div>
             </div>
         </div>
     </div>
@@ -250,5 +250,50 @@
         </div>
     </div>
 </section>
+
+<script>
+    const animateCounters = () => {
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; // Makin besar angka, makin lambat jalannya
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                // Hitung pertambahan tiap frame
+                const inc = target / speed;
+
+                if (count < target) {
+                    // Pembulatan ke atas biar nggak ada koma, lalu tambah "+" di akhir
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.innerText = target + "+";
+                }
+            };
+
+            updateCount();
+        });
+    };
+
+    // LOGIKA INTERSECTION OBSERVER (Animasi jalan pas section kelihatan)
+    const observerOptions = {
+        threshold: 0.5 // Animasi jalan pas 50% section masuk layar
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target); // Cuma jalan sekali pas scroll
+            }
+        });
+    }, observerOptions);
+
+    // Targetkan section-nya
+    const targetSection = document.querySelector('.counter')?.parentElement?.parentElement?.parentElement;
+    if (targetSection) observer.observe(targetSection);
+</script>
 
 <?= $this->include('home/layout/footer') ?>
