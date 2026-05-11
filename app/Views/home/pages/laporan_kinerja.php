@@ -10,7 +10,10 @@
                     <span class="text-[10px] font-bold uppercase tracking-widest text-orange-400">Annual Report</span>
                     <h2 class="text-2xl font-bold mt-2 mb-4">Laporan Tahunan 2025</h2>
                     <p class="text-slate-400 text-sm mb-8 leading-relaxed">Rangkuman seluruh kegiatan sosial, politik, dan pengembangan kader selama periode satu tahun berjalan.</p>
-                    <a href="#" class="inline-flex items-center gap-2 font-bold text-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full transition-all">
+
+                    <a href="<?= base_url('assets/docs/contoh-realisasi-proker-2025.pdf') ?>"
+                        download
+                        class="inline-flex items-center gap-2 font-bold text-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full transition-all">
                         Unduh Laporan (PDF) <i class="fa-solid fa-download"></i>
                     </a>
                 </div>
@@ -22,7 +25,10 @@
                     <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Program Report</span>
                     <h2 class="text-2xl font-bold mt-2 mb-4 text-slate-800">Realisasi Program Kerja</h2>
                     <p class="text-slate-500 text-sm mb-8 leading-relaxed">Status ketercapaian program kerja strategis DPD LASMURA DKI Jakarta di tingkat wilayah.</p>
-                    <a href="#" class="inline-flex items-center gap-2 font-bold text-sm border border-slate-200 px-6 py-3 rounded-full hover:bg-white transition-all text-slate-700">
+
+                    <a href="<?= base_url('assets/docs/contoh-realisasi-proker-2025.xlsx') ?>"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 font-bold text-sm border border-slate-200 px-6 py-3 rounded-full hover:bg-white transition-all text-slate-700">
                         Lihat Progress <i class="fa-solid fa-list-check"></i>
                     </a>
                 </div>

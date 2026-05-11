@@ -10,11 +10,28 @@
         <div class="grid gap-4">
             <?php
             $docs = [
-                ['title' => 'SK Kemenkumham RI', 'desc' => 'Surat Keputusan pengesahan badan hukum organisasi.'],
-                ['title' => 'AD / ART Organisasi', 'desc' => 'Anggaran Dasar dan Anggaran Rumah Tangga Laskar Muda Hanura.'],
-                ['title' => 'NPWP Organisasi', 'desc' => 'Nomor Pokok Wajib Pajak atas nama organisasi resmi.'],
-                ['title' => 'Surat Keterangan Domisili', 'desc' => 'Bukti lokasi kantor sekretariat DPD LASMURA DKI Jakarta.'],
+                [
+                    'title' => 'SK Kemenkumham RI',
+                    'desc'  => 'Surat Keputusan pengesahan badan hukum organisasi.',
+                    'file'  => 'example-sk-kemenkumham.pdf'
+                ],
+                [
+                    'title' => 'AD / ART Organisasi',
+                    'desc'  => 'Anggaran Dasar dan Anggaran Rumah Tangga Laskar Muda Hanura.',
+                    'file'  => 'example-ad-art-lasmura.pdf'
+                ],
+                [
+                    'title' => 'NPWP Organisasi',
+                    'desc'  => 'Nomor Pokok Wajib Pajak atas nama organisasi resmi.',
+                    'file'  => 'example-npwp-lasmura.pdf'
+                ],
+                [
+                    'title' => 'SK DPD LASMURA DKI Jakarta',
+                    'desc'  => 'Bukti lokasi kantor sekretariat DPD LASMURA DKI Jakarta.',
+                    'file'  => 'draft-sk-dpd-lasmura.pdf'
+                ],
             ];
+
             foreach ($docs as $doc): ?>
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 flex items-center justify-between hover:shadow-md transition-all">
                     <div class="flex items-center gap-5">
@@ -26,9 +43,12 @@
                             <p class="text-xs text-slate-400"><?= $doc['desc'] ?></p>
                         </div>
                     </div>
-                    <button class="text-sm font-bold text-slate-400 hover:text-[#ea7e13] flex items-center gap-2">
-                        Lihat <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </button>
+
+                    <a href="<?= base_url('assets/docs/' . $doc['file']) ?>"
+                        target="_blank"
+                        class="text-sm font-bold text-slate-400 hover:text-[#ea7e13] flex items-center gap-2 transition-colors">
+                        Lihat <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
