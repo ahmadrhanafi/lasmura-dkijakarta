@@ -33,7 +33,7 @@ class Profil extends BaseController
             ->first();
 
         return view('home/profil/index', [
-            'title' => 'Profil Anggota | LASMURA DKI JAKARTA',
+            'title' => "Profil Saya | " . $this->siteName,
             'user'  => $user
         ]);
     }
@@ -53,7 +53,7 @@ class Profil extends BaseController
         }
 
         return view('home/profil/edit', [
-            'title' => 'Edit Profil | LASMURA DKI JAKARTA',
+            'title' => "Edit Profil Saya | " . $this->siteName,
             'user'  => $user
         ]);
     }
@@ -152,7 +152,7 @@ class Profil extends BaseController
             ->first();
 
         return view('home/profil/kta', [
-            'title' => 'Kartu Tanda Anggota | LASMURA DKI JAKARTA',
+            'title' => "Kartu Tanda Anggota | " . $this->siteName,
             'user'  => $user,
             'jabatan' => $jabatan
         ]);

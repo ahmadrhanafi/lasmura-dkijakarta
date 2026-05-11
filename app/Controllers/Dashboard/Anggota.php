@@ -40,7 +40,7 @@ class Anggota extends BaseController
         }
 
         $data = [
-            'title'      => 'Anggota LASMURA | Dashboard LASMURA DKI JAKARTA',
+            'title'      => "Panel Anggota | " . $this->dashName,
             'anggota'    => $builder->paginate(10, 'anggota'),
             'pager'      => $userModel->pager,
             'keyword'    => $keyword,
@@ -136,7 +136,7 @@ class Anggota extends BaseController
         );
 
         $data = [
-            'title'   => 'Detail Anggota | Dashboard LASMURA DKI JAKARTA',
+            'title'   => "Detail Profil Anggota | " . $this->dashName,
             'anggota' => $anggota,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
@@ -170,7 +170,7 @@ class Anggota extends BaseController
         );
 
         $data = [
-            'title'   => 'Edit Anggota | Dashboard LASMURA DKI JAKARTA',
+            'title'   => "Edit Data Anggota | " . $this->dashName,
             'anggota' => $anggota,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],

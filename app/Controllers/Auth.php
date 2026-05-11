@@ -10,7 +10,7 @@ class Auth extends BaseController
     public function login()
     {
         $data = [
-            'title' => 'Login | LASMURA DKI JAKARTA'
+            'title' => 'Portal Login | ' . $this->siteName,
         ];
 
         return view('auth/login', $data);
@@ -26,7 +26,6 @@ class Auth extends BaseController
         $loginIdentity = $this->request->getPost('username');
         $password      = $this->request->getPost('password');
 
-        // 1. Cek dulu di tabel Users (Akun yang sudah resmi/aktif)
         $user = $userModel
             ->groupStart()
             ->where('username', $loginIdentity)
@@ -34,7 +33,6 @@ class Auth extends BaseController
             ->groupEnd()
             ->first();
 
-        // 2. Jika tidak ada di tabel Users, cek di tabel Pendaftaran
         if (!$user) {
             $pendaftar = $pendaftaranModel->where('username', $loginIdentity)->first();
 
@@ -50,12 +48,10 @@ class Auth extends BaseController
             return redirect()->back()->with('error', 'Username atau Nomor Anggota tidak ditemukan.');
         }
 
-        // 3. Jika user ada tapi statusnya tidak aktif (misal diblokir)
         if ($user['status'] !== 'aktif') {
             return redirect()->back()->with('error', 'Akun Anda telah dinonaktifkan.');
         }
 
-        // 4. Logika Aktivasi (Password NULL)
         if (is_null($user['password'])) {
             session()->set([
                 'id_user'         => $user['id_user'],
@@ -66,12 +62,10 @@ class Auth extends BaseController
             return redirect()->to('/aktivasi')->with('success', 'Akun ditemukan! Silakan lakukan aktivasi password.');
         }
 
-        // 5. Verifikasi Password (Untuk yang sudah aktivasi)
         if (empty($password) || !password_verify($password, $user['password'])) {
             return redirect()->back()->with('error', 'Password salah.');
         }
 
-        // 6. Set Session Login Full
         session()->set([
             'id_user'      => $user['id_user'],
             'username'     => $user['username'],
@@ -100,25 +94,22 @@ class Auth extends BaseController
 
     public function prosesAktivasi()
     {
-        // 1. Pastikan user memang sedang dalam status 'need_activation'
+
         if (!session()->get('need_activation')) {
             return redirect()->to('/login');
         }
 
-        // 2. Ambil input dari form aktivasi
         $username      = $this->request->getPost('username');
         $nomorAnggota  = $this->request->getPost('nomor_anggota');
         $password      = $this->request->getPost('password');
         $confirm       = $this->request->getPost('password_confirm');
 
-        // 3. Validasi Password Match
         if ($password !== $confirm) {
             return redirect()->back()->with('error', 'Konfirmasi password tidak cocok');
         }
 
         $userModel = new UserModel();
 
-        // 4. Verifikasi Data: Cocokkan ID (dari session) dengan Username & Nomor Anggota
         $user = $userModel
             ->where('id_user', session()->get('id_user'))
             ->where('username', $username)
@@ -130,12 +121,10 @@ class Auth extends BaseController
             return redirect()->back()->with('error', 'Data aktivasi (Username atau Nomor Anggota) tidak valid');
         }
 
-        // 5. Update Password (Hash)
         $userModel->update($user['id_user'], [
             'password' => password_hash($password, PASSWORD_DEFAULT),
         ]);
 
-        // 6. Bersihkan Session Aktivasi
         session()->remove(['id_user', 'username', 'role', 'logged_in', 'need_activation']);
 
         return redirect()->to('/login')

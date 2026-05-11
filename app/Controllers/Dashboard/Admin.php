@@ -15,14 +15,11 @@ class Admin extends BaseController
 
         $userModel = new UserModel();
 
-        // Ambil input filter
         $keyword = $this->request->getVar('keyword');
         $role    = $this->request->getVar('role');
 
-        // Mulai Query
         $builder = $userModel->where('status', 'aktif');
 
-        // Jika ada keyword pencarian
         if ($keyword) {
             $builder->groupStart()
                 ->like('nama_lengkap', $keyword)
@@ -30,13 +27,12 @@ class Admin extends BaseController
                 ->groupEnd();
         }
 
-        // Jika ada filter role
         if ($role) {
             $builder->where('role', $role);
         }
 
         $data = [
-            'title'         => 'Manajemen Admin | Dashboard LASMURA DKI Jakarta',
+            'title'         => "Manajemen Admin | " . $this->dashName,
             'keyword'       => $keyword,
             'selected_role' => $role,
             'users'         => $builder
@@ -44,7 +40,7 @@ class Admin extends BaseController
                 ->orderBy('nama_lengkap', 'ASC')
                 ->paginate(10, 'user'),
             'pager'         => $userModel->pager,
-            'total_user'    => $builder->countAllResults(false) // Hitung total setelah filter
+            'total_user'    => $builder->countAllResults(false)
         ];
 
         return view('board/super/manage', $data);

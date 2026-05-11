@@ -37,7 +37,7 @@ class Berita extends BaseController
         );
 
         $data = [
-            'title' => 'Pengelolaan Berita | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Pengelolaan Berita | " . $this->dashName,
             'berita' => $query->orderBy('created_at', 'DESC')->paginate(5, 'berita'),
             'pager' => $query->pager,
             'keyword' => $keyword,
@@ -68,7 +68,7 @@ class Berita extends BaseController
         );
 
         $data = [
-            'title' => 'Preview Berita | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Preview Berita | " . $this->dashName,
             'berita' => $berita,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
@@ -142,7 +142,7 @@ class Berita extends BaseController
         logAktivitas('Pengelolaan Berita', 'Membuka form tambah berita');
 
         $data = [
-            'title' => 'Pengelolaan Berita | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Tambah Data Berita | " . $this->dashName,
             'berita' => $this->berita->orderBy('created_at', 'DESC')->findAll(),
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
@@ -203,7 +203,7 @@ class Berita extends BaseController
         );
 
         $data = [
-            'title' => 'Edit Berita | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Edit Data Berita | " . $this->dashName,
             'berita' => $berita,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],

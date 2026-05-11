@@ -17,7 +17,7 @@ class Kegiatan extends BaseController
     public function index()
     {
         return view('home/pages/kegiatan/index', [
-            'title' => 'Agenda & Kegiatan',
+            'title' => 'Agenda & Kegiatan | ' . $this->siteName,
             'kegiatan' => $this->kegiatan
                 ->where('status', 'publish')
                 ->orderBy('tanggal_kegiatan', 'DESC')
@@ -40,7 +40,7 @@ class Kegiatan extends BaseController
         }
 
         return view('home/pages/kegiatan/detail', [
-            'title' => $kegiatan['judul'],
+            'title' => $kegiatan['judul'] . " | " . $this->siteName,
             'kegiatan' => $kegiatan
         ]);
     }

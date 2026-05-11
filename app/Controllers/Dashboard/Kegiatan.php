@@ -30,7 +30,7 @@ class Kegiatan extends BaseController
         );
 
         return view('board/pages/kegiatan/index', [
-            'title' => 'Pengelolaan Kegiatan | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Pengelolaan Kegiatan | " . $this->dashName,
             'kegiatan' => $query->orderBy('tanggal_kegiatan', 'DESC')->paginate(5),
             'pager' => $query->pager,
             'keyword' => $keyword,
@@ -44,7 +44,7 @@ class Kegiatan extends BaseController
     public function create()
     {
         return view('board/pages/kegiatan/create', [
-            'title' => 'Tambah Kegiatan'
+            'title' => "Tambah Data Kegiatan | " . $this->dashName
         ]);
     }
 
@@ -93,7 +93,7 @@ class Kegiatan extends BaseController
         }
 
         return view('board/pages/kegiatan/preview', [
-            'title'    => 'Preview Kegiatan',
+            'title'    => "Preview Kegiatan | " . $this->dashName,
             'kegiatan' => $kegiatan
         ]);
     }
@@ -107,7 +107,7 @@ class Kegiatan extends BaseController
         }
 
         return view('board/pages/kegiatan/edit', [
-            'title' => 'Edit Kegiatan',
+            'title' => "Edit Data Kegiatan | " . $this->dashName,
             'kegiatan' => $kegiatan
         ]);
     }

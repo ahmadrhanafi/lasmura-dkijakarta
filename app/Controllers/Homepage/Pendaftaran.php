@@ -10,13 +10,12 @@ class Pendaftaran extends BaseController
     public function index()
     {
         return view('home/pages/daftar', [
-            'title' => 'Form Pendaftaran Anggota LASMURA DKI Jakarta'
+            'title' => 'Form Pendaftaran Anggota LASMURA DKI Jakarta | ' . $this->siteName
         ]);
     }
 
     public function simpan()
     {
-        // 1. Validasi: Email sekarang 'required' dan unik
         $rules = [
             'nama_lengkap'  => 'required|min_length[3]|max_length[100]',
             'username'      => 'required|min_length[4]|max_length[15]|is_unique[pendaftaran_anggota.username]|alpha_dash',
@@ -36,8 +35,6 @@ class Pendaftaran extends BaseController
 
         $model = new PendaftaranModel();
 
-        // 2. Generate Nomor Anggota Otomatis
-        // Format: LSM-2026-0001 (Contoh)
         $nomorAnggota = $this->_generateNomorAnggota($model);
 
         $data = [
@@ -52,17 +49,7 @@ class Pendaftaran extends BaseController
             'status'        => 'menunggu'
         ];
 
-        // 3. Simpan Data
         if ($model->insert($data)) {
-            //     // 4. Kirim Email Konfirmasi
-            //     if ($this->_sendEmail($data)) {
-            //         return redirect()->to('/daftar')
-            //             ->with('success', 'Pendaftaran berhasil! Nomor Anggota telah dikirim ke email ' . $data['email']);
-            //     } else {
-            //         // Jika email gagal tapi data masuk, beri peringatan tapi tetap sukses pendaftaran
-            //         return redirect()->to('/daftar')
-            //             ->with('success', 'Pendaftaran berhasil, namun gagal mengirim email. Catat nomor Anda: ' . $nomorAnggota);
-            //     }
 
             $emailSent = $this->_sendEmail($data);
 
@@ -75,19 +62,16 @@ class Pendaftaran extends BaseController
         }
     }
 
-    // Fungsi Privat untuk Generate Nomor
     private function _generateNomorAnggota($model)
     {
         $tahun = date('Y');
         $prefix = "LSM-" . $tahun . "-";
-
-        // Cari nomor terakhir di tahun ini
         $terakhir = $model->like('nomor_anggota', $prefix, 'after')
             ->orderBy('nomor_anggota', 'DESC')
             ->first();
 
         if ($terakhir) {
-            $urut = substr($terakhir['nomor_anggota'], -4); // ambil 4 digit terakhir
+            $urut = substr($terakhir['nomor_anggota'], -4);
             $nomorBaru = intval($urut) + 1;
         } else {
             $nomorBaru = 1;
@@ -104,8 +88,8 @@ class Pendaftaran extends BaseController
         $config = [
             'protocol'     => 'smtp',
             'SMTPHost'     => 'ssl://smtp.gmail.com',
-            'SMTPUser'     => 'ahmadrhanafy87@gmail.com', // Ganti dengan email Anda
-            'SMTPPass'     => 'wcmpvzluyzartsjo',    // Kode 16 digit TANPA SPASI
+            'SMTPUser'     => 'salemankelrey99@gmail.com',
+            'SMTPPass'     => 'wcmpvzluyzartsjo',
             'SMTPPort'     => 465,
             'SMTPCrypto'   => 'ssl',
             'mailType'     => 'html',
@@ -122,7 +106,7 @@ class Pendaftaran extends BaseController
 
         $email->initialize($config);
 
-        $email->setFrom('ahmadrhanafy87@gmail.com', 'Admin LASMURA');
+        $email->setFrom('salemankelrey99@gmail.com', 'Admin LASMURA');
         $email->setTo($data['email']);
         $email->setSubject('Nomor Anggota LASMURA DKI Jakarta');
 
@@ -135,7 +119,6 @@ class Pendaftaran extends BaseController
         } else {
             // echo $email->printDebugger(['headers', 'subject', 'body']);
             // die();
-
             return false;
         }
     }

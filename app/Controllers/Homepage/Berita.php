@@ -52,7 +52,7 @@ class Berita extends BaseController
             ->paginate(6, 'berita');
 
         return view('home/pages/berita/index', [
-            'title'    => 'Kabar Terkini LASMURA',
+            'title'    => "Kabar Berita | " . $this->siteName,
             'headline' => $headline,
             'berita'   => $berita,
             'pager'    => $this->berita->pager,
@@ -80,7 +80,7 @@ class Berita extends BaseController
             ->paginate(6, 'berita');
 
         return view('home/pages/berita/search', [
-            'title'   => 'Hasil Pencarian: ' . esc($keyword),
+            'title'   => 'Hasil Pencarian: ' . esc($keyword) . " | " . $this->siteName,
             'berita'  => $berita,
             'pager'   => $this->berita->pager,
             'keyword' => $keyword
@@ -108,7 +108,7 @@ class Berita extends BaseController
             ->find();
 
         return view('home/pages/berita/detail', [
-            'title'   => $berita['judul'],
+            'title'   => $berita['judul'] . " | " . $this->siteName,
             'berita'  => $berita,
             'related' => $related
         ]);

@@ -12,7 +12,7 @@ class Pengaturan extends BaseController
         $model = new PengaturanModel();
 
         $data = [
-            'title' => 'Pengaturan Sistem',
+            'title' => "Konfigurasi Sistem | " . $this->dashName,
             'retention' => $model->getValue('log_retention_days') ?? 90
         ];
 

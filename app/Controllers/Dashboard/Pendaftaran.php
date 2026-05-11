@@ -34,14 +34,14 @@ class Pendaftaran extends BaseController
             ->paginate(10, 'pendaftaran');
 
         return view('board/pages/pendaftaran/index', [
-            'title'       => 'Penerimaan Anggota | Dashboard LASMURA DKI JAKARTA',
+            'title'       => "Penerimaan Calon Anggota | " . $this->dashName,
             'pendaftaran' => $dataPendaftaran,
             'pager'       => $model->pager,
             'keyword'     => $keyword,
             'status'      => $status,
             'breadcrumb'  => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],
-                ['label' => 'Penerimaan Anggota']
+                ['label' => 'Penerimaan Calon Anggota']
             ]
         ]);
     }
@@ -103,25 +103,21 @@ class Pendaftaran extends BaseController
 
         $pendaftar = $pendaftaranModel->find($id);
 
-        // Validasi data
         if (!$pendaftar || $pendaftar['status'] !== 'menunggu') {
             return redirect()->back()->with('error', 'Data tidak valid atau sudah diproses.');
         }
 
-        // 1. Pindahkan data ke tabel users
-        // Sertakan 'nomor_anggota' yang diambil dari tabel pendaftaran_anggota
         $userModel->insert([
             'nama_lengkap'  => $pendaftar['nama_lengkap'],
             'username'      => $pendaftar['username'],
-            'nomor_anggota' => $pendaftar['nomor_anggota'], // Ambil dari pendaftaran
+            'nomor_anggota' => $pendaftar['nomor_anggota'],
             'nik'           => $pendaftar['nik'],
             'role'          => 'anggota',
             'status'        => 'aktif',
-            'password'      => null, // User perlu aktivasi/set password nanti
+            'password'      => null,
             'created_at'    => date('Y-m-d H:i:s')
         ]);
 
-        // 2. Update status di tabel pendaftaran_anggota
         $pendaftaranModel->update($id, [
             'status' => 'diterima'
         ]);

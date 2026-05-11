@@ -20,7 +20,7 @@ class Home extends BaseController
     public function index(): string
     {
         $data = [
-            'title'  => 'LASMURA DKI JAKARTA',
+            'title'  => 'Beranda | ' . $this->siteName,
             'kegiatan' => $this->kegiatan->where('status', 'publish')
                 ->orderBy('tanggal_kegiatan', 'DESC')
                 ->limit(3)
@@ -44,14 +44,14 @@ class Home extends BaseController
     public function tentang(): string
     {
         $data = [
-            'title' => 'Tentang | LASMURA DKI JAKARTA',
+            'title' => 'Tentang Kami | ' . $this->siteName,
         ];
         return view('home/pages/tentang', $data);
     }
     public function visi_misi(): string
     {
         $data = [
-            'title' => 'Visi & Misi | LASMURA DKI JAKARTA',
+            'title' => 'Visi & Misi | ' . $this->siteName,
         ];
         return view('home/pages/visi_misi', $data);
     }
@@ -59,7 +59,7 @@ class Home extends BaseController
     public function struktur(): string
     {
         $data = [
-            'title' => 'Struktur Organisasi | LASMURA DKI JAKARTA',
+            'title' => 'Struktur Organisasi | ' . $this->siteName,
         ];
         return view('home/pages/struktur', $data);
     }
@@ -67,35 +67,35 @@ class Home extends BaseController
     public function alur_pendaftaran(): string
     {
         $data = [
-            'title' => 'Alur Pendaftaran | LASMURA DKI JAKARTA',
+            'title' => 'Alur Pendaftaran | ' . $this->siteName,
         ];
         return view('home/pages/alur_pendaftaran', $data);
     }
     public function dokumen_legalitas(): string
     {
         $data = [
-            'title' => 'Dokumen Legalitas | LASMURA DKI JAKARTA',
+            'title' => 'Dokumen Legalitas | ' . $this->siteName,
         ];
         return view('home/pages/dokumen_legalitas', $data);
     }
     public function laporan_kinerja(): string
     {
         $data = [
-            'title' => 'Laporan Kinerja | LASMURA DKI JAKARTA',
+            'title' => 'Laporan Kinerja | ' . $this->siteName,
         ];
         return view('home/pages/laporan_kinerja', $data);
     }
     public function regulasi_kebijakan(): string
     {
         $data = [
-            'title' => 'Regulasi & Kebijakan | LASMURA DKI JAKARTA',
+            'title' => 'Regulasi & Kebijakan | ' . $this->siteName,
         ];
         return view('home/pages/regulasi_kebijakan', $data);
     }
     public function layanan_advokasi(): string
     {
         $data = [
-            'title' => 'Layanan Advokasi | LASMURA DKI JAKARTA',
+            'title' => 'Layanan Advokasi | ' . $this->siteName,
         ];
         return view('home/pages/layanan_advokasi', $data);
     }
@@ -103,7 +103,7 @@ class Home extends BaseController
     public function alur_aktivasi(): string
     {
         $data = [
-            'title' => 'Alur Aktivasi Akun | LASMURA DKI JAKARTA',
+            'title' => 'Alur Aktivasi Akun | ' . $this->siteName,
         ];
         return view('home/pages/alur_aktivasi', $data);
     }
@@ -111,7 +111,7 @@ class Home extends BaseController
     public function bantuan(): string
     {
         $data = [
-            'title' => 'Bantuan | LASMURA DKI JAKARTA',
+            'title' => 'Bantuan | ' . $this->siteName,
         ];
         return view('home/pages/bantuan', $data);
     }
@@ -119,7 +119,7 @@ class Home extends BaseController
     public function privacy(): string
     {
         $data = [
-            'title' => 'Kebijakan Privasi | LASMURA DKI JAKARTA',
+            'title' => 'Kebijakan Privasi | ' . $this->siteName,
         ];
         return view('home/pages/privacy', $data);
     }
@@ -127,7 +127,7 @@ class Home extends BaseController
     public function terms(): string
     {
         $data = [
-            'title' => 'Ketentuan Layanan | LASMURA DKI JAKARTA',
+            'title' => 'Ketentuan Layanan | ' . $this->siteName,
         ];
         return view('home/pages/terms', $data);
     }

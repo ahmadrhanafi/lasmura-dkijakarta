@@ -16,7 +16,7 @@ class Dashboard extends BaseController
         $userModel = new UserModel();
 
         $data = [
-            'title' => 'Dashboard Administrator | Dashboard LASMURA DKI JAKARTA',
+            'title' => "Administrator Dashboard | " . $this->dashName,
             'role'  => 'admin',
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => base_url('/admin/dashboard'), 'icon' => 'fa-solid fa-gauge'],

@@ -26,10 +26,13 @@ abstract class BaseController extends Controller
      */
 
     // protected $session;
+    protected $siteName = "LASMURA DKI Jakarta";
+    protected $dashName = "LASMURA DKI Jakarta";
 
     /**
      * @return void
      */
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Load here all helpers you want to be available in your controllers that extend BaseController.

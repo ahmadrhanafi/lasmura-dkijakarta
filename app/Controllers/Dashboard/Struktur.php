@@ -106,7 +106,6 @@ class Struktur extends BaseController
     {
         $idUser = $this->request->getPost('id_user');
 
-        // CEK: apakah user sudah punya jabatan
         $cek = $this->anggotaModel
             ->where('id_user', $idUser)
             ->first();
@@ -137,10 +136,8 @@ class Struktur extends BaseController
     {
         $idUser = $this->request->getPost('id_user');
 
-        // ambil data lama
         $datalama = $this->anggotaModel->find($id);
 
-        // kalau ganti user → cek konflik
         if ($datalama['id_user'] != $idUser) {
             $cek = $this->anggotaModel
                 ->where('id_user', $idUser)
