@@ -27,7 +27,7 @@ abstract class BaseController extends Controller
 
     // protected $session;
     protected $siteName = "LASMURA DKI Jakarta";
-    protected $dashName = "LASMURA DKI Jakarta";
+    protected $dashName = "Dashboard LASMURA DKI Jakarta";
 
     /**
      * @return void
