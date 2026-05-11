@@ -26,6 +26,33 @@ class Kegiatan extends BaseController
         ]);
     }
 
+    public function search()
+    {
+        $keyword = trim($this->request->getGet('q'));
+
+        if (!$keyword) {
+            return redirect()->to('/kegiatan');
+        }
+
+        $kegiatan = $this->kegiatan
+            ->withUser()
+            ->where('kegiatan.status', 'publish')
+            ->groupStart()
+            ->like('kegiatan.judul', $keyword)
+            ->orLike('kegiatan.deskripsi', $keyword)
+            ->orLike('kegiatan.konten', $keyword)
+            ->groupEnd()
+            ->orderBy('kegiatan.created_at', 'DESC')
+            ->paginate(6, 'kegiatan');
+
+        return view('home/pages/kegiatan/search', [
+            'title'   => 'Hasil Pencarian: ' . esc($keyword) . " | " . $this->siteName,
+            'kegiatan'  => $kegiatan,
+            'pager'   => $this->kegiatan->pager,
+            'keyword' => $keyword
+        ]);
+    }
+
     public function detail($slug)
     {
         $kegiatan = $this->kegiatan

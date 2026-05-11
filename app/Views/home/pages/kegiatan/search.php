@@ -8,44 +8,44 @@
     </h2>
 
     <p class="text-gray-500 mb-10">
-        Ditemukan <?= count($berita) ?> berita terkait
+        Ditemukan <?= count($kegiatan) ?> kegiatan terkait
     </p>
 
-    <?php if (empty($berita)): ?>
+    <?php if (empty($kegiatan)): ?>
         <div class="text-center py-20 text-gray-300">
             <i class="fa-regular fa-newspaper text-5xl mb-4"></i>
-            <p class="text-lg font-semibold">Berita tidak ditemukan</p>
-            <a href="<?= base_url('/berita') ?>"
+            <p class="text-lg font-semibold">Kegiatan tidak ditemukan</p>
+            <a href="<?= base_url('/kegiatan') ?>"
                 class="inline-block mt-6 px-6 py-3 rounded-xl bg-[#ea7e13] text-white font-bold text-sm">
-                Kembali ke Berita
+                Kembali ke Daftar Kegiatan
             </a>
         </div>
     <?php else: ?>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <?php foreach ($berita as $b): ?>
+            <?php foreach ($kegiatan as $k): ?>
                 <article class="group">
                     <div class="relative h-64 rounded-[2rem] overflow-hidden shadow-lg bg-gray-100 mb-5">
-                        <img src="<?= base_url('uploads/berita/' . $b['thumbnail']) ?>"
+                        <img src="<?= base_url('uploads/kegiatan/' . $k['thumbnail']) ?>"
                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     </div>
 
                     <div class="px-2">
                         <div class="flex items-center gap-3 mb-3 text-[11px] font-bold text-gray-400 uppercase">
-                            <span class="text-[#ea7e13]"><?= esc($b['nama_lengkap']) ?></span>
+                            <span class="text-[#ea7e13]"><?= esc($k['nama_lengkap']) ?></span>
                             <span>•</span>
-                            <span><?= date('d M Y', strtotime($b['created_at'])) ?></span>
+                            <span><?= date('d M Y', strtotime($k['created_at'])) ?></span>
                         </div>
 
                         <h3 class="text-lg font-bold mb-2 line-clamp-2 group-hover:text-[#ea7e13]">
-                            <a href="<?= base_url('berita/' . $b['slug']) ?>">
-                                <?= highlight($b['judul'], $keyword) ?>
+                            <a href="<?= base_url('kegiatan/' . $k['slug']) ?>">
+                                <?= highlight($k['judul'], $keyword) ?>
                             </a>
                         </h3>
 
 
                         <p class="text-gray-500 text-sm line-clamp-2">
-                            <?= esc($b['ringkasan']) ?>
+                            <?= esc($k['deskripsi']) ?>
                         </p>
                     </div>
                 </article>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="mt-16 flex justify-center">
-            <?= $pager->links('berita', 'homepage_pagination') ?>
+            <?= $pager->links('kegiatan', 'homepage_pagination') ?>
         </div>
 
     <?php endif ?>

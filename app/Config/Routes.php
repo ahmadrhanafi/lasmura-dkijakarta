@@ -20,6 +20,7 @@ $routes->get('/alur-pendaftaran', 'Homepage\Home::alur_pendaftaran');
 $routes->get('/daftar-anggota', 'Homepage\Pendaftaran::index');
 $routes->get('/kegiatan', 'Homepage\Kegiatan::index');
 $routes->get('/kegiatan-utama', 'Homepage\Kegiatan::index');
+$routes->get('/kegiatan/cari', 'Homepage\Kegiatan::search');
 $routes->get('/kegiatan/(:segment)', 'Homepage\Kegiatan::detail/$1');
 $routes->get('/berita', 'Homepage\Berita::index');
 $routes->get('/berita-terbaru', 'Homepage\Berita::index');

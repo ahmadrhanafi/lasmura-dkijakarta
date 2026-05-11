@@ -21,11 +21,11 @@
             <div class="h-1.5 w-24 bg-gradient-to-r from-[#ea7e13] to-[#ec1309] mt-5 rounded-full shadow-sm"></div>
         </div>
 
-        <!-- <form action="<?= base_url('kegiatan/cari') ?>" method="get" class="relative w-full md:w-80 group">
+        <form action="<?= base_url('kegiatan/cari') ?>" method="get" class="relative w-full md:w-80 group">
             <input type="text" name="q" value="<?= esc($keyword ?? '') ?>" placeholder="Cari kegiatan..."
                 class="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/10 focus:border-[#ea7e13] outline-none transition-all text-sm shadow-sm">
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-        </form> -->
+        </form>
     </div>
 
     <div class="grid md:grid-cols-3 gap-10">
